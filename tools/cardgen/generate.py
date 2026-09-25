@@ -1952,6 +1952,18 @@ def strip_rule_prefix(t: str) -> str:
             if new != t:
                 t = new.strip()
                 changed = True
+        # trailing rule-box sentences
+        for pat in (
+            r"\s*you may play as many (?:item|any number of item) cards as you like during your turn\.?$",
+            r"\s*\(before your attack\.\)\s*$",
+            r"\s*you may play any number of item cards during your turn\.?$",
+            r"\s*you may play as many stadium cards as you like during your turn\.?$",
+            r"\s*\(you may play as many [\w ]+ as you like during your turn[^)]*\)\s*$",
+        ):
+            new = re.sub(pat, "", t)
+            if new != t:
+                t = new.strip()
+                changed = True
     return t
 
 
@@ -2116,6 +2128,40 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Put pokemon from discard on top of deck
     if re.search(r"put a pok[eé]mon from your discard pile on top of your deck", t):
         return ["flipHeadsTopDiscardToDeck"]
+    # Gold Potion / heal active
+    m = re.search(r"heal (\d+) damage from your active pok[eé]mon", t)
+    if m:
+        return [f"heal:{m.group(1)}"]
+    # Hypnotoxic Laser
+    if re.search(r"your opponent's active pok[eé]mon is now poisoned", t):
+        ops = ["poisonDefending"]
+        if "asleep" in t:
+            ops.append("specialDefending:ASLEEP")
+        return ops
+    # Colress Machine / plasma energy
+    if re.search(r"search your deck for a [\w ]*energy card and attach it to", t):
+        return ["searchEnergyToSelf:1"]
+    # Ether: reveal top, attach if energy
+    if re.search(r"reveal the top card of your deck\.\s*if that card is a basic energy card,? attach it", t):
+        return ["attachBasicFromDiscard"]
+    # No weakness stadium (plasma)
+    if re.search(r"has no weakness", t) and "this card stays in play" in t:
+        return ["noWeakness"]
+    # More damage counters on poisoned between turns
+    if re.search(r"put (\d+) more damage counters? on poisoned pok[eé]mon", t):
+        return ["continuousStatic"]
+    # Tool retreat cost less
+    if re.search(r"retreat cost of the pok[eé]mon this card is attached to is [\w ]*less", t):
+        return ["auraNoRetreatCost"]
+    # Flip 2 coins, remove 2 damage counters times heads
+    if re.search(r"flip (\d+) coins\.\s*remove (\d+) damage counters? times the number of heads", t):
+        return ["healCounter:4"]
+    # Flip heads, gust
+    if re.search(r"flip a coin\.\s*if heads,?\s*choose 1 of your opponent's benched pok[eé]mon and switch it", t):
+        return ["flipHeadsGustOpponent"]
+    # Put Basic from hand into play
+    if re.search(r"put a basic pok[eé]mon card from your hand into play", t):
+        return ["searchBasicToBench:1"]
 
     # Draw N cards. (possibly with more clauses)
     m = re.search(r"^draw (\d+|two|three|four|five|six|seven|eight|nine|ten) cards?", t)

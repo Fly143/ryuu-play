@@ -20,7 +20,6 @@ export class PokGear30_84 extends TrainerCard {
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
-      return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
     }
     return state;
   }

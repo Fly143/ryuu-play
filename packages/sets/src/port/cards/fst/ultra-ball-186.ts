@@ -20,7 +20,6 @@ export class UltraBall_186 extends TrainerCard {
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
-      return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
     }
     return state;
   }

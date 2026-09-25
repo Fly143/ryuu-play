@@ -19,7 +19,6 @@ export class CrushingHammer_71 extends TrainerCard {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipHeadsDiscardEnergyOpponent");
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipHeadsDiscardEnergyOpponent");
-      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipHeadsDiscardEnergyOpponent");
     }
     return state;
   }

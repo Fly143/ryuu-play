@@ -19,7 +19,6 @@ export class PokMonCatcher_187 extends TrainerCard {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipHeadsGustOpponent");
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipHeadsGustOpponent");
-      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipHeadsGustOpponent");
     }
     return state;
   }

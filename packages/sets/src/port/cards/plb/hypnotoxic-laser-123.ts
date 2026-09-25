@@ -17,7 +17,8 @@ export class HypnotoxicLaser_123 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "poisonDefending");
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "specialDefending:ASLEEP");
     }
     return state;
   }

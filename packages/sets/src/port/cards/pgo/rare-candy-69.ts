@@ -20,7 +20,6 @@ export class RareCandy_69 extends TrainerCard {
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "rareCandy");
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "rareCandy");
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "rareCandy");
-      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "rareCandy");
     }
     return state;
   }

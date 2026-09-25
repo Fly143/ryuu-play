@@ -19,7 +19,6 @@ export class SuperPotion_158 extends TrainerCard {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 4 * 10);
       return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 4 * 10);
-      return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 4 * 10);
     }
     return state;
   }

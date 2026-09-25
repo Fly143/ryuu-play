@@ -19,7 +19,6 @@ export class LevelBall_129 extends TrainerCard {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
-      return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
     }
     return state;
   }
