@@ -36,7 +36,7 @@ export class Sableye_23 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "pokedex");
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "peekOpponentHand");
     }
     return state;
   }

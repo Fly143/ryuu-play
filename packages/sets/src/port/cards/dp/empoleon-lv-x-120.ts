@@ -39,7 +39,7 @@ export class EmpoleonLVX_120 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 80);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "discardRandomOpponentHand:2");
     }
     return state;
   }

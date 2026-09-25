@@ -3970,9 +3970,17 @@ def match_power(text: str) -> Optional[list[str]]:
     if re.search(r"once during your turn.{0,100}flip a coin\.\s*if heads,?\s*your opponent's active pok[eé]mon is now (asleep|confused|paralyzed|poisoned|burned)", t):
         m = re.search(r"is now (asleep|confused|paralyzed|poisoned|burned)", t)
         return [f"flipHeadsSpecial:{m.group(1).upper()}"]
-    if re.search(r"once during your turn.{0,100}you may flip a coin\.\s*if heads,?\s*(?:the )?defending pok[eé]mon is now (asleep|confused|paralyzed|poisoned|burned)", t):
+    if re.search(r"once during your turn.{0,80}you may flip a coin\.\s*if heads,?\s*(?:the )?defending pok[eé]mon is now (asleep|confused|paralyzed|poisoned|burned)", t):
         m = re.search(r"is now (asleep|confused|paralyzed|poisoned|burned)", t)
         return [f"flipHeadsSpecial:{m.group(1).upper()}"]
+    if re.search(r"once during your turn.{0,80}(?:reveal|look at) .{0,20}hand", t):
+        return ["peekOpponentHand"]
+    if re.search(r"once during your turn.{0,80}if your opponent has \d+ or more benched", t):
+        return ["switchSelf"]
+    if re.search(r"once during your turn.{0,80}you may choose up to (\d+) cards from your opponent", t):
+        return ["discardRandomOpponentHand:2"]
+    if re.search(r"once during your opponent's turn,? when your opponent's pok[eé]mon uses any", t):
+        return ["preventEffectsSelf"]
     # Defending can't retreat
     if re.search(r"(?:the )?defending pok[eé]mon can't retreat|active pok[eé]mon can't retreat", t):
         return ["auraCantRetreatOpponent"]
@@ -4010,6 +4018,24 @@ def match_power(text: str) -> Optional[list[str]]:
     # Once during your turn, Active and Defending (Venusaur)
     if re.search(r"once during your turn.{0,80}your active pok[eé]mon and the defending pok[eé]mon", t):
         return ["dualType"]
+    # Once during your turn, reveal / look at hands
+    if re.search(r"once during your turn.{0,80}(?:reveal|look at) .{0,20}hand", t):
+        return ["peekOpponentHand"]
+    # Once during your turn, if opponent has N+ bench
+    if re.search(r"once during your turn.{0,80}if your opponent has \d+ or more benched", t):
+        return ["switchSelf"]
+    # Once during your turn, choose up to N cards from opponent
+    if re.search(r"once during your turn.{0,80}you may choose up to (\d+) cards from your opponent", t):
+        return ["discardRandomOpponentHand:2"]
+    # Once during opponent's turn, when opponent uses power
+    if re.search(r"once during your opponent's turn,? when your opponent's pok[eé]mon uses any", t):
+        return ["preventEffectsSelf"]
+    # Opponent can't attach special energy (continuous)
+    if re.search(r"can't attach any special energy", t):
+        return ["continuousStatic"]
+    # +N HP for each energy (keep continuousStatic - HP calc)
+    if re.search(r"gets? \+(\d+) hp for each", t):
+        return ["continuousStatic"]
     if re.search(r"once during your turn.{0,80}flip a coin\.\s*if heads,?\s*heal (\d+)", t):
         m = re.search(r"heal (\d+)", t)
         return [f"oncePerTurnHeal:{m.group(1) if m else 10}"]

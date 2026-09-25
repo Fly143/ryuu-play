@@ -43,7 +43,7 @@ export class Lumineon_4 extends PokemonCard {
       return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "pokedex");
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "peekOpponentHand");
     }
     return state;
   }

@@ -39,7 +39,7 @@ export class CrawdauntEx_99 extends PokemonCard {
       return commonEffects.damageTimesEnergySelf(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.switchSelfPower(this, store, state, effect).reduce(effect.power);
     }
     return state;
   }
