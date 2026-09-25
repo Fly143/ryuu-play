@@ -1618,7 +1618,7 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
     if re.search(r"this attack can't be used unless .+ and (?:the )?defending pok[eé]mon have the same number of energy", t):
         return ["attackGate"]
     if re.search(r"put a [\w ]+ marker on it", t):
-        return ["noop"]
+        return ["putDamageCounters:1"]
     # bp-6: opponent puts 3 markers, then 10 damage each marker
     if re.search(r"your opponent puts \d+ markers onto .{0,20}pok[eé]mon.{0,80}this attack does (\d+) damage to each pok[eé]mon for each marker", t):
         m = re.search(r"does (\d+) damage", t)
@@ -1665,7 +1665,7 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
         m = re.search(r"do (\d+) damage", t)
         return [f"flipHeadsSelfDamage:{m.group(1) if m else 10}"]
     if re.search(r"remove all special conditions from (?:the )?defending", t):
-        return ["noop"]
+        return ["clearSpecialConditions"]
 
     # ---- cluster batch 3 ----
     # Flip a coin. If heads, choose 1 of opponent's Benched and switch / damage
@@ -3992,6 +3992,24 @@ def match_power(text: str) -> Optional[list[str]]:
     # Whenever opponent attaches energy
     if re.search(r"whenever your opponent attaches an energy", t):
         return ["roughSkin"]
+    # No weakness if energy attached
+    if re.search(r"if this pok[eé]mon has any [\w ]*energy attached to it,? this pok[eé]mon has no weakness", t):
+        return ["noWeakness"]
+    # Same type as active / type change
+    if re.search(r"is the same type as|change the type of", t):
+        return ["dualType"]
+    # +N HP for each energy (already continuousStatic is ok for HP)
+    if re.search(r"gets? \+(\d+) hp for each", t):
+        return ["continuousStatic"]
+    # Opponent can't attach special energy
+    if re.search(r"can't attach any special energy", t):
+        return ["continuousStatic"]
+    # Team Magma/Aqua count-based
+    if re.search(r"as long as the number of pok[eé]mon in play", t):
+        return ["continuousStatic"]
+    # Once during your turn, Active and Defending (Venusaur)
+    if re.search(r"once during your turn.{0,80}your active pok[eé]mon and the defending pok[eé]mon", t):
+        return ["dualType"]
     if re.search(r"once during your turn.{0,80}flip a coin\.\s*if heads,?\s*heal (\d+)", t):
         m = re.search(r"heal (\d+)", t)
         return [f"oncePerTurnHeal:{m.group(1) if m else 10}"]

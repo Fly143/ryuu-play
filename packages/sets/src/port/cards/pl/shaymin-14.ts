@@ -37,6 +37,9 @@ export class Shaymin_14 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.clearSpecialConditions(this, store, state, effect).use(effect);
+    }
     return state;
   }
 }

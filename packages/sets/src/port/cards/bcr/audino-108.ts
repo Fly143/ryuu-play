@@ -11,6 +11,7 @@ import {
   Stage,
   Weakness,
   Resistance,
+  SpecialCondition,
 } from '@ptcg/common';
 import { commonEffects } from '../../../common';
 
@@ -33,6 +34,9 @@ export class Audino_108 extends PokemonCard {
   public text: string = "Audino";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.clearSpecialConditions(this, store, state, effect).use(effect);
+    }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 30);
     }
