@@ -37,7 +37,7 @@ export class Zapdos_20 extends PokemonCard {
       return commonEffects.flipTailsSelfDamage(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 99);
     }
     return state;
   }

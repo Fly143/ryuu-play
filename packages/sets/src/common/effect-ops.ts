@@ -302,8 +302,14 @@ export function applyAttackOp(
       );
     }
 
-    // Structural costs / pure text — treat as implemented no-op on top of base damage.
-    case 'attackCost':
+    // Additional attack cost: discard N Energy from self (99 = all).
+    case 'attackCost': {
+      const n = parseIntArg(op, 1, 1);
+      const slot = player.active;
+      const energies = slot.energies.cards.slice(0, n);
+      energies.forEach((c: EnergyCard) => slot.energies.moveCardTo(c, player.discard));
+      return state;
+    }
     case 'ignoreResistanceOnly':
     case 'continuousStatic':
       return state;

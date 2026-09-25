@@ -37,7 +37,7 @@ export class Pikachu_4 extends PokemonCard {
       return commonEffects.searchEnergyToSelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 99);
     }
     return state;
   }

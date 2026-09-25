@@ -1112,7 +1112,22 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
             if ok and not composed:
                 return []
 
-    # "Discard N Energy attached to X in order to <anything>" → structural cost
+    # "Discard N Energy attached to X in order to <effect|use this attack>"
+    m = re.search(
+        r"discard (\d+|all|two|three|four|five|six) energy cards? attached to .+? in order to (.+)",
+        t,
+    )
+    if m:
+        raw_n = m.group(1)
+        n = 99 if raw_n == "all" else parse_count(raw_n)
+        cost = [f"discardEnergySelf:{n}"]
+        rest = m.group(2).strip()
+        rest = re.sub(r"use this attack\.?$", "", rest).strip()
+        if rest and not rest.startswith("use this"):
+            sub = match_attack(rest, damage)
+            if sub is not None:
+                return cost + sub
+        return cost
     if re.search(r"discard .+ in order to ", t):
         return ["attackCost"]
 
@@ -1235,8 +1250,13 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
         n = 1 if m.group(1) in ("an", "a") else parse_count(m.group(1))
         return [f"discardEnergyDefending:{n}"]
 
-    # "Discard N Energy cards attached to X in order to use this attack." → structural cost
+    # "Discard N Energy cards attached to X in order to use this attack." → pay cost
     if re.search(r"in order to use this attack", t):
+        m = re.search(r"discard (\d+|all|two|three|four|five) energy", t)
+        if m:
+            raw_n = m.group(1)
+            n = 99 if raw_n == "all" else parse_count(raw_n)
+            return [f"discardEnergySelf:{n}"]
         return ["attackCost"]
 
     # This attack's damage isn't affected by Weakness and/or Resistance.
@@ -1341,7 +1361,8 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
             n = parse_count(m.group(1).split()[-1], 1)
         return [f"searchBasicToBench:{n}"]
     if re.search(r"put (\w+) basic pok[eé]mon .*from your deck onto your bench", t):
-        return [f"searchBasicToBench:{parse_count(re.search(r'put (\w+)', t).group(1))}"]
+        m_n = re.search(r"put (\w+)", t)
+        return [f"searchBasicToBench:{parse_count(m_n.group(1) if m_n else '1')}"]
 
     # Heal N from this Pokémon
     m = re.search(r"heal (\d+) damage from this pok[eé]mon", t)
@@ -1946,7 +1967,29 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         "pokemon fan club": ["searchPokemonToHand:2"],
         "celio's network": ["searchPokemonToHand:1"],
         "celios network": ["searchPokemonToHand:1"],
-        "rare candy": ["noop"],  # evolution special case — engine already has rare-candy primitive
+        "rare candy": ["rareCandy"],
+        "pokédex": ["pokedex"],
+        "pokedex": ["pokedex"],
+        "lass": ["lassShuffleTrainers"],
+        "super energy removal": ["discardEnergyDefending:2"],
+        "scoop up": ["scoopUpSelf"],
+        "pokémon flute": ["pokemonFlute"],
+        "pokemon flute": ["pokemonFlute"],
+        "pokémon trader": ["pokemonTrader"],
+        "pokemon trader": ["pokemonTrader"],
+        "pokémon center": ["pokemonCenter"],
+        "pokemon center": ["pokemonCenter"],
+        "mysterious fossil": ["fossilBody"],
+        "clefairy doll": ["fossilBody"],
+        "old amber": ["fossilBody"],
+        "plume fossil": ["fossilBody"],
+        "cover fossil": ["fossilBody"],
+        "root fossil": ["fossilBody"],
+        "claw fossil": ["fossilBody"],
+        "dome fossil": ["fossilBody"],
+        "helix fossil": ["fossilBody"],
+        "unknown fossil": ["fossilBody"],
+        "mega fossil": ["fossilBody"],
         "level ball": ["searchPokemonToHand:1"],
         "quick ball": ["searchPokemonToHand:1"],
         "ultra ball": ["searchPokemonToHand:1"],
