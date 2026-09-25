@@ -1138,7 +1138,7 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
 
     # "Discard N Energy attached to X in order to <effect|use this attack>"
     m = re.search(
-        r"discard (\d+|all|two|three|four|five|six) energy cards? attached to .+? in order to (.+)",
+        r"discard (\d+|all|two|three|four|five|six) [\w ]*energy cards? attached to .+? in order to (.+)",
         t,
     )
     if m:
@@ -2524,6 +2524,12 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Town Volunteers: take 5 from discard shuffle
     if re.search(r"take 5 baby pok[eé]mon.{0,60}from your discard pile", t):
         return ["shuffleCardsFromDiscardToDeck:5"]
+    # Unown: remove damage counters from Defending
+    if re.search(r"you may remove (\d+) damage counters? from 1 of the defending", t):
+        return ["healSelf:10"]
+    # Shuffle hand draw equal opponent
+    if re.search(r"shuffle your hand into your deck\.\s*then,? draw a number of cards equal to the number of cards in", t):
+        return ["shuffleDrawPerOppHand"]
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]
@@ -3864,6 +3870,10 @@ def match_power(text: str) -> Optional[list[str]]:
     if re.search(r"search your deck for up to (\d+) [\w ]*energy cards? and attach", t):
         m = re.search(r"up to (\d+)", t)
         return [f"searchEnergyToSelf:{m.group(1) if m else 2}"]
+    if re.search(r"you may remove (\d+) damage counters? from 1 of the defending", t):
+        return ["healSelf:10"]
+    if re.search(r"shuffle your hand into your deck\.\s*then,? draw a number of cards equal to the number of cards in", t):
+        return ["shuffleDrawPerOppHand"]
     if re.search(r"once during your turn.{0,60}you may move a basic energy from 1 of your pok[eé]mon", t):
         return ["energyTrans"]
     if re.search(r"once during your turn.{0,40}you may put [\w' -]+ from your hand", t):
@@ -3954,6 +3964,34 @@ def match_power(text: str) -> Optional[list[str]]:
     # Once during your turn, flip / look / move / prevent trainers
     if re.search(r"once during your turn.{0,80}flip a coin\.\s*if heads,?\s*remove 1 damage counter", t):
         return ["oncePerTurnHeal:10"]
+    if re.search(r"once during your turn.{0,100}flip a coin\.\s*if heads,?\s*(?:the )?defending pok[eé]mon is now (asleep|confused|paralyzed|poisoned|burned)", t):
+        m = re.search(r"is now (asleep|confused|paralyzed|poisoned|burned)", t)
+        return [f"flipHeadsSpecial:{m.group(1).upper()}"]
+    if re.search(r"once during your turn.{0,100}flip a coin\.\s*if heads,?\s*your opponent's active pok[eé]mon is now (asleep|confused|paralyzed|poisoned|burned)", t):
+        m = re.search(r"is now (asleep|confused|paralyzed|poisoned|burned)", t)
+        return [f"flipHeadsSpecial:{m.group(1).upper()}"]
+    if re.search(r"once during your turn.{0,100}you may flip a coin\.\s*if heads,?\s*(?:the )?defending pok[eé]mon is now (asleep|confused|paralyzed|poisoned|burned)", t):
+        m = re.search(r"is now (asleep|confused|paralyzed|poisoned|burned)", t)
+        return [f"flipHeadsSpecial:{m.group(1).upper()}"]
+    # Defending can't retreat
+    if re.search(r"(?:the )?defending pok[eé]mon can't retreat|active pok[eé]mon can't retreat", t):
+        return ["auraCantRetreatOpponent"]
+    # Opponent can't play Supporter/Item
+    if re.search(r"your opponent can't play any supporter", t):
+        return ["noTrainers"]
+    if re.search(r"your opponent can't play any item", t):
+        return ["noTrainers"]
+    if re.search(r"whenever your opponent plays an item card", t):
+        return ["preventEffectsMarker"]
+    # Whenever opponent's attack damages, flip
+    if re.search(r"whenever your opponent's attack damages [\w' -]+,? unless", t):
+        return ["roughSkin"]
+    # +N HP for each TYPE energy
+    if re.search(r"gets? \+(\d+) hp for each [\w ]*energy attached", t):
+        return ["continuousStatic"]
+    # Whenever opponent attaches energy
+    if re.search(r"whenever your opponent attaches an energy", t):
+        return ["roughSkin"]
     if re.search(r"once during your turn.{0,80}flip a coin\.\s*if heads,?\s*heal (\d+)", t):
         m = re.search(r"heal (\d+)", t)
         return [f"oncePerTurnHeal:{m.group(1) if m else 10}"]

@@ -47,6 +47,12 @@ export class GreninjaVUNIONSWSH156 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[3]) {
       return commonEffects.cantRetreatNextTurn(this, store, state, effect).use(effect);
     }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "preventEffectsMarker");
+    }
     if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
       return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "immuneToSpecial");
     }

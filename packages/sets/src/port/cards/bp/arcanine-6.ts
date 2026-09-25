@@ -37,7 +37,7 @@ export class Arcanine_6 extends PokemonCard {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 2);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 10, 0);

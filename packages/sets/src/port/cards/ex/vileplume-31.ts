@@ -39,7 +39,7 @@ export class Vileplume_312 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 3, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "flipHeadsSpecial:POISONED");
     }
     return state;
   }

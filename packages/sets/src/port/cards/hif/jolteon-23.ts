@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -39,7 +40,10 @@ export class Jolteon_232 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.roughSkinPower(this, store, state, effect).reduce(effect.power);
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "roughSkin");
     }
     return state;
   }

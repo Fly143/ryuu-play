@@ -37,7 +37,7 @@ export class Ninetales_12 extends PokemonCard {
       return commonEffects.gustOpponent(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);
     }
     return state;
   }

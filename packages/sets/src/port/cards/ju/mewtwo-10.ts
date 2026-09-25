@@ -37,7 +37,7 @@ export class Mewtwo_102 extends PokemonCard {
       return commonEffects.bonusPerEnergySelf(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");

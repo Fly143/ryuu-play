@@ -58,6 +58,16 @@ def map_op_power(op: str) -> str:
         return "commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power)"
     if name == "roughSkin" or name == "poisonPoint":
         return "commonEffects.roughSkinPower(this, store, state, effect).reduce(effect.power)"
+    if name == "flipHeadsSpecial":
+        cond = (a[0] if a else "CONFUSED").upper()
+        if cond not in ("ASLEEP", "CONFUSED", "PARALYZED", "POISONED", "BURNED"):
+            cond = "CONFUSED"
+        return f"commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, \"flipHeadsSpecial:{cond}\")"
+    if name == "specialDefending":
+        cond = (a[0] if a else "CONFUSED").upper()
+        if cond not in ("ASLEEP", "CONFUSED", "PARALYZED", "POISONED", "BURNED"):
+            cond = "CONFUSED"
+        return f"commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, \"specialDefending:{cond}\")"
     if name == "preventEffectsMarker":
         return "commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power)"
     if name == "switchSelf":
