@@ -39,7 +39,7 @@ export class TeamMagmaSMightyena_37 extends PokemonCard {
       return commonEffects.runAttackOp(this, store, state, effect).use(effect, "flipTailsBaseDamage:0");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchAnyToHand:1");
     }
     return state;
   }

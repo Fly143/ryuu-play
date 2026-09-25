@@ -39,7 +39,7 @@ export class UnownT_67 extends PokemonCard {
       return commonEffects.peekOpponentHand(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "discardFromHand:1");
     }
     return state;
   }

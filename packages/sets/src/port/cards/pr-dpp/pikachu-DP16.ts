@@ -39,7 +39,7 @@ export class PikachuDP16 extends PokemonCard {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.drawCardsPower(this, store, state, effect).reduce(effect.power, 1);
     }
     return state;
   }

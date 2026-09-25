@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Snorlax_10 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -36,7 +37,7 @@ export class Snorlax_10 extends PokemonCard {
       return /* structural */ state;
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
-      return /* structural */ state;
+      return commonEffects.healSelfPower(this, store, state, effect).reduce(effect.power, 10);
     }
     return state;
   }

@@ -40,7 +40,7 @@ export class Salamence_10 extends PokemonCard {
       return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.switchSelfPower(this, store, state, effect).reduce(effect.power);
     }
     return state;
   }

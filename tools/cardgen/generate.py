@@ -3981,6 +3981,27 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["discardRandomOpponentHand:2"]
     if re.search(r"once during your opponent's turn,? when your opponent's pok[eé]mon uses any", t):
         return ["preventEffectsSelf"]
+    if re.search(r"once during your turn.{0,100}if [\w' -]+ is (?:anywhere under|your active pok[eé]mon),? you may (discard|remove|draw|attach|switch|heal|put|move|search)", t):
+        m = re.search(r"you may (discard|remove|draw|attach|switch|heal|put|move|search)", t)
+        verb = m.group(1) if m else "draw"
+        if verb == "draw":
+            return ["oncePerTurnDraw:1"]
+        if verb in ("heal", "remove"):
+            return ["oncePerTurnHeal:10"]
+        if verb == "discard":
+            return ["discardFromHand:1"]
+        if verb == "attach":
+            return ["oncePerTurnAttachFromHand"]
+        if verb == "switch":
+            return ["switchSelf"]
+        if verb == "search":
+            return ["searchAnyToHand:1"]
+        if verb == "put":
+            return ["searchBasicToBench:1"]
+        if verb == "move":
+            return ["energyTrans"]
+    if re.search(r"once during your turn.{0,80}if [\w' -]+ is anywhere under", t):
+        return ["oncePerTurnDraw:1"]
     # Defending can't retreat
     if re.search(r"(?:the )?defending pok[eé]mon can't retreat|active pok[eé]mon can't retreat", t):
         return ["auraCantRetreatOpponent"]
@@ -4030,6 +4051,32 @@ def match_power(text: str) -> Optional[list[str]]:
     # Once during opponent's turn, when opponent uses power
     if re.search(r"once during your opponent's turn,? when your opponent's pok[eé]mon uses any", t):
         return ["preventEffectsSelf"]
+    # Once during your turn, if X is anywhere under / is your Active, you may ...
+    if re.search(r"once during your turn.{0,100}if [\w' -]+ is (?:anywhere under|your active pok[eé]mon),? you may (discard|remove|draw|attach|switch|heal|put|move|search)", t):
+        m = re.search(r"you may (discard|remove|draw|attach|switch|heal|put|move|search)(\s+\d+)?", t)
+        verb = m.group(1) if m else "draw"
+        if verb == "draw":
+            return ["oncePerTurnDraw:1"]
+        if verb == "heal" or verb == "remove":
+            return ["oncePerTurnHeal:10"]
+        if verb == "discard":
+            return ["discardFromHand:1"]
+        if verb == "attach":
+            return ["oncePerTurnAttachFromHand"]
+        if verb == "switch":
+            return ["switchSelf"]
+        if verb == "search":
+            return ["searchAnyToHand:1"]
+        if verb == "put":
+            return ["searchBasicToBench:1"]
+        if verb == "move":
+            return ["energyTrans"]
+    # Once during your turn, if X is your Active, you may change
+    if re.search(r"once during your turn.{0,80}if [\w' -]+ is your active pok[eé]mon,? you may change", t):
+        return ["dualType"]
+    # Once during your turn, if X is anywhere under, you may
+    if re.search(r"once during your turn.{0,80}if [\w' -]+ is anywhere under", t):
+        return ["oncePerTurnDraw:1"]
     # Opponent can't attach special energy (continuous)
     if re.search(r"can't attach any special energy", t):
         return ["continuousStatic"]

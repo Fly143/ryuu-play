@@ -39,7 +39,7 @@ export class MeowsticEX_37 extends PokemonCard {
       return commonEffects.ignoreWeaknessResistance(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "moveDamageCounters");
+      return commonEffects.energyTrans(this, store, state, effect).use(effect as any);
     }
     return state;
   }

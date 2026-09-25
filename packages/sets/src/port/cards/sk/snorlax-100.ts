@@ -39,7 +39,7 @@ export class Snorlax_100 extends PokemonCard {
       return commonEffects.flipUntilTailsDamage(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.healSelfPower(this, store, state, effect).reduce(effect.power, 10);
     }
     return state;
   }
