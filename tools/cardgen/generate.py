@@ -2386,6 +2386,35 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Frozen City already roughSkin - ensure hits
     if re.search(r"excluding team plasma pok[eé]mon\) put (\d+) damage counters", t):
         return ["roughSkin"]
+    # Felicity's Drawing: discard 1 draw 3 / discard 2 draw 4
+    if re.search(r"discard up to 2 cards? from your hand\.\s*if you discard 1 card,? draw 3\.\s*if you discard 2 cards?,? draw 4", t):
+        return ["discardDrawPer:3"]
+    # Retreat cost is 0 for types
+    if re.search(r"retreat cost for each [\w ]*pok[eé]mon .{0,20}is 0", t):
+        return ["auraNoRetreatCost"]
+    if re.search(r"retreat cost .{0,40}is 0", t):
+        return ["auraNoRetreatCost"]
+    # Attach energy, remove damage
+    if re.search(r"whenever any player attaches an energy card from .{0,20}hand.{0,40}remove 1 damage counter", t):
+        return ["healEachPokemon:10"]
+    # Move energy attached to own pokemon (stadium)
+    if re.search(r"choose a [\w ]*energy attached to 1 of (?:his or her |their |)your pok[eé]mon and move that", t):
+        return ["energyTrans"]
+    # Flip, search discard for energy
+    if re.search(r"flip a coin\.\s*if heads,?\s*that player searches .{0,20}discard pile for a [\w ]*energy", t):
+        return ["recoverEnergyFromDiscard:1"]
+    # Draw a card for each Pokemon in opponent's hand
+    if re.search(r"draw a card for each pok[eé]mon you find there", t):
+        return ["draw:2"]
+    # Discard energy from hand, draw until N
+    if re.search(r"discard an energy card from their hand in order to draw cards until", t):
+        return ["drawUntilHand:6"]
+    # Search deck for Basic onto Bench, then that player
+    if re.search(r"search (?:his or her |their |)deck for a basic pok[eé]mon and put it onto (?:his or her |their |)bench", t):
+        return ["searchBasicToBench:1"]
+    # Colorless have no abilities
+    if re.search(r"colorless pok[eé]mon in play.{0,20}have no abilities", t):
+        return ["noPowers"]
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]
