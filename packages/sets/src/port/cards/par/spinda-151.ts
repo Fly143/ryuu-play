@@ -41,10 +41,10 @@ export class Spinda_151 extends PokemonCard {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.roughSkinPower(this, store, state, effect).reduce(effect.power);
+      return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);
     }
     if (effect instanceof BetweenTurnsEffect) {
-      return commonEffects.refreshPowerAura(this, store, state, effect.player, "roughSkin");
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "preventEffectsSelf");
     }
     return state;
   }

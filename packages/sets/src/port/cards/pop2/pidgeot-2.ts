@@ -39,7 +39,7 @@ export class Pidgeot_2 extends PokemonCard {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "shuffleBenchToDeck");
     }
     return state;
   }

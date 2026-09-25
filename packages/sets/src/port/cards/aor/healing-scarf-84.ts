@@ -17,7 +17,7 @@ export class HealingScarf_84 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 20);
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "healSelfAfterAttack:20");
     }
     return state;
   }

@@ -39,7 +39,10 @@ export class Delcatty_5 extends PokemonCard {
       return commonEffects.damageTimesEnergySelf(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.discardEnergySelfPower(this, store, state, effect).reduce(effect.power, 1);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.drawCardsPower(this, store, state, effect).reduce(effect.power, 3);
     }
     return state;
   }

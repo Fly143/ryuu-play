@@ -17,7 +17,7 @@ export class Atticus_133 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "shuffleDraw:7");
+      return commonEffects.drawCards(this, store, state, effect).playCard(effect as TrainerEffect, 7);
     }
     return state;
   }

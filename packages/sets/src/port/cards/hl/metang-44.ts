@@ -2,6 +2,8 @@ import {
   Effect,
   State,
   StoreLike,
+  PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -11,6 +13,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Metang_44 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -32,7 +35,12 @@ export class Metang_44 extends PokemonCard {
   public text: string = "Metang";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
-    /* no scripted effect */
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "auraNoRetreatCost");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "auraNoRetreatCost");
+    }
     return state;
   }
 }

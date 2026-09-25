@@ -17,7 +17,7 @@ export class SitrusBerry_182 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 30);
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "healSelfAfterAttack:30");
     }
     return state;
   }

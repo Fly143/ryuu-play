@@ -1650,6 +1650,9 @@ export function applyTrainerOp(
     case 'searchEnergyToSelf':
     case 'searchEnergyToHand':
     case 'attachBasicFromHandToBench':
+    case 'moreAttackCostOpponent':
+    case 'noStadium':
+    case 'cantRetreatPoisoned':
       return applyAttackOp(store, state, effect as unknown as AttackEffect, op);
     case 'plusPrize': {
       const n = parseIntArg(op, 1, 1);
@@ -1893,6 +1896,15 @@ export function applyPowerOp(
     case 'noWeakness':
       player.marker.addMarker('NO_WEAKNESS', self, state.turn + 1);
       return state;
+    case 'moreAttackCostOpponent':
+      player.marker.addMarker('MORE_RETREAT_OPPONENT', self, state.turn + 1);
+      return state;
+    case 'noStadium':
+      player.marker.addMarker('NO_STADIUM', self, state.turn + 1);
+      return state;
+    case 'cantRetreatPoisoned':
+      player.marker.addMarker('CANT_RETREAT_POISONED', self, state.turn + 1);
+      return state;
     case 'auraReduceDamage':
     case 'auraPreventEffects':
     case 'auraNoRetreatCost':
@@ -1993,6 +2005,18 @@ export function applyContinuousAura(
       }
       case 'noWeakness': {
         player.marker.addMarker('NO_WEAKNESS', self, turn + 1);
+        break;
+      }
+      case 'moreAttackCostOpponent': {
+        player.marker.addMarker('MORE_RETREAT_OPPONENT', self, turn + 1);
+        break;
+      }
+      case 'noStadium': {
+        player.marker.addMarker('NO_STADIUM', self, turn + 1);
+        break;
+      }
+      case 'cantRetreatPoisoned': {
+        player.marker.addMarker('CANT_RETREAT_POISONED', self, turn + 1);
         break;
       }
       case 'healDouble': {

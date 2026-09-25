@@ -1925,11 +1925,44 @@ def match_rule_box(text: str) -> Optional[list[str]]:
     return None
 
 
+def strip_rule_prefix(t: str) -> str:
+    """Remove recurring rule-box sentences so the real effect can match."""
+    changed = True
+    while changed and t:
+        changed = False
+        for pat in (
+            r"^you can play only one supporter card each turn\.\s*",
+            r"^when you play this card, put it next to your active pok[eé]mon\.\s*",
+            r"^when your turn ends, discard this card\.\s*",
+            r"^you may play as many (?:item|any number of item) cards as you like during your turn\.\s*",
+            r"^\(before your attack\.\)\s*",
+            r"^you may play any number of item cards during your turn\.\s*",
+            r"^this card stays in play when you play it\.\s*",
+            r"^this stadium stays in play when you play it\.\s*",
+            r"^discard this card if another stadium card comes into play\.\s*",
+            r"^discard it if another stadium comes into play\.\s*",
+            r"^if another card with the same name is in play, you can't play this card\.\s*",
+            r"^you may play as many stadium cards as you like during your turn\.\s*",
+            r"^attach a pok[eé]mon tool to 1 of your pok[eé]mon that doesn't already have a pok[eé]mon tool[^.]*\.\s*",
+            r"^play [\w' -]+ as if it were (?:a |an )?\d+[- ]hp (?:colorless )?basic pok[eé]mon\.\s*",
+            r"^play [\w' -]+ as if it were a basic pok[eé]mon\.\s*",
+            r"^you may play as many [\w ]+ as you like during your turn\.\s*",
+        ):
+            new = re.sub(pat, "", t, count=1)
+            if new != t:
+                t = new.strip()
+                changed = True
+    return t
+
+
 def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[list[str]]:
     t = norm_text(text).lower()
     nm = (name or "").lower().strip()
     if not t and not nm:
         return []
+    stripped = strip_rule_prefix(t)
+    if stripped and stripped != t:
+        t = stripped
 
     # Name-first for famous trainers (text can be noisy with rule boxes)
     NAME_OPS: dict[str, list[str]] = {
@@ -2013,6 +2046,92 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if nm in NAME_OPS:
         return NAME_OPS[nm][:]
 
+    # Opponent Active is now Confused and Poisoned
+    if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
+        return ["specialBoth:CONFUSED", "specialBoth:POISONED"]
+    if re.search(r"your opponent's active pok[eé]mon is now asleep and poisoned", t):
+        return ["specialBoth:ASLEEP", "specialBoth:POISONED"]
+    # Opponent shuffles hand into deck and draws per prize
+    if re.search(r"shuffles? (?:his or her |their )?hand into (?:his or her |their )?deck and draws? a card for each of (?:his or her |their )?remaining prize", t):
+        return ["opponentShuffleDraw:7"]
+    # Discard up to N Benched with no damage
+    m = re.search(r"discard up to (\d+) of your benched pok[eé]mon", t)
+    if m:
+        return [f"discardBench:{m.group(1)}"]
+    # Attach N energy from hand, then draw M
+    m = re.search(r"attach up to (\d+) [\w ]*energy cards? from your hand to 1 of your pok[eé]mon\.\s*if you do,? draw (\d+)", t)
+    if m:
+        return [f"attachBasicFromHandToBench:{m.group(1)}", f"draw:{m.group(2)}"]
+    # Look at top N, choose a card type
+    m = re.search(r"look at the top (\d+) cards? (?:of|from) your deck,? and choose", t)
+    if m:
+        return ["pokedex", "searchAnyToHand:1"]
+    if re.search(r"look at the top (\d+) cards? (?:of|from) your deck\.\s*choose", t):
+        return ["searchAnyToHand:1"]
+    # Search discard for basic Energy
+    if re.search(r"search your discard pile for basic energy", t):
+        return ["recoverEnergyFromDiscard:1"]
+    # Choose 1 or both: put pokemon / energy from discard
+    if re.search(r"choose 1 or both", t) and "discard pile" in t:
+        return ["recoverFromDiscard:2"]
+    # Last card in hand / prize gate + simple effect — match the simple part
+    if re.search(r"you can play this card only when it is the last card in your hand", t):
+        rest = re.sub(r"you can play this card only when it is the last card in your hand\.?\s*", "", t)
+        m = re.search(r"draw (\d+) cards?", rest)
+        if m:
+            return [f"draw:{m.group(1)}"]
+        if "put" in rest and "bench" in rest:
+            return ["searchBasicToBench:1"]
+        if "search your deck" in rest:
+            return ["searchAnyToHand:1"]
+        if "attacks used by" in rest:
+            m2 = re.search(r"(\d+) more damage", rest)
+            return [f"plusPowerMarker:{m2.group(1) if m2 else 30}"]
+    if re.search(r"you can use this card only if", t):
+        rest = re.sub(r"you can use this card only if [^.]+\.?\s*", "", t)
+        if re.search(r"each player shuffles", rest):
+            return ["bothShuffleDraw:4"]
+        if re.search(r"attach up to (\d+)", rest):
+            return ["attachBasicFromDiscardToBench:2"]
+        if "search your deck" in rest:
+            return ["searchAnyToHand:1"]
+        if re.search(r"draw (\d+)", rest):
+            m = re.search(r"draw (\d+)", rest)
+            return [f"draw:{m.group(1)}"]
+        if "heal" in rest:
+            return ["heal:60"]
+    # Tool / attached-to effects
+    if re.search(r"the pok[eé]mon this card is attached to", t):
+        if re.search(r"do (\d+) more damage|does (\d+) more damage", t):
+            m = re.search(r"(\d+) more damage", t)
+            return [f"plusPowerMarker:{m.group(1) if m else 20}"]
+        if re.search(r"gets? \+(\d+) hp", t):
+            return ["continuousStatic"]
+        if re.search(r"is knocked out.{0,40}put that pok[eé]mon", t):
+            return ["recoverFromDiscardToBench:1"]
+        if re.search(r"is knocked out", t):
+            return ["noop"]
+        if re.search(r"can also use the attack on this card", t):
+            return ["copyAttack"]
+        if re.search(r"prevent all", t):
+            return ["preventEffectsSelf"]
+        if re.search(r"heal (\d+)", t):
+            m = re.search(r"heal (\d+)", t)
+            return [f"healSelfAfterAttack:{m.group(1)}"]
+        if re.search(r"put 1 of your pok[eé]mon and all", t) or re.search(r"put that pok[eé]mon", t):
+            return ["scoopUpSelf"]
+
+    # Discard up to N Pokemon from hand, draw M each
+    m = re.search(r"discard up to (\d+) pok[eé]mon[^.]*from your hand,? and draw (\d+) cards? for each", t)
+    if m:
+        return [f"discardFromHand:{m.group(1)}", f"draw:{int(m.group(2)) * int(m.group(1))}"]
+    # Your opponent reveals their hand. You may choose a Supporter...
+    if re.search(r"your opponent reveals (?:his or her |their )?hand\.?\s*you may choose a supporter", t):
+        return ["peekOpponentHand"]
+    # Once during each player's turn, discard energy to draw until N
+    if re.search(r"once during each player's turn", t) and "discard" in t and "draw" in t:
+        return ["noop"]
+
     # Δ Evolution / early evolution rule
     if re.search(r"you may play this card from your hand to evolve a pok[eé]mon during your first turn", t):
         return ["earlyEvolution"]
@@ -2042,6 +2161,8 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if m:
         return [f"draw:{m.group(1)}"]
     # Put a Pokémon and all attached into hand (scoop)
+    if re.search(r"put 1 of your (?:basic |colorless )?pok[eé]mon and all (?:attached cards|cards attached to (?:it|that pok[eé]mon)) into your hand", t):
+        return ["scoopUpSelf"]
     if re.search(r"put 1 of your pok[eé]mon (?:in play |with any damage counters on it )?and all attached cards into your hand", t):
         return ["scoopUpSelf"]
     # Discard a Benched Pokémon V / VMAX and all attached
@@ -2057,8 +2178,8 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if re.search(r"choose up to (\d+) of your [\w ]*pok[eé]mon and attach a basic energy card from your discard pile", t):
         m = re.search(r"up to (\d+)", t)
         return [f"attachBasicFromDiscardToBench:{m.group(1) if m else 2}"]
-    # Supporter rule text
-    if re.search(r"you can play only one supporter card each turn", t):
+    # Supporter rule text — strip prefix below and match the real effect
+    if re.search(r"you can play only one supporter card each turn", t) and len(t) < 80:
         return ["noop"]
     # Flip N coins. Search deck for up to number of heads
     if re.search(r"flip (\d+) coins\.\s*search your deck for a number of cards up to the number of heads", t):
@@ -2863,6 +2984,36 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["attackGate"]
     if re.search(r"it is [\w ]+ and [\w ]+ type", t) and "as long as" in t:
         return ["dualType"]
+    if re.search(r"can't play any ace spec", t):
+        return ["noTrainers"]
+    if re.search(r"retreat cost (?:for [\w' -]+ )?is 0|has no retreat cost|no retreat cost", t):
+        return ["auraNoRetreatCost"]
+    if re.search(r"can't be poisoned|can't be affected by poison", t):
+        return ["immuneToSpecial"]
+    if re.search(r"can't attack until", t):
+        return ["attackGate"]
+    if re.search(r"flip a coin\.\s*if heads,?\s*prevent", t):
+        return ["preventEffectsSelf"]
+    if re.search(r"once during each player's turn.{0,100}heal (\d+) damage from each", t):
+        m = re.search(r"heal (\d+)", t)
+        return [f"healEachPokemon:{m.group(1) if m else 10}"]
+    if re.search(r"once during your turn.{0,80}you may discard 1 energy card from your hand\.?\s*then draw up to (\d+)", t):
+        m = re.search(r"draw up to (\d+)", t)
+        return ["discardEnergySelf:1", f"draw:{m.group(1) if m else 3}"]
+    if re.search(r"once during your turn.{0,80}you may shuffle 1 of your benched pok[eé]mon and all", t):
+        return ["shuffleBenchToDeck"]
+    if re.search(r"attacks cost [\w ]*more", t) and ("as long as" in t or "your opponent" in t):
+        return ["moreAttackCostOpponent"]
+    if re.search(r"can't play any stadium cards? from (?:his or her |their )?hand", t):
+        return ["noStadium"]
+    if re.search(r"poisoned pok[eé]mon can't retreat", t):
+        return ["cantRetreatPoisoned"]
+    if re.search(r"prevent all effects of your opponent's gx attacks", t):
+        return ["preventEffectsSelf"]
+    if re.search(r"your opponent can't play any pok[eé]mon tool,? special energy,? or stadium", t):
+        return ["noTrainers"]
+    if re.search(r"flip 2 coins\.\s*if both of them are heads,? your turn ends", t):
+        return ["noop"]
     if ("once during your turn" in t or "once per turn" in t) and "draw" in t and len(t) < 140:
         m = re.search(r"draw (\d+|a|two|three) cards?", t)
         if m:
