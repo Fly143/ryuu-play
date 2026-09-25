@@ -39,7 +39,7 @@ export class Beautifly_82 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* drawUntilHand:6 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "drawUntilHand:6");
     }
     return state;
   }

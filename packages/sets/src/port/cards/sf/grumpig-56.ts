@@ -35,7 +35,7 @@ export class Grumpig_56 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.damageTimesEnergySelf(this, store, state, effect).use(effect, 20);

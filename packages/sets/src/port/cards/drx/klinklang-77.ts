@@ -37,7 +37,7 @@ export class Klinklang_77 extends PokemonCard {
       return commonEffects.bonusPerEnergySelf(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* drawUntilHand:6 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "drawUntilHand:6");
     }
     return state;
   }

@@ -35,7 +35,7 @@ export class Stunky_102 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.POISONED);
     }
     return state;
   }

@@ -37,7 +37,7 @@ export class Clefable_22 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 2, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* copyAttack */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "copyAttack");
     }
     return state;
   }

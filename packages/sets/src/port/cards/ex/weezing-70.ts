@@ -38,7 +38,7 @@ export class Weezing_70 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 60);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 60);
     }
     return state;
   }

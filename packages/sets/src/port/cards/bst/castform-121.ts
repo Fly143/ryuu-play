@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Castform_121 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -34,7 +35,7 @@ export class Castform_121 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* drawUntilHand:6 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "drawUntilHand:6");
     }
     return state;
   }

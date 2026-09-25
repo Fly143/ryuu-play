@@ -38,7 +38,7 @@ export class MeloettaXY193 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 3, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     return state;
   }

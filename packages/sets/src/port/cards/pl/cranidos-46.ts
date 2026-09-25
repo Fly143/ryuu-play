@@ -37,7 +37,7 @@ export class Cranidos_46 extends PokemonCard {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* discardStadium */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "discardStadium");
     }
     return state;
   }

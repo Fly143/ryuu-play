@@ -38,7 +38,7 @@ export class MachampGX_154 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 60, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* discardStadium */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "discardStadium");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
       return commonEffects.gxOncePerGame(this, store, state, effect).use(effect);

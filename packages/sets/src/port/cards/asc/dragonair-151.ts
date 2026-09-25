@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Dragonair_151 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -34,7 +35,7 @@ export class Dragonair_151 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchEnergyToSelf */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchEnergyToSelf");
     }
     return state;
   }

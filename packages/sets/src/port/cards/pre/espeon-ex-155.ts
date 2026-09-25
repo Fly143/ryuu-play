@@ -37,7 +37,7 @@ export class EspeonEx_155 extends PokemonCard {
       return commonEffects.discardOpponentHand(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* devolve */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "devolve");
     }
     return state;
   }

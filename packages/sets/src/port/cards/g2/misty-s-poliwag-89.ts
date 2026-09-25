@@ -37,7 +37,7 @@ export class MistySPoliwag_89 extends PokemonCard {
       return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* metronome */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "metronome");
     }
     return state;
   }

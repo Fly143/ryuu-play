@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Starmie_30 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -33,7 +34,7 @@ export class Starmie_30 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* damageTimesEnergyBoth:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesEnergyBoth:10");
     }
     return state;
   }

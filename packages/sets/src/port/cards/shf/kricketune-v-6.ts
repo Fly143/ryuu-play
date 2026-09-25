@@ -39,7 +39,7 @@ export class KricketuneV_6 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 80, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* drawUntilHand:3 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "drawUntilHand:3");
     }
     return state;
   }

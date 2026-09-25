@@ -38,10 +38,10 @@ export class SunnyCastform_26 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.BURNED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchAnyToHand:1 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchAnyToHand:1");
     }
     return state;
   }

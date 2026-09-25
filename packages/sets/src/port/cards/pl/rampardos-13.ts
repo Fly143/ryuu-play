@@ -36,7 +36,7 @@ export class Rampardos_13 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -40, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 40);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.selfReduceDamageNextTurn(this, store, state, effect).use(effect, 20);

@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class GardevoirSylveonGX_130 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -34,7 +35,7 @@ export class GardevoirSylveonGX_130 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
-      return /* opponentShuffleDraw:7 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "opponentShuffleDraw:7");
     }
     return state;
   }

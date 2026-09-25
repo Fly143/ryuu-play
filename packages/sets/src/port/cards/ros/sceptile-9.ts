@@ -40,7 +40,7 @@ export class Sceptile_9 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 30, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.POISONED);
     }
     return state;
   }

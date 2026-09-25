@@ -43,7 +43,7 @@ export class ScizorGXSV72 extends PokemonCard {
       return commonEffects.gxOncePerGame(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* plusPowerMarker:80 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPowerMarker:80");
     }
     return state;
   }

@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Regidrago_118 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -34,7 +35,7 @@ export class Regidrago_118 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* drawUntilHand:4 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "drawUntilHand:4");
     }
     return state;
   }

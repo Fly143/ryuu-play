@@ -17,7 +17,7 @@ export class BrockSGrit_172 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* shuffleCardsFromDiscardToDeck:6 */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "shuffleCardsFromDiscardToDeck:6");
     }
     return state;
   }

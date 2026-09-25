@@ -37,7 +37,7 @@ export class Milotic_70 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 40);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* minusPerHand:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "minusPerHand:10");
     }
     return state;
   }

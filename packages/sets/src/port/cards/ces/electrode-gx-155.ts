@@ -40,7 +40,7 @@ export class ElectrodeGX_155 extends PokemonCard {
       return commonEffects.gxOncePerGame(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* attachBasicFromDiscard */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "attachBasicFromDiscard");
     }
     return state;
   }

@@ -39,7 +39,7 @@ export class Dusknoir_63 extends PokemonCard {
       return commonEffects.ignoreWeaknessResistance(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* moveDamageCounters */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "moveDamageCounters");
     }
     return state;
   }

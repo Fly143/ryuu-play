@@ -34,7 +34,7 @@ export class Durant_128 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* discardStadium */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "discardStadium");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.millOpponent(this, store, state, effect).use(effect, 2);

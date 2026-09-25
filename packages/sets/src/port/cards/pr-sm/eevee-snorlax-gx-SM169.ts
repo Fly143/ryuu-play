@@ -38,7 +38,7 @@ export class EeveeSnorlaxGXSM169 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 120, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
-      return /* drawUntilHand:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "drawUntilHand:10");
     }
     return state;
   }

@@ -37,7 +37,7 @@ export class PaldeanTauros_172 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 10, Math.floor(effect.player.active.damage / 10));
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -30, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 30);
     }
     return state;
   }

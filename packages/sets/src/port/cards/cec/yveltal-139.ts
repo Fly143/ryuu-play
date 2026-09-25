@@ -37,7 +37,7 @@ export class Yveltal_139 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 20, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 30);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 30);
     }
     return state;
   }

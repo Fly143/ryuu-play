@@ -37,7 +37,7 @@ export class Jolteon_34 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 4, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* cantAttackIfEx */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "cantAttackIfEx");
     }
     return state;
   }

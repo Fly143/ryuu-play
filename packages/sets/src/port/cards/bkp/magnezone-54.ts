@@ -39,7 +39,7 @@ export class Magnezone_54 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* oncePerTurnAttachFromHand */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "oncePerTurnAttachFromHand");
     }
     return state;
   }

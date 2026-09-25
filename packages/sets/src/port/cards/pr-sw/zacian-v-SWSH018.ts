@@ -39,7 +39,7 @@ export class ZacianVSWSH018 extends PokemonCard {
       return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* pokedex */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "pokedex");
     }
     return state;
   }

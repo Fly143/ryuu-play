@@ -37,7 +37,7 @@ export class Oddish_682 extends PokemonCard {
       return commonEffects.preventDamageNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* healHalfDamageDone */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "healHalfDamageDone");
     }
     return state;
   }

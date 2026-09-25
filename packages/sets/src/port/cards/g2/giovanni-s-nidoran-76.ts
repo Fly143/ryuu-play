@@ -37,7 +37,7 @@ export class GiovanniSNidoran_76 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 2, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* attackGate */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     return state;
   }

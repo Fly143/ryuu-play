@@ -34,7 +34,7 @@ export class Kingdra_84 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* damageTimesDiscardPokemon:20 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesDiscardPokemon:20");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.damageAllOpponent(this, store, state, effect).use(effect, 30);

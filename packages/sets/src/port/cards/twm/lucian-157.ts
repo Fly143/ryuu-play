@@ -17,7 +17,7 @@ export class Lucian_157 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* shuffleHandToBottomDraw:6:5 */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "shuffleHandToBottomDraw:6:5");
     }
     return state;
   }

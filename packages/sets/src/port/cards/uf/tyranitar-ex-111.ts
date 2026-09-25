@@ -36,7 +36,7 @@ export class TyranitarEx_111 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* discardStadium */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "discardStadium");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[3]) {
       return commonEffects.millSelf(this, store, state, effect).use(effect, 3);

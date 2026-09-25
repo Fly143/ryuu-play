@@ -17,7 +17,7 @@ export class EnergySwitch_1292 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* moveEnergyBetweenMine */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "moveEnergyBetweenMine");
     }
     return state;
   }

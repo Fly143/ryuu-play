@@ -40,10 +40,10 @@ export class MetagrossGX_157a extends PokemonCard {
       return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* searchAnyToHand:5 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchAnyToHand:5");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* attachBasicFromDiscard */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "attachBasicFromDiscard");
     }
     return state;
   }

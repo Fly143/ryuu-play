@@ -37,7 +37,7 @@ export class GalarianPerrserkerV_129 extends PokemonCard {
       return commonEffects.drawCardsAttack(this, store, state, effect).use(effect, 3);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* damageTimesHand:20:self */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesHand:20:self");
     }
     return state;
   }

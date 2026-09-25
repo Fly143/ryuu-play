@@ -39,7 +39,7 @@ export class Gogoat_11 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* plusPowerMarker:80 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPowerMarker:80");
     }
     return state;
   }

@@ -35,7 +35,7 @@ export class AmpharosGX_163 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* recoverFromDiscard */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "recoverFromDiscard");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
       return commonEffects.gxOncePerGame(this, store, state, effect).use(effect);

@@ -37,7 +37,7 @@ export class DragoniteV_191 extends PokemonCard {
       return commonEffects.ignoreWeaknessResistance(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -20, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 20);
     }
     return state;
   }

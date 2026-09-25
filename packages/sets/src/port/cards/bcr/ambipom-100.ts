@@ -37,7 +37,7 @@ export class Ambipom_100 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 2, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* damageTimesHand:10:self */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesHand:10:self");
     }
     return state;
   }

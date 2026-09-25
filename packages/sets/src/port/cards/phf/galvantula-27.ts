@@ -38,7 +38,7 @@ export class Galvantula_27 extends PokemonCard {
       return commonEffects.gustOpponent(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.cantRetreatNextTurn(this, store, state, effect).use(effect);

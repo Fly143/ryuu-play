@@ -37,7 +37,7 @@ export class Archeops_54 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 20, 0);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* baseDamageIfLowHP:50:50 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "baseDamageIfLowHP:50:50");
     }
     return state;
   }

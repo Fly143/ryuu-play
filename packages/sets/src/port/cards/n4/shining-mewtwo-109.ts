@@ -34,10 +34,10 @@ export class ShiningMewtwo_109 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* koRevengePerEnergy */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "koRevengePerEnergy");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* preventEffectsMarker */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.bonusPerEnergySelf(this, store, state, effect).use(effect, 10);

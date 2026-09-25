@@ -37,7 +37,7 @@ export class DeoxysVSTARGG46 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 60);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* bonusPerEnergyBoth:60 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "bonusPerEnergyBoth:60");
     }
     return state;
   }

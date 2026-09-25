@@ -41,7 +41,7 @@ export class Cubchoo_28 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 60);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
     }
     return state;
   }

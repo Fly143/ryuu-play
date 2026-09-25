@@ -40,7 +40,7 @@ export class Articuno_48 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* auraProtectBench */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "auraProtectBench");
     }
     return state;
   }

@@ -38,7 +38,7 @@ export class Xatu_33 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 90);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     return state;
   }

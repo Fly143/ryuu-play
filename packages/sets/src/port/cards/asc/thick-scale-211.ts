@@ -17,7 +17,7 @@ export class ThickScale_211 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* reduceDamageSelf:50 */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "reduceDamageSelf:50");
     }
     return state;
   }

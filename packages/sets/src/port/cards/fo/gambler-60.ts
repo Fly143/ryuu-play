@@ -17,7 +17,7 @@ export class Gambler_60 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* flipHeadsDrawOrOne */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipHeadsDrawOrOne");
     }
     return state;
   }

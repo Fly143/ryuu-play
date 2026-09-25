@@ -40,7 +40,7 @@ export class Garchomp_5 extends PokemonCard {
       return commonEffects.selfReduceDamageNextTurn(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* minusPerEnergyDefending:20 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "minusPerEnergyDefending:20");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.roughSkinPower(this, store, state, effect).reduce(effect.power);

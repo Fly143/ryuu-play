@@ -39,7 +39,7 @@ export class Octillery_33 extends PokemonCard {
       return commonEffects.cantRetreatNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* drawUntilHand:5 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "drawUntilHand:5");
     }
     return state;
   }

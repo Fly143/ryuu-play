@@ -38,7 +38,7 @@ export class Chandelure_20 extends PokemonCard {
       return commonEffects.damageTwoOpponentBench(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.BURNED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     return state;
   }

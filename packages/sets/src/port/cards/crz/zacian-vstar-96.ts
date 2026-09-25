@@ -37,7 +37,7 @@ export class ZacianVSTAR_96 extends PokemonCard {
       return commonEffects.ignoreWeaknessResistance(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -30, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 30);
     }
     return state;
   }

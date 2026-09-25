@@ -38,13 +38,13 @@ export class DarkMuk_16 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* damageTimesRetreatColorless:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesRetreatColorless:10");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.BURNED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* moreRetreatCostOpponent */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "moreRetreatCostOpponent");
     }
     return state;
   }

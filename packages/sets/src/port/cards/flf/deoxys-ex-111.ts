@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class DeoxysEX_111 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -34,7 +35,7 @@ export class DeoxysEX_111 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* bonusPerEnergyDefending:30 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "bonusPerEnergyDefending:30");
     }
     return state;
   }

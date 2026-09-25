@@ -37,7 +37,7 @@ export class Krookodile_127 extends PokemonCard {
       return commonEffects.cantRetreatNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* damageTimesPrize:40:taken */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesPrize:40:taken");
     }
     return state;
   }

@@ -37,7 +37,7 @@ export class EthanSSudowoodo_93 extends PokemonCard {
       return commonEffects.cantRetreatNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* copyAttack */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "copyAttack");
     }
     return state;
   }

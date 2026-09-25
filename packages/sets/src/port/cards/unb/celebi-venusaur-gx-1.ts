@@ -36,7 +36,7 @@ export class CelebiVenusaurGX_1 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.BURNED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
       return commonEffects.gxOncePerGame(this, store, state, effect).use(effect);

@@ -39,7 +39,7 @@ export class DarkVileplume_13 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 1, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* noTrainers */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "noTrainers");
     }
     return state;
   }

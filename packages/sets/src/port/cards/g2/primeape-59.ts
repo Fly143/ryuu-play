@@ -37,7 +37,7 @@ export class Primeape_59 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 3, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* flipHeadsSelfSpecial:CONFUSED */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "flipHeadsSelfSpecial:CONFUSED");
     }
     return state;
   }

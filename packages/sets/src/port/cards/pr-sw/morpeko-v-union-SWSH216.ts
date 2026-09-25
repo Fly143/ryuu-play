@@ -36,7 +36,7 @@ export class MorpekoVUNIONSWSH216 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* drawUntilHand:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "drawUntilHand:10");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);

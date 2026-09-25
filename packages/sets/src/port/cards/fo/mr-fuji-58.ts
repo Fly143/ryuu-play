@@ -17,7 +17,7 @@ export class MrFuji_58 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* shuffleBenchToDeck */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "shuffleBenchToDeck");
     }
     return state;
   }

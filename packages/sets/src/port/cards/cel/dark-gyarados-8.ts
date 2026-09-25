@@ -40,7 +40,7 @@ export class DarkGyarados_82 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* koRevengePerEnergy */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "koRevengePerEnergy");
     }
     return state;
   }

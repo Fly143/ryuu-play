@@ -40,7 +40,7 @@ export class Snorlax_131 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* drawUntilHand:7 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "drawUntilHand:7");
     }
     return state;
   }

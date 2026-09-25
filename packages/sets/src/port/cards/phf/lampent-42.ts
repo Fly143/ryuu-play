@@ -34,10 +34,10 @@ export class Lampent_42 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 30);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* damageTimesDiscardPokemon:20 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesDiscardPokemon:20");
     }
     return state;
   }

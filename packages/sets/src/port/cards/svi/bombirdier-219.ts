@@ -34,7 +34,7 @@ export class Bombirdier_219 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* searchAnyToHand:3 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchAnyToHand:3");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.cantRetreatNextTurn(this, store, state, effect).use(effect);

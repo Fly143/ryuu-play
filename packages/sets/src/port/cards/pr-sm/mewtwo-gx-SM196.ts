@@ -39,7 +39,7 @@ export class MewtwoGXSM196 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 50);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
       return commonEffects.preventDamageNextTurn(this, store, state, effect).use(effect);

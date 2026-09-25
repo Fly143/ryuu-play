@@ -35,7 +35,7 @@ export class HoopaGX_166 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* searchAnyToHand:2 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchAnyToHand:2");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);

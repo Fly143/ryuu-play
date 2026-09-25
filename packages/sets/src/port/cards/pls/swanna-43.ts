@@ -37,7 +37,7 @@ export class Swanna_43 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 20, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* discardStadium */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "discardStadium");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 40, 1);

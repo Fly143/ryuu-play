@@ -39,7 +39,7 @@ export class Serperior_8 extends PokemonCard {
       return commonEffects.energyTrans(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* healBetweenTurns:10 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "healBetweenTurns:10");
     }
     return state;
   }

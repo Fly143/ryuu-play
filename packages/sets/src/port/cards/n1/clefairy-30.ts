@@ -37,7 +37,7 @@ export class Clefairy_302 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 2, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* searchEnergyToHand:1 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchEnergyToHand:1");
     }
     return state;
   }

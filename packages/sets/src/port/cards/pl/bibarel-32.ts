@@ -37,7 +37,7 @@ export class Bibarel_32 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* metronome */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "metronome");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);

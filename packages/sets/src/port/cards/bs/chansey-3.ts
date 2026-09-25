@@ -37,7 +37,7 @@ export class Chansey_3 extends PokemonCard {
       return commonEffects.preventDamageNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -80, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 80);
     }
     return state;
   }

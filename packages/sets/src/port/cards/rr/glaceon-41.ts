@@ -41,7 +41,7 @@ export class Glaceon_41 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.reduceDamageSelfPower(this, store, state, effect).reduce(effect.power, 10);

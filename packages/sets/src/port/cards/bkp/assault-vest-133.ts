@@ -17,7 +17,7 @@ export class AssaultVest_133 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* reduceDamageMarker:40 */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "reduceDamageMarker:40");
     }
     return state;
   }

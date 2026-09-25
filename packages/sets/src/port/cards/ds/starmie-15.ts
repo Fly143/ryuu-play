@@ -40,7 +40,7 @@ export class Starmie_15 extends PokemonCard {
       return commonEffects.drawCardsAttack(this, store, state, effect).use(effect, 3);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchEnergyToSelf */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchEnergyToSelf");
     }
     return state;
   }

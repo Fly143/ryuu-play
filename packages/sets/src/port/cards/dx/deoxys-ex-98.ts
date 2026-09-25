@@ -39,7 +39,7 @@ export class DeoxysEx_98 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 2);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchAnyToHand:1 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchAnyToHand:1");
     }
     return state;
   }

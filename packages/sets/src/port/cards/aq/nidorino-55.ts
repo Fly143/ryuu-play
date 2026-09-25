@@ -38,7 +38,7 @@ export class Nidorino_55 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -10, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 10);
     }
     return state;
   }

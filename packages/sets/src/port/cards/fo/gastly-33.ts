@@ -38,7 +38,7 @@ export class Gastly_33 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* recoverFromDiscard:2 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "recoverFromDiscard:2");
     }
     return state;
   }

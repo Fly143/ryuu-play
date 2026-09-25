@@ -34,7 +34,7 @@ export class Carnivine_54 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* drawUntilHand:5 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "drawUntilHand:5");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.healSelfAfterAttack(this, store, state, effect).use(effect, 0);

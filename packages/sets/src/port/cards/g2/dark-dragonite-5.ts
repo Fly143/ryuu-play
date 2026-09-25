@@ -13,6 +13,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class DarkDragonite_52 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -38,7 +39,7 @@ export class DarkDragonite_52 extends PokemonCard {
       return /* structural */ state;
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchBasicToBench:2 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchBasicToBench:2");
     }
     return state;
   }

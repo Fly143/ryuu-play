@@ -37,7 +37,7 @@ export class Registeel_92 extends PokemonCard {
       return commonEffects.selfReduceDamageNextTurn(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 30);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 30);
     }
     return state;
   }

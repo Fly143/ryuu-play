@@ -37,7 +37,7 @@ export class Throh_51 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 2, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* minusPerRetreatCostColorless:20 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "minusPerRetreatCostColorless:20");
     }
     return state;
   }

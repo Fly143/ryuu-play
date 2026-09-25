@@ -38,10 +38,10 @@ export class Glalie_30 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -10, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.reduceDamageSelfPower(this, store, state, effect).reduce(effect.power, 30);

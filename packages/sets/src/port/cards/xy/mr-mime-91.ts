@@ -34,7 +34,7 @@ export class MrMime_91 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* healBench:60 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "healBench:60");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 20, 0);

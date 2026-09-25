@@ -37,7 +37,7 @@ export class GolemE4_23 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 10, 0);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -60, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 60);
     }
     return state;
   }

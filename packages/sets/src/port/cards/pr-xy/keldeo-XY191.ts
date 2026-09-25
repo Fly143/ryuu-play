@@ -39,7 +39,7 @@ export class KeldeoXY191 extends PokemonCard {
       return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* plusPowerMarker:50 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPowerMarker:50");
     }
     return state;
   }

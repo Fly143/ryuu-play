@@ -39,7 +39,7 @@ export class Deoxys_5 extends PokemonCard {
       return commonEffects.plusPower(this, store, state, effect).use(effect, 40);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchAnyToHand:1 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchAnyToHand:1");
     }
     return state;
   }

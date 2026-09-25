@@ -40,7 +40,7 @@ export class Mewtwo_102 extends PokemonCard {
       return /* structural */ state;
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* preventEffectsMarker */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     return state;
   }

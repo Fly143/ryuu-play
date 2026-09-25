@@ -37,7 +37,7 @@ export class DragapultVMAXSWSH097 extends PokemonCard {
       return commonEffects.ignoreWeaknessResistance(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 50);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 50);
     }
     return state;
   }

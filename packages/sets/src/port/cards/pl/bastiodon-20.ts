@@ -37,10 +37,10 @@ export class Bastiodon_20 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* preventEffectsMarker */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -30, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return /* structural */ state;

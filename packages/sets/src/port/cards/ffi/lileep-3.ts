@@ -39,7 +39,7 @@ export class Lileep_3 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* toBottomOfDeck */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "toBottomOfDeck");
     }
     return state;
   }

@@ -38,7 +38,7 @@ export class Magneton_9 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -80, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 80);
     }
     return state;
   }

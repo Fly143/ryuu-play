@@ -35,10 +35,10 @@ export class Garbodor_111 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* damageTimesDiscardPokemon:30 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesDiscardPokemon:30");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.POISONED);
     }
     return state;
   }

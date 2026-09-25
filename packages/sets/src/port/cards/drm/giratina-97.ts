@@ -35,7 +35,7 @@ export class Giratina_97 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 40);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 40);
     }
     return state;
   }

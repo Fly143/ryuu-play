@@ -37,7 +37,7 @@ export class Slowpoke_19 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* recoverFromDiscard */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "recoverFromDiscard");
     }
     return state;
   }

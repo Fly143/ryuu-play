@@ -40,7 +40,7 @@ export class Rayquaza_13 extends PokemonCard {
       return commonEffects.damageTimesEnergySelf(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 70);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 70);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return /* structural */ state;

@@ -39,7 +39,7 @@ export class MachampXY13 extends PokemonCard {
       return commonEffects.selfReduceDamageNextTurn(this, store, state, effect).use(effect, 40);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* plusPowerMarker:20 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPowerMarker:20");
     }
     return state;
   }

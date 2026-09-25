@@ -38,7 +38,7 @@ export class DragoniteGX_229 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 3);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
-      return /* drawUntilHand:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "drawUntilHand:10");
     }
     return state;
   }

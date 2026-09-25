@@ -39,7 +39,7 @@ export class ToxapexGX_136 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 4, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.POISONED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
       return commonEffects.gxOncePerGame(this, store, state, effect).use(effect);

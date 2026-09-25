@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Togepi_30 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -33,10 +34,10 @@ export class Togepi_30 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* reduceDamageMarker:20 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "reduceDamageMarker:20");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* copyAttack */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "copyAttack");
     }
     return state;
   }

@@ -40,7 +40,7 @@ export class Bewear_1122 extends PokemonCard {
       return commonEffects.plusPower(this, store, state, effect).use(effect, 40);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -20, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 20);
     }
     return state;
   }

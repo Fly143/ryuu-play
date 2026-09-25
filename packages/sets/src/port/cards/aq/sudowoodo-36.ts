@@ -34,7 +34,7 @@ export class Sudowoodo_36 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* metronome */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "metronome");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.searchEnergyToSelf(this, store, state, effect).use(effect, 1);

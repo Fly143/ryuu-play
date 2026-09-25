@@ -35,7 +35,7 @@ export class Mew_8 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* bonusPerEnergyDefending:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "bonusPerEnergyDefending:10");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.clearSpecialConditions(this, store, state, effect).use(effect);

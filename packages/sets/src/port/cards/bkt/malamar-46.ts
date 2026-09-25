@@ -37,7 +37,7 @@ export class Malamar_46 extends PokemonCard {
       return commonEffects.gustOpponent(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* recoverFromDiscard */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "recoverFromDiscard");
     }
     return state;
   }

@@ -40,7 +40,7 @@ export class Lumineon_4 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* preventEffectsMarker */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return /* structural */ state;

@@ -37,7 +37,7 @@ export class Chinchou_42 extends PokemonCard {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* reduceDamageMarker:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "reduceDamageMarker:10");
     }
     return state;
   }

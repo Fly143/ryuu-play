@@ -39,7 +39,7 @@ export class ReshiramGXSV51 extends PokemonCard {
       return commonEffects.searchEnergyToSelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.BURNED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
       return commonEffects.gxOncePerGame(this, store, state, effect).use(effect);

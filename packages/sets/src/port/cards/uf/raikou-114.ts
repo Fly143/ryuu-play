@@ -37,7 +37,7 @@ export class Raikou_114 extends PokemonCard {
       return commonEffects.switchSelf(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* spreadAllMine:40 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "spreadAllMine:40");
     }
     return state;
   }

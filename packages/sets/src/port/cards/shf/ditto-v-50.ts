@@ -39,7 +39,7 @@ export class DittoV_50 extends PokemonCard {
       return commonEffects.attachBasicFromDiscard(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* attachBasicFromDiscard */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "attachBasicFromDiscard");
     }
     return state;
   }

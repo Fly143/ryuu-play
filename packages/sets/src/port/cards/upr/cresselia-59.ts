@@ -37,7 +37,7 @@ export class Cresselia_59 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* swapDamageCounters */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "swapDamageCounters");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 20, 1);

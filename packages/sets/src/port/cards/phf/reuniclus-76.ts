@@ -34,7 +34,7 @@ export class Reuniclus_76 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* pokedex */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "pokedex");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.damageTimesPokemonInPlay(this, store, state, effect).use(effect, 40);

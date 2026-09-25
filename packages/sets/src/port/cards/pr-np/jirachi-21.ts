@@ -37,7 +37,7 @@ export class Jirachi_21 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* damageTimesEnergyDefending:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesEnergyDefending:10");
     }
     return state;
   }

@@ -38,7 +38,7 @@ export class Gallade_81 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* bonusPerDamagedBench:20 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "bonusPerDamagedBench:20");
     }
     return state;
   }

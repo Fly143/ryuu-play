@@ -37,7 +37,7 @@ export class Medicham_77 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 160, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -30, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 30);
     }
     return state;
   }

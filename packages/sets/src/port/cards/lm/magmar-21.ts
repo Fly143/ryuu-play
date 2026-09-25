@@ -41,7 +41,7 @@ export class Magmar_21 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.BURNED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return /* structural */ state;

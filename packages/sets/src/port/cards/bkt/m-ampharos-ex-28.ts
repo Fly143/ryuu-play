@@ -36,7 +36,7 @@ export class MAmpharosEX_28 extends PokemonCard {
       return commonEffects.plusPower(this, store, state, effect).use(effect, 50);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -30, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 30);
     }
     return state;
   }

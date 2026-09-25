@@ -36,7 +36,7 @@ export class KingdraXY39 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* searchEnergyToHand:4 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchEnergyToHand:4");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);

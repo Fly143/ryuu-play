@@ -68,9 +68,9 @@ def map_op_power(op: str) -> str:
         return "commonEffects.scoopUpSelf(this, store, state, effect).use(effect as any)"
     if name == "energyTrans":
         return "commonEffects.energyTrans(this, store, state, effect).use(effect as any)"
-    if name in ("noop", "continuousStatic"):
+    if name in ("noop", "continuousStatic", "attackCost"):
         return "/* structural */ state"
-    return f"/* {op} */ state"
+    return f"commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, {ts_str(op)})"
 
 
 def map_op_attack(op: str) -> str:
@@ -106,13 +106,6 @@ def map_op_attack(op: str) -> str:
         return f"commonEffects.flipTailsSelfDamage(this, store, state, effect).use(effect, {a[0] if a else 10})"
     if name == "searchBasicToBench":
         return f"commonEffects.searchBasicToBench(this, store, state, effect).use(effect, {a[0] if a else 1})"
-    if name == "selfDamage":
-        return f"commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -{a[0] if a else 10}, 1)"
-    if name == "specialDefending":
-        cond = (a[0] if a else "CONFUSED").upper()
-        if cond not in ("ASLEEP", "CONFUSED", "PARALYZED", "POISONED", "BURNED"):
-            cond = "CONFUSED"
-        return f"commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.{cond})"
     if name in ("attackCost", "noop", "continuousStatic"):
         return "/* structural */ state"
     if name == "selfDamage" or name == "recoil":
@@ -162,7 +155,7 @@ def map_op_attack(op: str) -> str:
     if name == "damageOwnBench":
         return f"commonEffects.damageOwnBench(this, store, state, effect).use(effect, {a[0] if a else 20})"
     if name == "putDamageCounters":
-        return f"commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, {a[0] if a else 1})"
+        return f"commonEffects.putCountersDefending(this, store, state, effect).use(effect, {a[0] if a else 1})"
     if name == "discardOpponentHand":
         return f"commonEffects.discardOpponentHand(this, store, state, effect).use(effect, {a[0] if a else 1})"
     if name == "discardFromHand":
@@ -220,7 +213,7 @@ def map_op_attack(op: str) -> str:
         return "commonEffects.ascension(this, store, state, effect).use(effect)"
     if name == "discardRandomOpponentHand":
         return f"commonEffects.discardOpponentHand(this, store, state, effect).use(effect, {a[0] if a else 1})"
-    return f"/* {op} */ state"
+    return f"commonEffects.runAttackOp(this, store, state, effect).use(effect, {ts_str(op)})"
 
 
 def map_op_trainer(op: str) -> str:
@@ -257,9 +250,9 @@ def map_op_trainer(op: str) -> str:
         return f"commonEffects.discardOpponentHandTrainer(this, store, state, effect).playCard(effect as TrainerEffect, {a[0] if a else 1})"
     if name == "discardFromHand":
         return f"commonEffects.discardFromHandTrainer(this, store, state, effect).playCard(effect as TrainerEffect, {a[0] if a else 1})"
-    if name in ("noop", "continuousStatic", "fossilBody", "rareCandy", "pokedex"):
+    if name in ("noop", "continuousStatic"):
         return "/* structural */ state"
-    return f"/* {op} */ state"
+    return f"commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, {ts_str(op)})"
 
 
 COND_ENUM = {

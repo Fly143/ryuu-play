@@ -38,7 +38,7 @@ export class Gliscor_99 extends PokemonCard {
       return commonEffects.drawCardsAttack(this, store, state, effect).use(effect, 3);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.POISONED);
     }
     return state;
   }

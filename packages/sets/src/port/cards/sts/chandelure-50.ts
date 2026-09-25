@@ -39,7 +39,7 @@ export class Chandelure_50 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 10, 0);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* pokedex */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "pokedex");
     }
     return state;
   }

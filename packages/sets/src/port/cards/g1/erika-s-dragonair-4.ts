@@ -37,7 +37,7 @@ export class ErikaSDragonair_4 extends PokemonCard {
       return commonEffects.damageAllBench(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* scoopUpOpponent */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "scoopUpOpponent");
     }
     return state;
   }

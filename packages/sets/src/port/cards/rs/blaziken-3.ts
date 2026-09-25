@@ -39,7 +39,7 @@ export class Blaziken_3 extends PokemonCard {
       return commonEffects.damageAllBench(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* attachBasicFromDiscard */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "attachBasicFromDiscard");
     }
     return state;
   }

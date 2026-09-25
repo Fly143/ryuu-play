@@ -39,7 +39,7 @@ export class Gothitelle_92 extends PokemonCard {
       return commonEffects.discardOpponentHand(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* pokedex */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "pokedex");
     }
     return state;
   }

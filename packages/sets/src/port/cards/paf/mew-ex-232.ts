@@ -13,6 +13,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class MewEx_232 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -35,10 +36,10 @@ export class MewEx_232 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* copyAttack */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "copyAttack");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* drawUntilHand:3 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "drawUntilHand:3");
     }
     return state;
   }

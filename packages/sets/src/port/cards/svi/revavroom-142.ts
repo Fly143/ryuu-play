@@ -39,7 +39,7 @@ export class Revavroom_142 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 90, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* drawUntilHand:6 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "drawUntilHand:6");
     }
     return state;
   }

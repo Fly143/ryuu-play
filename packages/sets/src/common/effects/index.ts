@@ -12,3 +12,4 @@ export * from './spread';
 export * from './hand';
 export * from './combat';
 export * from './scaling';
+export * from './run-op';

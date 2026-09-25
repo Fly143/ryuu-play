@@ -37,7 +37,7 @@ export class Buizel_6 extends PokemonCard {
       return commonEffects.discardEnergyDefending(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* preventEffectsMarker */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     return state;
   }

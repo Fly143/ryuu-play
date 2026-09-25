@@ -40,7 +40,7 @@ export class Snorlax_64 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* immuneToSpecial */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "immuneToSpecial");
     }
     return state;
   }

@@ -37,7 +37,7 @@ export class Rotom_24 extends PokemonCard {
       return commonEffects.searchEnergyToSelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* moveDamageCounters */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "moveDamageCounters");
     }
     return state;
   }

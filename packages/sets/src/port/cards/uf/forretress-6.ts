@@ -37,7 +37,7 @@ export class Forretress_6 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 30, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 70);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 70);
     }
     return state;
   }

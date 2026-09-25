@@ -37,7 +37,7 @@ export class AlolanGolem_46 extends PokemonCard {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 1, 70);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -40, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 40);
     }
     return state;
   }

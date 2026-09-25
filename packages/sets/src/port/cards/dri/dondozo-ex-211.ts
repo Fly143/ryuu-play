@@ -40,7 +40,7 @@ export class DondozoEx_211 extends PokemonCard {
       return commonEffects.plusPower(this, store, state, effect).use(effect, 120);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -50, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 50);
     }
     return state;
   }

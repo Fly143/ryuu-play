@@ -37,7 +37,7 @@ export class MewtwoEX_62 extends PokemonCard {
       return commonEffects.damageTimesEnergySelf(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* swapDamageCounters */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "swapDamageCounters");
     }
     return state;
   }

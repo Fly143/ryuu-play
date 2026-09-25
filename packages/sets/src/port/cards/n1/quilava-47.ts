@@ -37,7 +37,7 @@ export class Quilava_47 extends PokemonCard {
       return commonEffects.cantAttackOpponentNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 20);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 20);
     }
     return state;
   }

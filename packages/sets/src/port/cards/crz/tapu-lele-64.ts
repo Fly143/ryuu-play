@@ -34,7 +34,7 @@ export class TapuLele_64 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* bonusPerEnergyBoth:20 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "bonusPerEnergyBoth:20");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 30);

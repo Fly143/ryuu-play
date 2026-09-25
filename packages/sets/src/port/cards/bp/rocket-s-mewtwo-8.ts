@@ -36,7 +36,7 @@ export class RocketSMewtwo_8 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* swapDamageCounters */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "swapDamageCounters");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);

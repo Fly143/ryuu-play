@@ -17,7 +17,7 @@ export class GymBadgeXY205 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* flipsDrawPerHeads:20 */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipsDrawPerHeads:20");
     }
     return state;
   }

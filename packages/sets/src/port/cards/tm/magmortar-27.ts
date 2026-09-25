@@ -38,7 +38,7 @@ export class Magmortar_27 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 99);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.BURNED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     return state;
   }

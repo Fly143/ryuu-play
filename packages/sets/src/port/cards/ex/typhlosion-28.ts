@@ -40,7 +40,7 @@ export class Typhlosion_28 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchEnergyToSelf */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchEnergyToSelf");
     }
     return state;
   }

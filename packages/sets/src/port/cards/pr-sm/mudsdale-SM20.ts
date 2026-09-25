@@ -37,7 +37,7 @@ export class MudsdaleSM20 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 60, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -40, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 40);
     }
     return state;
   }

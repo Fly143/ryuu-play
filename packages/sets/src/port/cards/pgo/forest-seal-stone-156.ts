@@ -17,7 +17,7 @@ export class ForestSealStone_156 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* oncePerGameDraw:1 */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "oncePerGameDraw:1");
     }
     return state;
   }

@@ -37,7 +37,7 @@ export class SimisearVSTARGG37 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 40, 0);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* damageTimesDiscardPokemon:30 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "damageTimesDiscardPokemon:30");
     }
     return state;
   }

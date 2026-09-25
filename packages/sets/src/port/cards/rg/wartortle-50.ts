@@ -37,7 +37,7 @@ export class Wartortle_50 extends PokemonCard {
       return commonEffects.bonusPerEnergySelf(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* switchSelfAfterAttack */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "switchSelfAfterAttack");
     }
     return state;
   }

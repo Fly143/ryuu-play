@@ -34,7 +34,7 @@ export class XerneasXY31 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* noWeaknessNextTurn */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "noWeaknessNextTurn");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 40, 1);

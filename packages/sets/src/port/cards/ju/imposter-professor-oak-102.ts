@@ -17,7 +17,7 @@ export class ImposterProfessorOak_102 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* opponentShuffleDraw:7 */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "opponentShuffleDraw:7");
     }
     return state;
   }

@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Nidoran_712 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -33,7 +34,7 @@ export class Nidoran_712 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* searchTrainerToHand:1 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchTrainerToHand:1");
     }
     return state;
   }

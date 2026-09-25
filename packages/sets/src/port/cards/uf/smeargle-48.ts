@@ -40,7 +40,7 @@ export class Smeargle_48 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* attachBasicFromDiscard */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "attachBasicFromDiscard");
     }
     return state;
   }

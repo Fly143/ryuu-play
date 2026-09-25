@@ -39,7 +39,7 @@ export class Charizard_14 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 50, 0);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchEnergyToSelf */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchEnergyToSelf");
     }
     return state;
   }

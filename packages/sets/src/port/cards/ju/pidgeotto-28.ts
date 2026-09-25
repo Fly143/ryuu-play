@@ -37,7 +37,7 @@ export class Pidgeotto_28 extends PokemonCard {
       return commonEffects.gustOpponent(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* mirrorMove */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "mirrorMove");
     }
     return state;
   }

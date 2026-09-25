@@ -38,7 +38,7 @@ export class LucarioEX_107 extends PokemonCard {
       return commonEffects.ignoreWeaknessResistance(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* drawUntilHand:6 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "drawUntilHand:6");
     }
     return state;
   }

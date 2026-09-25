@@ -37,7 +37,7 @@ export class Beautifly_26 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 50);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* preventEffectsMarker */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     return state;
   }

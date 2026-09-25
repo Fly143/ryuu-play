@@ -37,7 +37,7 @@ export class Lairon_362 extends PokemonCard {
       return commonEffects.gustOpponent(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 10);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 10);
     }
     return state;
   }

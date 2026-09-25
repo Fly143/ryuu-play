@@ -39,7 +39,7 @@ export class MarnieSGrimmsnarlEx_136 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* searchBasicToBench:5 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchBasicToBench:5");
     }
     return state;
   }

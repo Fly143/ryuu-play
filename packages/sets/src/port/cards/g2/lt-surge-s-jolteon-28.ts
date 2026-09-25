@@ -34,7 +34,7 @@ export class LtSurgeSJolteon_28 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* opponentCantTrainers */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "opponentCantTrainers");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.flipTailsSelfDamage(this, store, state, effect).use(effect, 30);

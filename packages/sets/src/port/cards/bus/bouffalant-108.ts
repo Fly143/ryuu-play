@@ -37,7 +37,7 @@ export class Bouffalant_108 extends PokemonCard {
       return commonEffects.reduceDamageNextTurn(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* discardStadium */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "discardStadium");
     }
     return state;
   }

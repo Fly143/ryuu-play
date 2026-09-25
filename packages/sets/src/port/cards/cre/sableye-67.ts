@@ -34,7 +34,7 @@ export class Sableye_67 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* searchTrainerToHand:1 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchTrainerToHand:1");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.cantRetreatNextTurn(this, store, state, effect).use(effect);

@@ -38,7 +38,7 @@ export class SnorlaxV_141 extends PokemonCard {
       return commonEffects.healSelfAfterAttack(this, store, state, effect).use(effect, 0);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
     }
     return state;
   }

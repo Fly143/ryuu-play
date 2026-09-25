@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Bastiodon_70 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -33,10 +34,10 @@ export class Bastiodon_70 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* roughSkin */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "roughSkin");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* bonusPerDamagedBench:10 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "bonusPerDamagedBench:10");
     }
     return state;
   }

@@ -39,7 +39,7 @@ export class Cobalion_126 extends PokemonCard {
       return commonEffects.searchEnergyToSelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* plusPowerMarker:30 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPowerMarker:30");
     }
     return state;
   }

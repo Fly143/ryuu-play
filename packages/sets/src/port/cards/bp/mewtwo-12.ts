@@ -34,7 +34,7 @@ export class Mewtwo_12 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* energyTransOpponent */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "energyTransOpponent");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.ignoreWeaknessResistance(this, store, state, effect).use(effect);

@@ -39,7 +39,7 @@ export class Meganium_3 extends PokemonCard {
       return commonEffects.healSelfAfterAttack(this, store, state, effect).use(effect, 0);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* plusPowerMarker:70 */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPowerMarker:70");
     }
     return state;
   }

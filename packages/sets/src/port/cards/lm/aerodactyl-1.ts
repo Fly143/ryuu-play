@@ -40,7 +40,7 @@ export class Aerodactyl_13 extends PokemonCard {
       return commonEffects.bonusPerEnergySelf(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* preventEffectsMarker */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "preventEffectsMarker");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.reduceDamageSelfPower(this, store, state, effect).reduce(effect.power, 10);

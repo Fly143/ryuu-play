@@ -34,7 +34,7 @@ export class Dugtrio_24 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 60);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 60);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 50);

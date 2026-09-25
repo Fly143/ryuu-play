@@ -35,10 +35,10 @@ export class Togepi_88 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* searchPokemonToHand:1 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchPokemonToHand:1");
     }
     return state;
   }

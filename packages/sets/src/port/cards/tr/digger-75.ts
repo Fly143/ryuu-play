@@ -17,7 +17,7 @@ export class Digger_75 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return /* flipHeadsSelfDamage:10 */ state;
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "flipHeadsSelfDamage:10");
     }
     return state;
   }

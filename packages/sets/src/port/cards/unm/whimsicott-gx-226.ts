@@ -39,7 +39,7 @@ export class WhimsicottGX_226 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 30, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* searchAnyToHand:5 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchAnyToHand:5");
     }
     return state;
   }

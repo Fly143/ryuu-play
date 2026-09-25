@@ -38,7 +38,7 @@ export class Girafarig_61 extends PokemonCard {
       return commonEffects.drawCardsAttack(this, store, state, effect).use(effect, 2);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     return state;
   }

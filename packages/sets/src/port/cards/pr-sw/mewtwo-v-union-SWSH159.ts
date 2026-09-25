@@ -42,7 +42,7 @@ export class MewtwoVUNIONSWSH159 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 200);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
-      return commonEffects.putDamageCountersDefending(this, store, state, effect).use(effect, 160);
+      return commonEffects.putCountersDefending(this, store, state, effect).use(effect, 160);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);

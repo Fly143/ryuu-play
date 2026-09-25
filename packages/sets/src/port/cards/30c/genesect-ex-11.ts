@@ -39,7 +39,7 @@ export class GenesectEX_112 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* gustOpponent */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "gustOpponent");
     }
     return state;
   }

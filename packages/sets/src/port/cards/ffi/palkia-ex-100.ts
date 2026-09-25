@@ -37,7 +37,7 @@ export class PalkiaEX_100 extends PokemonCard {
       return commonEffects.switchSelf(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* healPerEnergySelf:20 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "healPerEnergySelf:20");
     }
     return state;
   }

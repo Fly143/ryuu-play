@@ -37,7 +37,7 @@ export class Whiscash_55 extends PokemonCard {
       return commonEffects.ignoreWeaknessResistance(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -10, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 10);
     }
     return state;
   }

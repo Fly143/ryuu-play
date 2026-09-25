@@ -37,7 +37,7 @@ export class HoOh_12 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* healBench:999 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "healBench:999");
     }
     return state;
   }

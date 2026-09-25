@@ -39,7 +39,7 @@ export class DarkSlowking_9 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 30, 0);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* pokedex */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "pokedex");
     }
     return state;
   }

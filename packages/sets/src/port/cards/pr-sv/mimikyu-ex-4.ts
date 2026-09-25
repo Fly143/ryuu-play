@@ -37,7 +37,7 @@ export class MimikyuEx_4 extends PokemonCard {
       return commonEffects.switchSelf(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* bonusPerEnergyBoth:30 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "bonusPerEnergyBoth:30");
     }
     return state;
   }

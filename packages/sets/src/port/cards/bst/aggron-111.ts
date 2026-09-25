@@ -37,7 +37,7 @@ export class Aggron_111 extends PokemonCard {
       return commonEffects.reduceDamageNextTurn(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* spreadAllMine:30 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "spreadAllMine:30");
     }
     return state;
   }

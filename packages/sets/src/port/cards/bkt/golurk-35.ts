@@ -40,7 +40,7 @@ export class Golurk_35 extends PokemonCard {
       return commonEffects.plusPower(this, store, state, effect).use(effect, 40);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -20, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return /* structural */ state;

@@ -39,7 +39,7 @@ export class Rayquaza_14 extends PokemonCard {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 99);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* attachBasicFromDiscard */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "attachBasicFromDiscard");
     }
     return state;
   }

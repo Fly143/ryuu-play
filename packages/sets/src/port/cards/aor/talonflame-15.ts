@@ -37,7 +37,7 @@ export class Talonflame_15 extends PokemonCard {
       return commonEffects.switchSelf(this, store, state, effect).use(effect);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -20, 1);
+      return commonEffects.selfDamage(this, store, state, effect).use(effect, 20);
     }
     return state;
   }

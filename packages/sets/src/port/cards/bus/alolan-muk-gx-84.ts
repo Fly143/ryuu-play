@@ -36,7 +36,7 @@ export class AlolanMukGX_84 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* bonusPerSpecialConditions:70 */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "bonusPerSpecialConditions:70");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.discardEnergyDefending(this, store, state, effect).use(effect, 1);
