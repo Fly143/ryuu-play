@@ -2367,6 +2367,25 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Opponent Active cost more
     if re.search(r"attacks used by your opponent's active pok[eé]mon cost [\w ]*more", t):
         return ["moreAttackCostOpponent"]
+    # Discard a card from hand (with parenthetical), draw N
+    if re.search(r"discard a card from your hand\.[^{]*\)\s*draw (\d+) cards?", t):
+        m = re.search(r"draw (\d+)", t)
+        return [f"discardFromHand:1", f"draw:{m.group(1) if m else 3}"]
+    # Baby: put named pokemon from hand onto this
+    if re.search(r"you may put [\w' -]+ from your hand onto [\w' -]+", t):
+        return ["searchBasicToBench:1"]
+    # Search deck for TYPE energy
+    if re.search(r"search your deck for a [\w ]*energy card,? show it to your opponent", t):
+        return ["searchEnergyToHand:1"]
+    # Choose 1 card from opponent's hand without looking
+    if re.search(r"choose 1 card from your opponent's hand without looking", t):
+        return ["discardRandomOpponentHand:1"]
+    # Once during your turn, move basic Energy
+    if re.search(r"once during your turn.{0,60}you may move a basic energy from 1 of your pok[eé]mon", t):
+        return ["energyTrans"]
+    # Frozen City already roughSkin - ensure hits
+    if re.search(r"excluding team plasma pok[eé]mon\) put (\d+) damage counters", t):
+        return ["roughSkin"]
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]
@@ -3692,6 +3711,12 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["dittoTransform"]
     if re.search(r"if this pok[eé]mon is your active pok[eé]mon,? you may have you", t):
         return ["gustOpponent"]
+    if re.search(r"you may put [\w' -]+ from your hand onto [\w' -]+", t):
+        return ["searchBasicToBench:1"]
+    if re.search(r"once during your turn.{0,60}you may move a basic energy from 1 of your pok[eé]mon", t):
+        return ["energyTrans"]
+    if re.search(r"once during your turn.{0,40}you may put [\w' -]+ from your hand", t):
+        return ["searchBasicToBench:1"]
     if re.search(r"once during your turn.{0,80}you may shuffle 1 of your benched pok[eé]mon and all", t):
         return ["shuffleBenchToDeck"]
     if re.search(r"attacks cost [\w ]*more", t) and ("as long as" in t or "your opponent" in t):

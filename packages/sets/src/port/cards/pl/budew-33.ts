@@ -46,6 +46,9 @@ export class Budew_33 extends PokemonCard {
     if (effect instanceof BetweenTurnsEffect) {
       return commonEffects.refreshPowerAura(this, store, state, effect.player, "preventEffectsSelf");
     }
+    if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchBasicToBench:1");
+    }
     return state;
   }
 }
