@@ -17,7 +17,7 @@ export class GiovanniSScheme_162 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.drawUntilHand(this, store, state, effect).playCard(effect as TrainerEffect, 5);
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "plusPowerMarker:20");
     }
     return state;
   }

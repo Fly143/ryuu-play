@@ -1,6 +1,7 @@
 import {
   AttackEffect,
   Effect,
+  Player,
   PokemonCard,
   Power,
   PowerEffect,
@@ -10,8 +11,30 @@ import {
   TrainerEffect,
 } from '@ptcg/common';
 
-import { applyAttackOp, applyPowerOp, applyTrainerOp } from '../effect-ops';
+import { applyAttackOp, applyContinuousAura, applyPowerOp, applyTrainerOp } from '../effect-ops';
 import { CommonAttack, CommonPower, CommonTrainer } from '../common.interfaces';
+
+/**
+ * Re-apply a continuous aura/markers while this Pokemon is in play.
+ * Called from BetweenTurnsEffect handlers on generated cards.
+ */
+export function refreshPowerAura(
+  self: PokemonCard,
+  store: StoreLike,
+  state: State,
+  player: Player,
+  op: string,
+): State {
+  const owned =
+    player.active.pokemons.cards.includes(self) ||
+    player.bench.some(b => b.pokemons.cards.includes(self));
+  if (!owned) {
+    return state;
+  }
+  applyContinuousAura(store, state, self, player, [op], state.turn);
+  return state;
+}
+
 
 /**
  * Generic EffectOp runner. Prefer named fields when available;

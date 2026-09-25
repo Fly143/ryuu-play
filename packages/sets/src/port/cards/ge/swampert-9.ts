@@ -39,7 +39,7 @@ export class Swampert_9 extends PokemonCard {
       return commonEffects.millOpponent(this, store, state, effect).use(effect, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.energyTrans(this, store, state, effect).use(effect as any);
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "oncePerTurnAttachFromHand");
     }
     return state;
   }

@@ -33,6 +33,9 @@ export class StoutlandV_157 extends PokemonCard {
   public text: string = "Stoutland V";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "plusPrize:1");
+    }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.selfDamage(this, store, state, effect).use(effect, 30);
     }

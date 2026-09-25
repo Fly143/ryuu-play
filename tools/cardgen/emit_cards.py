@@ -267,6 +267,35 @@ COND_ENUM = {
     "BURN": "BURNED",
 }
 
+# Ops that are always-on (re-applied via BetweenTurnsEffect).
+CONTINUOUS_POWER_OPS = {
+    "reduceDamageSelf",
+    "preventEffectsSelf",
+    "preventEffectsMarker",
+    "roughSkin",
+    "poisonPoint",
+    "noRetreatCost",
+    "noTrainers",
+    "noEvolution",
+    "noPowers",
+    "moreRetreatCostOpponent",
+    "immuneToSpecial",
+    "halfDamageTaken",
+    "plusPowerMarker",
+    "plusPrize",
+    "auraReduceDamage",
+    "auraPreventEffects",
+    "auraNoRetreatCost",
+    "auraPlusDamage",
+    "auraProtectBench",
+    "auraCantRetreatOpponent",
+    "continuousStatic",
+}
+
+
+def is_continuous_op(op: str) -> bool:
+    return op.split(":")[0] in CONTINUOUS_POWER_OPS
+
 
 def emit_pokemon(p: dict) -> str:
     cn = class_name(p["name"], p["set"], p.get("number") or "")
@@ -316,6 +345,13 @@ def emit_pokemon(p: dict) -> str:
                 f"      return {body};\n"
                 f"    }}"
             )
+            if is_continuous_op(op) and op.split(":")[0] != "continuousStatic":
+                # Re-apply markers every between-turns while this Pokemon is in play.
+                calls.append(
+                    f"    if (effect instanceof BetweenTurnsEffect) {{\n"
+                    f"      return commonEffects.refreshPowerAura(this, store, state, effect.player, {ts_str(op)});\n"
+                    f"    }}"
+                )
 
     reduce_body = "\n".join(calls) if calls else "    /* no scripted effect */"
     powers_block = (
@@ -334,12 +370,15 @@ def emit_pokemon(p: dict) -> str:
     )
     uses_attack = "AttackEffect" in (reduce_body or "")
     uses_power = "PowerEffect" in (reduce_body or "")
+    uses_between = "BetweenTurnsEffect" in (reduce_body or "")
 
     imports: list[str] = ["Effect", "State", "StoreLike"]
     if uses_attack:
         imports.append("AttackEffect")
     if uses_power:
         imports.append("PowerEffect")
+    if uses_between:
+        imports.append("BetweenTurnsEffect")
     imports += ["Attack", "CardType", "PokemonCard", "Power", "PowerType", "Stage", "Weakness", "Resistance"]
     if uses_special:
         imports.append("SpecialCondition")

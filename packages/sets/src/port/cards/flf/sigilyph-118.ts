@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -40,6 +41,9 @@ export class Sigilyph_118 extends PokemonCard {
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "preventEffectsSelf");
     }
     return state;
   }

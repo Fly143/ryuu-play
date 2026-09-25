@@ -3,6 +3,8 @@ import {
   State,
   StoreLike,
   AttackEffect,
+  PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -40,6 +42,12 @@ export class Dugtrio_5 extends PokemonCard {
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.selfDamage(this, store, state, effect).use(effect, 10);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "auraPreventEffects");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "auraPreventEffects");
     }
     return state;
   }

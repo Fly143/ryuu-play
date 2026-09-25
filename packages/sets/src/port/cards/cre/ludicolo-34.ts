@@ -3,6 +3,7 @@ import {
   State,
   StoreLike,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -36,6 +37,9 @@ export class Ludicolo_342 extends PokemonCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPowerMarker:100");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "plusPowerMarker:100");
     }
     return state;
   }

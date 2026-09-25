@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -44,6 +45,12 @@ export class Golurk_35 extends PokemonCard {
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return /* structural */ state;
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
+      return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "preventEffectsSelf");
     }
     return state;
   }

@@ -1805,6 +1805,14 @@ export function applyPowerOp(
       player.active.marker.addMarker('PLUS_PRIZE_' + n, self, state.turn + 1);
       return state;
     }
+    case 'auraReduceDamage':
+    case 'auraPreventEffects':
+    case 'auraNoRetreatCost':
+    case 'auraPlusDamage':
+    case 'auraProtectBench':
+    case 'auraCantRetreatOpponent':
+      applyContinuousAura(store, state, self, player, [op], state.turn);
+      return state;
     case 'attachBasicFromHandToBench': {
       const n = parseIntArg(op, 1, 1);
       const slots = player.bench.filter(b => b.pokemons.cards.length > 0);
@@ -1839,7 +1847,11 @@ export function applyContinuousAura(
   store: StoreLike,
   state: State,
   self: PokemonCard,
-  player: { active: PokemonSlot; forEachPokemon: (pt: PlayerType, h: (s: PokemonSlot) => void) => void },
+  player: {
+    active: PokemonSlot;
+    marker: { addMarker: (name: string, source: Card, untilTurn?: number) => void };
+    forEachPokemon: (pt: PlayerType, h: (s: PokemonSlot) => void) => void;
+  },
   ops: EffectOp[],
   turn: number,
 ): void {
@@ -1847,13 +1859,16 @@ export function applyContinuousAura(
     const name = parseStrArg(op, 0);
     const n = parseIntArg(op, 1, 0);
     switch (name) {
-      case 'auraReduceDamage': {
+      case 'auraReduceDamage':
+      case 'reduceDamageSelf': {
         player.forEachPokemon(PlayerType.BOTTOM_PLAYER, slot => {
           slot.marker.addMarker('REDUCE_DAMAGE_' + (n || 20), self, turn + 1);
         });
         break;
       }
-      case 'auraPreventEffects': {
+      case 'auraPreventEffects':
+      case 'preventEffectsSelf':
+      case 'preventEffectsMarker': {
         player.active.marker.addMarker('PREVENT_EFFECTS', self, turn + 1);
         break;
       }
@@ -1861,12 +1876,35 @@ export function applyContinuousAura(
         // applied by engine when refreshing opponent slots
         break;
       }
-      case 'auraNoRetreatCost': {
+      case 'auraNoRetreatCost':
+      case 'noRetreatCost':
+      case 'ZERO_RETREAT': {
         player.active.marker.addMarker('ZERO_RETREAT', self, turn + 1);
         break;
       }
-      case 'auraPlusDamage': {
+      case 'auraPlusDamage':
+      case 'plusPowerMarker': {
         player.active.marker.addMarker('PLUS_POWER_' + (n || 10), self, turn + 1);
+        break;
+      }
+      case 'roughSkin': {
+        player.active.marker.addMarker('ROUGH_SKIN', self, turn + 1);
+        break;
+      }
+      case 'poisonPoint': {
+        player.active.marker.addMarker('POISON_POINT', self, turn + 1);
+        break;
+      }
+      case 'noTrainers': {
+        player.marker.addMarker('NO_TRAINERS', self, turn + 1);
+        break;
+      }
+      case 'noEvolution': {
+        player.marker.addMarker('NO_EVOLUTION', self, turn + 1);
+        break;
+      }
+      case 'moreRetreatCostOpponent': {
+        player.marker.addMarker('MORE_RETREAT_OPPONENT', self, turn + 1);
         break;
       }
       default:

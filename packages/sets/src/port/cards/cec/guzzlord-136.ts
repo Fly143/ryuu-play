@@ -36,6 +36,9 @@ export class Guzzlord_136 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.millOpponent(this, store, state, effect).use(effect, 1);
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "plusPrize:1");
+    }
     return state;
   }
 }

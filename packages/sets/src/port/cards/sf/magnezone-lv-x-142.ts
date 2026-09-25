@@ -40,7 +40,7 @@ export class MagnezoneLVX_142 extends PokemonCard {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.energyTrans(this, store, state, effect).use(effect as any);
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "oncePerTurnAttachFromHand");
     }
     return state;
   }

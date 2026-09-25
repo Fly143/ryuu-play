@@ -3,6 +3,8 @@ import {
   State,
   StoreLike,
   AttackEffect,
+  PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -36,6 +38,12 @@ export class RayquazaDeoxysLEGEND_90 extends PokemonCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 99);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPrize:1");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "plusPrize:1");
     }
     return state;
   }

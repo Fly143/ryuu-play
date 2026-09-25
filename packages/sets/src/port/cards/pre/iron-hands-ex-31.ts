@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  AttackEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -11,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class IronHandsEx_31 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -31,7 +33,9 @@ export class IronHandsEx_31 extends PokemonCard {
   public text: string = "Iron Hands ex";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
-    /* no scripted effect */
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "plusPrize:1");
+    }
     return state;
   }
 }

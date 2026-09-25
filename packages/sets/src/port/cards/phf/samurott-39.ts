@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -40,6 +41,9 @@ export class Samurott_39 extends PokemonCard {
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.reduceDamageSelfPower(this, store, state, effect).reduce(effect.power, 20);
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "reduceDamageSelf:20");
     }
     return state;
   }

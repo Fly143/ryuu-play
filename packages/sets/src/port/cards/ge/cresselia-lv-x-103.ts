@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  AttackEffect,
   PowerEffect,
   Attack,
   CardType,
@@ -12,6 +13,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class CresseliaLVX_103 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -33,8 +35,11 @@ export class CresseliaLVX_103 extends PokemonCard {
   public text: string = "Cresselia LV.X";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "plusPrize:1");
+    }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "moveDamageCounters");
     }
     return state;
   }

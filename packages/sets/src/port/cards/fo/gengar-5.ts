@@ -39,7 +39,7 @@ export class Gengar_5 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "moveDamageCounters");
     }
     return state;
   }

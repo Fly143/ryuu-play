@@ -40,7 +40,7 @@ export class Meganium_54 extends PokemonCard {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.POISONED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.healSelfPower(this, store, state, effect).reduce(effect.power, 10);
     }
     return state;
   }

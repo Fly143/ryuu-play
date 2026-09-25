@@ -3,6 +3,8 @@ import {
   State,
   StoreLike,
   AttackEffect,
+  PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -38,6 +40,12 @@ export class Roselia_9 extends PokemonCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "immuneToSpecial");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "immuneToSpecial");
     }
     return state;
   }

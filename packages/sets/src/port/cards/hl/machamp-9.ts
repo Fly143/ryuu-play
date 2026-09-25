@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -44,6 +45,9 @@ export class Machamp_92 extends PokemonCard {
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "plusPowerMarker:30");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "plusPowerMarker:30");
     }
     return state;
   }

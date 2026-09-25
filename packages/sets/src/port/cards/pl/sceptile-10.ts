@@ -44,7 +44,7 @@ export class Sceptile_10 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.energyTrans(this, store, state, effect).use(effect as any);
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "oncePerTurnAttachFromHand");
     }
     return state;
   }

@@ -36,6 +36,9 @@ export class Marshadow_802 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.runAttackOp(this, store, state, effect).use(effect, "searchAnyToHand:2");
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "plusPrize:1");
+    }
     return state;
   }
 }

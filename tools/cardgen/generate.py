@@ -1653,7 +1653,7 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
         return ["discardEnergyDefending:1"]
     # Take 1 more Prize when KO by this Pokemon
     if re.search(r"take 1 more prize card", t):
-        return ["noop"]
+        return ["plusPrize:1"]
     # Does N damage times number of TYPE on your Bench
     m = re.search(r"this attack does (\d+) damage times the number of [\w ]+ pok[eé]mon on your bench", t)
     if m:
@@ -2013,7 +2013,17 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if nm in NAME_OPS:
         return NAME_OPS[nm][:]
 
-    # Shuffle your hand into your deck. Then, draw N cards.
+    # During this turn, attacks used by your Pokémon do N more damage
+    m = re.search(r"during this turn,? (?:attacks used by |the attacks of )?your pok[eé]mon(?:'s attacks)? do (\d+) more damage", t)
+    if m:
+        return [f"plusPowerMarker:{m.group(1)}"]
+    m = re.search(r"your pok[eé]mon's attacks do (\d+) more damage to your opponent's active", t)
+    if m:
+        return [f"plusPowerMarker:{m.group(1)}"]
+    if re.search(r"prevent all effects of your opponent's pok[eé]mon's abilities done to", t):
+        return ["preventEffectsMarker"]
+    if re.search(r"take 1 more prize card", t):
+        return ["plusPrize:1"]
     m = re.search(
         r"shuffle your hand into your deck\.?\s*(?:then,?\s*)?draw (?:a card|(\d+|two|three|four|five|six|seven|eight|nine|ten)) cards?",
         t,
@@ -2587,7 +2597,7 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
 
     # As often as you like during your turn, you may ...
     if re.search(r"as often as you like during your turn", t):
-        if "attach" in t and "from your hand" in t:
+        if "attach" in t:
             return ["oncePerTurnAttachFromHand"]
         if "move" in t and "energy" in t:
             return ["energyTrans"]
@@ -2659,7 +2669,7 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         return ["poisonPoint"]
 
     # Static continuous text without a use — mark structural
-    if ("as long as" in t or "while in play" in t or "this pok" in t) and "once" not in t and len(t) < 180:
+    if ("as long as" in t or "while in play" in t) and "once" not in t and len(t) < 180:
         return ["continuousStatic"]
     if t.startswith("you can't") or t.startswith("this power can't") or "can't be used if" in t:
         return ["continuousStatic"]
@@ -2672,6 +2682,15 @@ def match_power(text: str) -> Optional[list[str]]:
     t = norm_text(text).lower()
     if not t:
         return []
+    if re.search(r"take 1 more prize card", t):
+        return ["plusPrize:1"]
+    if re.search(r"prevent all effects of your opponent's pok[eé]mon's abilities done to", t):
+        return ["preventEffectsSelf"]
+    if re.search(r"prevent all effects of your opponent's pok[eé]mon's abilities", t):
+        return ["preventEffectsSelf"]
+    if re.search(r"attacks used by your pok[eé]mon do (\d+) more damage", t) and "once" not in t:
+        m = re.search(r"(\d+) more damage", t)
+        return [f"auraPlusDamage:{m.group(1) if m else 20}"]
     if ("once during your turn" in t or "once per turn" in t) and "draw" in t and len(t) < 140:
         m = re.search(r"draw (\d+|a|two|three) cards?", t)
         if m:
@@ -2724,10 +2743,35 @@ def match_power(text: str) -> Optional[list[str]]:
             return ["pokedex"]
 
     if re.search(r"as often as you like during your turn", t):
-        if "attach" in t and "hand" in t:
+        if "attach" in t:
             return ["oncePerTurnAttachFromHand"]
         if "move" in t and "energy" in t:
             return ["energyTrans"]
+        if "move" in t and "damage counter" in t:
+            return ["moveDamageCounters"]
+
+    # Once during your turn, flip / look / move / prevent trainers
+    if re.search(r"once during your turn.{0,80}flip a coin\.\s*if heads,?\s*remove 1 damage counter", t):
+        return ["oncePerTurnHeal:10"]
+    if re.search(r"once during your turn.{0,80}flip a coin\.\s*if heads,?\s*heal (\d+)", t):
+        m = re.search(r"heal (\d+)", t)
+        return [f"oncePerTurnHeal:{m.group(1) if m else 10}"]
+    if re.search(r"once during your turn.{0,80}you may look at", t):
+        return ["pokedex"]
+    if re.search(r"once during your turn.{0,80}you may move 1 damage counter", t):
+        return ["moveDamageCounters"]
+    if re.search(r"once during your turn.{0,80}you may change the type of", t):
+        return ["noop"]
+    if re.search(r"whenever your opponent plays a trainer card.{0,60}prevent all effects of that card", t):
+        return ["preventEffectsMarker"]
+    if re.search(r"this pok[eé]mon may have up to \d+ pok[eé]mon tool", t):
+        return ["continuousStatic"]
+    if re.search(r"this pok[eé]mon may attack twice", t):
+        return ["continuousStatic"]
+    if re.search(r"when this pok[eé]mon is healed,? double", t):
+        return ["continuousStatic"]
+    if re.search(r"you may play this card from your hand to evolve", t):
+        return ["noop"]
 
     m = re.search(r"attacks do (\d+) more damage", t)
     if m:
@@ -2836,7 +2880,7 @@ def match_power(text: str) -> Optional[list[str]]:
     if re.search(r"whenever an attack does anything to .+, flip a coin\.\s*if heads,?\s*prevent", t):
         return ["preventEffectsSelf"]
     if re.search(r"if your opponent's pok[eé]mon is knocked out by damage from an attack of this pok[eé]mon,? take 1 more prize", t):
-        return ["noop"]
+        return ["plusPrize:1"]
     if re.search(r"once during your turn \(before your attack\), if [\w' -]+ is on your bench, you may switch", t):
         return ["switchSelf"]
     if re.search(r"as often as you like during your turn \(before your attack\), you may move 1 damage counter", t):
@@ -2845,6 +2889,32 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["energyTrans"]
     if re.search(r"once during your turn \(before your attack\), you may attach an? [\w ]*energy", t):
         return ["oncePerTurnAttachFromHand"]
+
+    # ---- continuous / aura patterns (before continuousStatic fallback) ----
+    if re.search(r"retreat cost is [\w ]*less|pay [\w ]*less to retreat|has no retreat cost|no retreat cost", t):
+        return ["auraNoRetreatCost"]
+    if re.search(r"takes? (\d+) less damage|damage .{0,30}is reduced by (\d+)|reduced by (\d+) \(after applying", t):
+        m = re.search(r"(\d+) less damage|reduced by (\d+)", t)
+        n = (m.group(1) or m.group(2)) if m else "20"
+        return [f"auraReduceDamage:{n}"]
+    if re.search(r"prevent all (?:effects of attacks|damage|effects of your opponent's pok[eé]mon's abilities)", t):
+        return ["auraPreventEffects"]
+    if re.search(r"attacks? (?:used by your pok[eé]mon |do )?(\d+) more damage", t) and ("as long as" in t or "while" in t or "each of your" in t):
+        m = re.search(r"(\d+) more damage", t)
+        return [f"auraPlusDamage:{m.group(1) if m else 20}"]
+    if re.search(r"attacks? do (\d+) more damage", t) and "as long as" in t:
+        m = re.search(r"(\d+) more damage", t)
+        return [f"auraPlusDamage:{m.group(1) if m else 20}"]
+    if re.search(r"no trainer cards can be played|can't play any (?:item|trainer)", t):
+        return ["noTrainers"]
+    if re.search(r"no more evolution cards can be played|evolution cards can't be played", t):
+        return ["noEvolution"]
+    if re.search(r"your opponent pays .{0,30}more to retreat", t):
+        return ["moreRetreatCostOpponent"]
+    if re.search(r"no weakness|has no weakness", t) and "as long as" in t:
+        return ["continuousStatic"]
+    if re.search(r"can't be affected by any special conditions|can't become asleep", t):
+        return ["immuneToSpecial"]
 
     if ("as long as" in t or "while in play" in t) and "once" not in t and len(t) < 180:
         return ["continuousStatic"]
@@ -2953,16 +3023,22 @@ def build_plan(card: dict, meta: dict) -> dict:
         # ancient trait
         at = card.get("ancientTrait")
         if at:
+            at_text = norm_text(at.get("text") or "")
+            at_ops = match_power(at_text)
+            if at_ops is None:
+                at_ops = best_effort_power(at_text)
+            if at_ops is None:
+                at_ops = ["noop"]
             powers_out.append(
                 {
                     "name": at.get("name") or "Ancient Trait",
                     "type": "Ancient Trait",
-                    "text": norm_text(at.get("text") or ""),
-                    "ops": ["noop"],
+                    "text": at_text,
+                    "ops": at_ops,
                     "useWhenInPlay": False,
                 }
             )
-            coverage_flags.append("metadata")
+            coverage_flags.append("metadata" if at_ops == ["noop"] and at_text else "full")
 
         # Prize / deck rule box on Pokemon is engine-side (CardTag / DeckAnalyser) — ignore for coverage.
         rules_text = " ".join(norm_text(r) for r in (card.get("rules") or []))

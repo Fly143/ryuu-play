@@ -39,7 +39,7 @@ export class LtSurgeSMagneton_8 extends PokemonCard {
       return commonEffects.flipTailsSelfDamage(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "oncePerTurnAttachFromHand");
     }
     return state;
   }
