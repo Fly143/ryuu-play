@@ -2259,6 +2259,45 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Choose opponent's evolved Pokemon
     if re.search(r"choose a number of your opponent's stage", t):
         return ["putDamageCounters:1"]
+    # Flip until tails, draw per heads
+    if re.search(r"flip a coin until (?:he or she |they |you )(?:gets?|get) tails\.\s*for each heads,?\s*(?:that player |)draws? a card", t):
+        return ["flipsDrawPerHeads:20"]
+    # Retreat cost more stadium
+    if re.search(r"retreat cost of each pok[eé]mon in play .{0,30}is [\w ]*more", t):
+        return ["moreRetreatCostOpponent"]
+    # Search deck for named basic + energy
+    if re.search(r"search your deck for a basic [\w ]*pok[eé]mon and a basic [\w ]*energy", t):
+        return ["searchAnyToHand:2"]
+    # When put basic from hand onto bench, put damage
+    if re.search(r"whenever any player puts a basic pok[eé]mon .{0,40}from .{0,20}hand onto .{0,20}bench,? put (\d+) damage", t):
+        return ["roughSkin"]
+    # Weakness x2
+    if re.search(r"apply weakness .{0,30}as .?2 instead|weakness .{0,20}as ×2", t):
+        return ["continuousStatic"]
+    # Lost zone win
+    if re.search(r"pok[eé]mon in the lost zone,? the player may choose to win", t):
+        return ["continuousStatic"]
+    # Ask if take a prize, else draw 4
+    if re.search(r"ask your opponent if each player may take a prize", t):
+        return ["draw:4"]
+    # Instead of free energy attach 2
+    if re.search(r"instead of attaching your free energy card,? you may instead attach", t):
+        return ["oncePerTurnAttachFromHand"]
+    # Darkness tool in active damaged
+    if re.search(r"if the darkness pok[eé]mon this card is attached to is in the active spot and is damaged", t):
+        return ["roughSkin"]
+    # More prizes remaining, cost less
+    if re.search(r"if you have more prize cards remaining than your opponent", t):
+        return ["continuousStatic"]
+    # Team Rocket supporter then draw
+    if re.search(r"played a supporter card that has .{0,20}team rocket in its name", t):
+        return ["draw:2"]
+    # Flip heads, search Evolution Team Rocket
+    if re.search(r"flip a coin\.\s*if heads,?\s*search your deck for an evolution", t):
+        return ["searchPokemonToHand:1"]
+    # Prize cards into hand
+    if re.search(r"put up to (\d+) prize cards? into your hand", t):
+        return ["noop"]
     # Tool: opponent takes fewer prizes
     if re.search(r"your opponent takes (\d+) fewer prize", t):
         return ["noop"]
