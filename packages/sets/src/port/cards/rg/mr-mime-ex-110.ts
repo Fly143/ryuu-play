@@ -1,0 +1,42 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  PowerEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class MrMimeEx_110 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 80;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Magic Odds", powerType: PowerType.ABILITY, text: "If Mr. Mime ex would be damaged by an attack, prevent that attack's damage done to Mr. Mime ex if that damage is 10, 30, 50, 70, 90, 110, 130, 150, or 170.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Breakdown", cost: [], damage: "", text: "Count the number of cards in your opponent's hand. Put that many damage counters on the Defending Pokémon." }
+  ];
+  public set: string = "RG";
+  public name: string = "Mr. Mime ex";
+  public fullName: string = "Mr. Mime ex RG 110";
+  public text: string = "Mr. Mime ex";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.roughSkinPower(this, store, state, effect).reduce(effect.power);
+    }
+    return state;
+  }
+}

@@ -7,4 +7,6 @@ export * as commonPowers from './powers';
 
 export * as commonTrainers from './trainers';
 
+export * as commonEffects from './effects';
+
 export * as changeType from './change-type';

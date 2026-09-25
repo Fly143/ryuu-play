@@ -1,0 +1,42 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+  SpecialCondition,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Gulpin_91 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 70;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Drool", cost: [], damage: "10", text: "" },
+      { name: "Super Poison Breath", cost: [], damage: "30", text: "Your opponent's Active Pokémon is now Poisoned." }
+  ];
+  public set: string = "SCR";
+  public name: string = "Gulpin";
+  public fullName: string = "Gulpin SCR 91";
+  public text: string = "Gulpin";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
+    }
+    return state;
+  }
+}

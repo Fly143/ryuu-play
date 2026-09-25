@@ -1,0 +1,41 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  PowerEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Klefki_159 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 70;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Mischievous Lock", powerType: PowerType.ABILITY, text: "As long as this Pokémon is in the Active Spot, Basic Pokémon in play (both yours and your opponent's) have no Abilities, except for Mischievous Lock.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Joust", cost: [], damage: "10", text: "Before doing damage, discard all Pokémon Tools from your opponent's Active Pokémon." }
+  ];
+  public set: string = "PAF";
+  public name: string = "Klefki";
+  public fullName: string = "Klefki PAF 159";
+  public text: string = "Klefki";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return /* structural */ state;
+    }
+    return state;
+  }
+}

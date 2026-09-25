@@ -1,0 +1,41 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class ChatotG_54 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 60;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Disrupting Spy", powerType: PowerType.ABILITY, text: "Once during your turn, when you put Chatot G from your hand onto your Bench, you may look at the top 4 cards of your opponent's deck. Put them back on top of your opponent's deck in any order.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Search and Escape", cost: [], damage: "", text: "Search your deck for a Trainer card, show it to your opponent, and put it into your hand. Put Chatot G and all cards attached to it on top of your deck. Shuffle your deck afterward." }
+  ];
+  public set: string = "SV";
+  public name: string = "Chatot G";
+  public fullName: string = "Chatot G SV 54";
+  public text: string = "Chatot G";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* searchTrainerToHand:1 */ state;
+    }
+    return state;
+  }
+}

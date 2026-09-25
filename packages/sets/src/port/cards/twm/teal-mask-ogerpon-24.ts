@@ -1,0 +1,44 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class TealMaskOgerpon_24 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 110;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Mountain Stroll", cost: [], damage: "", text: "Search your deck for up to 2 Basic Energy cards, reveal them, and put them into your hand. Then, shuffle your deck." },
+      { name: "Ogre Comeback", cost: [], damage: "20+", text: "This attack does 20 more damage for each of your opponent's Benched Pokémon." }
+  ];
+  public set: string = "TWM";
+  public name: string = "Teal Mask Ogerpon";
+  public fullName: string = "Teal Mask Ogerpon TWM 24";
+  public text: string = "Teal Mask Ogerpon";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* searchEnergyToHand:2 */ state;
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.bonusPerOpponentBench(this, store, state, effect).use(effect, 20);
+    }
+    return state;
+  }
+}

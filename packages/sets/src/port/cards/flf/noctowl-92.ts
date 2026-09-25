@@ -1,0 +1,43 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Noctowl_92 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Hoothoot";
+  public hp: number = 90;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Powerful Vision", cost: [], damage: "10×", text: "Does 10 damage times the number of cards in your opponent's hand." },
+      { name: "Fly", cost: [], damage: "50", text: "Flip a coin. If tails, this attack does nothing. If heads, prevent all effects of attacks, including damage, done to this Pokémon during your opponent's next turn." }
+  ];
+  public set: string = "FLF";
+  public name: string = "Noctowl";
+  public fullName: string = "Noctowl FLF 92";
+  public text: string = "Noctowl";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* damageTimesHand:10:opponent */ state;
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return /* structural */ state;
+    }
+    return state;
+  }
+}

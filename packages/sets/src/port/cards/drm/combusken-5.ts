@@ -1,0 +1,41 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Combusken_5 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Torchic";
+  public hp: number = 80;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Natural Cure", powerType: PowerType.ABILITY, text: "Whenever you attach an Energy card from your hand to this Pokémon, remove all Special Conditions from it.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Lunge", cost: [], damage: "60", text: "Flip a coin. If tails, this attack does nothing." }
+  ];
+  public set: string = "DRM";
+  public name: string = "Combusken";
+  public fullName: string = "Combusken DRM 5";
+  public text: string = "Combusken";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* structural */ state;
+    }
+    return state;
+  }
+}

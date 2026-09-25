@@ -1,0 +1,40 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Heliolisk_155 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Helioptile";
+  public hp: number = 110;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Parabolic Charge", cost: [], damage: "", text: "Search your deck for up to 4 Energy cards, reveal them, and put them into your hand. Then, shuffle your deck." },
+      { name: "Electroslug", cost: [], damage: "80", text: "" }
+  ];
+  public set: string = "SSP";
+  public name: string = "Heliolisk";
+  public fullName: string = "Heliolisk SSP 155";
+  public text: string = "Heliolisk";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* searchAnyToHand:4 */ state;
+    }
+    return state;
+  }
+}

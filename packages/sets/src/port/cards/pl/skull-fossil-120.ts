@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class SkullFossil_120 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.ITEM;
+  public set: string = "PL";
+  public name: string = "Skull Fossil";
+  public fullName: string = "Skull Fossil PL 120";
+  public text: string = "Play Skull Fossil as if it were a Colorless Basic Pokémon. (Skull Fossil counts as a Trainer card as well, but if Skull Fossil is Knocked Out, this counts as a Knocked Out Pokémon.) Skull Fossil can't be affected by any Special Conditions and can't retreat. At any time during your turn before your attack, you may discard Skull Fossil from play. (This doesn't count as a Knocked Out Pokémon.)";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      return /* structural */ state;
+    }
+    return state;
+  }
+}

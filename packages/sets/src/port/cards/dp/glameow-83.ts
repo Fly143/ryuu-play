@@ -1,0 +1,44 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Glameow_83 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 50;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Charm", cost: [], damage: "", text: "During your opponent's next turn, any damage done by attacks from the Defending Pokémon is reduced by 20 (before applying Weakness and Resistance)." },
+      { name: "Pose", cost: [], damage: "30", text: "Flip a coin. If tails, this attack does nothing." }
+  ];
+  public set: string = "DP";
+  public name: string = "Glameow";
+  public fullName: string = "Glameow DP 83";
+  public text: string = "Glameow";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.selfReduceDamageNextTurn(this, store, state, effect).use(effect, 20);
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return /* structural */ state;
+    }
+    return state;
+  }
+}

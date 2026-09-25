@@ -1,0 +1,40 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Chansey_51 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 130;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Delicious Egg", cost: [], damage: "", text: "Heal 30 damage from 1 of your Benched Pokémon." },
+      { name: "Gentle Slap", cost: [], damage: "30", text: "" }
+  ];
+  public set: string = "PGO";
+  public name: string = "Chansey";
+  public fullName: string = "Chansey PGO 51";
+  public text: string = "Chansey";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* healBench:30 */ state;
+    }
+    return state;
+  }
+}

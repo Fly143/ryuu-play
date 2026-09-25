@@ -10,6 +10,32 @@ import { PutDamageEffect, DealDamageEffect, DiscardCardsEffect,
 import { HealEffect } from '../effects/game-effects';
 import { StateUtils } from '../state-utils';
 
+/**
+ * If the damaged Pokemon has COUNTER_DAMAGE_n / POISON_POINT / ROUGH_SKIN markers,
+ * deal n (or 20) damage back to the attacker.
+ */
+function applyCounterDamageMarkers(
+  store: StoreLike,
+  state: State,
+  effect: PutDamageEffect,
+  _dealt: number,
+): void {
+  const target = effect.target;
+  const attacker = effect.attackEffect.player.active;
+  for (const m of target.marker.markers) {
+    let hit = 0;
+    const cm = /^COUNTER_DAMAGE_(\d+)$/.exec(m.name);
+    if (cm) {
+      hit = parseInt(cm[1], 10);
+    } else if (m.name === 'ROUGH_SKIN' || m.name === 'POISON_POINT') {
+      hit = 20;
+    }
+    if (hit > 0) {
+      attacker.damage += hit;
+    }
+  }
+}
+
 export function attackReducer(store: StoreLike, state: State, effect: Effect): State {
 
   if (effect instanceof PutDamageEffect) {
@@ -26,6 +52,9 @@ export function attackReducer(store: StoreLike, state: State, effect: Effect): S
       const afterDamageEffect = new AfterDamageEffect(effect.attackEffect, damage);
       afterDamageEffect.target = effect.target;
       store.reduceEffect(state, afterDamageEffect);
+
+      // Rough Skin / Poison Point style: counter damage to attacker
+      applyCounterDamageMarkers(store, state, effect, damage);
     }
   }
 

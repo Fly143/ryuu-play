@@ -1,0 +1,46 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  PowerEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Dragalge_53 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Skrelp";
+  public hp: number = 120;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Poison Point", powerType: PowerType.ABILITY, text: "If this Pokémon is your Active Pokémon and is damaged by an opponent's attack (even if this Pokémon is Knocked Out), the Attacking Pokémon is now Poisoned.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Twister", cost: [], damage: "60", text: "Flip 2 coins. For each heads, discard an Energy from your opponent's Active Pokémon. If both of them are tails, this attack does nothing." }
+  ];
+  public set: string = "FLI";
+  public name: string = "Dragalge";
+  public fullName: string = "Dragalge FLI 53";
+  public text: string = "Dragalge";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.discardEnergyDefending(this, store, state, effect).use(effect, 1);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.roughSkinPower(this, store, state, effect).reduce(effect.power);
+    }
+    return state;
+  }
+}

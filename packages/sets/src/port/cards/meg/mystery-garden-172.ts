@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class MysteryGarden_172 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.STADIUM;
+  public set: string = "MEG";
+  public name: string = "Mystery Garden";
+  public fullName: string = "Mystery Garden MEG 172";
+  public text: string = "Once during each player's turn, that player may discard an Energy card from their hand in order to draw cards until they have as many cards in their hand as they have Psychic Pokémon in play.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      /* structural */
+    }
+    return state;
+  }
+}

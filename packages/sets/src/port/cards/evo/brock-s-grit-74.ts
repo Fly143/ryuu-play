@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class BrockSGrit_74 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.SUPPORTER;
+  public set: string = "EVO";
+  public name: string = "Brock's Grit";
+  public fullName: string = "Brock's Grit EVO 74";
+  public text: string = "Shuffle 6 in any combination of Pokémon and basic Energy cards from your discard pile into your deck.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      return /* shuffleCardsFromDiscardToDeck:6 */ state;
+    }
+    return state;
+  }
+}

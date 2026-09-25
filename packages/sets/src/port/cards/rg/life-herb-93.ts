@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class LifeHerb_93 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.ITEM;
+  public set: string = "RG";
+  public name: string = "Life Herb";
+  public fullName: string = "Life Herb RG 93";
+  public text: string = "Flip a coin. If heads, choose 1 of your Pokémon (excluding Pokémon-ex), and remove all Special Conditions and 6 damage counters from that Pokémon (all if there are less than 6).";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      return /* clearSpecialConditions */ state;
+    }
+    return state;
+  }
+}

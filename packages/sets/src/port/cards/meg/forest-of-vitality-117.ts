@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class ForestOfVitality_117 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.STADIUM;
+  public set: string = "MEG";
+  public name: string = "Forest of Vitality";
+  public fullName: string = "Forest of Vitality MEG 117";
+  public text: string = "Each player's Grass Pokémon can evolve into Grass Pokémon during the turn they play those Pokémon, except during their first turn.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      /* structural */
+    }
+    return state;
+  }
+}

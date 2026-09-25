@@ -1,8 +1,10 @@
 import { Card } from '../card/card';
 
-interface MarkerItem {
+export interface MarkerItem {
   source: Card;
   name: string;
+  /** Absolute turn number after which this marker expires (inclusive end). */
+  untilTurn?: number;
 }
 
 export class Marker {
@@ -27,10 +29,19 @@ export class Marker {
     this.markers = this.markers.filter(c => c.source !== source || c.name !== name);
   }
 
-  addMarker(name: string, source: Card) {
+  addMarker(name: string, source: Card, untilTurn?: number) {
     if (this.hasMarker(name, source)) {
       return;
     }
-    this.markers.push({ name, source });
+    const item: MarkerItem = { name, source };
+    if (untilTurn !== undefined) {
+      item.untilTurn = untilTurn;
+    }
+    this.markers.push(item);
+  }
+
+  /** Drop markers whose untilTurn is strictly before the given turn. */
+  expireMarkers(turn: number) {
+    this.markers = this.markers.filter(m => m.untilTurn === undefined || m.untilTurn >= turn);
   }
 }

@@ -1,0 +1,37 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Shroomish_42 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 60;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Tackle", cost: [], damage: "10", text: "" },
+      { name: "Seed Bomb", cost: [], damage: "20", text: "" }
+  ];
+  public set: string = "EVS";
+  public name: string = "Shroomish";
+  public fullName: string = "Shroomish EVS 4";
+  public text: string = "Shroomish";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    /* no scripted effect */
+    return state;
+  }
+}

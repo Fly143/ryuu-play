@@ -20,10 +20,11 @@ config.sets.scansDir = __dirname + '/scans';
 config.sets.scansDownloadUrl = 'https://ptcg.ryuu.eu/scans'; // Server to download missing scans
 
 // Define available sets
-const { baseSets, exSets, standardSets } = require('@ptcg/sets');
+const { baseSets, exSets, standardSets, portSets } = require('@ptcg/sets');
 
 const cardManager = CardManager.getInstance();
 
+// Hand-written curated sets (high-fidelity effects)
 cardManager.defineFormat('Standard', [
   standardSets.setDiamondAndPearl,
   standardSets.setOp9,
@@ -47,6 +48,12 @@ cardManager.defineFormat('Base Sets', [
   baseSets.setFossil,
   baseSets.setTeamRocket
 ]);
+
+// Full catalog port (generated). fullNames are 'Name CODE NUM' to avoid clashing
+// with hand-written 'Name CODE' cards registered above.
+const allPorted = portSets.getAllPortedCards();
+cardManager.defineSet(allPorted);
+cardManager.defineFormat('Unlimited Port', [allPorted]);
 
 // Define bots
 const botManager = BotManager.getInstance();

@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class TVReporter_149 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.SUPPORTER;
+  public set: string = "CES";
+  public name: string = "TV Reporter";
+  public fullName: string = "TV Reporter CES 149";
+  public text: string = "Draw 3 cards. Then, discard a card from your hand. If you have no cards in your deck, you can't play this card.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      /* structural */
+    }
+    return state;
+  }
+}

@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class GrimsleySMove_90 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.SUPPORTER;
+  public set: string = "PFL";
+  public name: string = "Grimsley's Move";
+  public fullName: string = "Grimsley's Move PFL 90";
+  public text: string = "Look at the top 7 cards of your deck and put a Darkness Pokémon you find there onto your Bench. Shuffle the other cards and put them on the bottom of your deck. You can't use this card during your first turn.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      /* structural */
+    }
+    return state;
+  }
+}

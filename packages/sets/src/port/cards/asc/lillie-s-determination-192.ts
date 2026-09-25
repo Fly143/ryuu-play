@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class LillieSDetermination_192 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.SUPPORTER;
+  public set: string = "ASC";
+  public name: string = "Lillie's Determination";
+  public fullName: string = "Lillie's Determination ASC 192";
+  public text: string = "Shuffle your hand into your deck. Then, draw 6 cards. If you have exactly 6 Prize cards remaining, draw 8 cards instead.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      /* structural */
+    }
+    return state;
+  }
+}

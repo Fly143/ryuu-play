@@ -43,8 +43,20 @@ export function retreatReducer(store: StoreLike, state: State, effect: Effect): 
       throw new GameError(GameMessage.BLOCKED_BY_SPECIAL_CONDITION);
     }
 
+    // Continuous "can't retreat" markers (e.g. from attacks / abilities)
+    if (player.active.marker.hasMarker('CANT_RETREAT')
+      || player.active.marker.hasMarker('PREVENT_EFFECTS')) {
+      throw new GameError(GameMessage.BLOCKED_BY_EFFECT);
+    }
+
     if (player.retreatedTurn === state.turn) {
       throw new GameError(GameMessage.RETREAT_ALREADY_USED);
+    }
+
+    // Ability "no Retreat Cost"
+    if (player.active.marker.hasMarker('ZERO_RETREAT')) {
+      retreatPokemon(store, state, effect);
+      return state;
     }
 
     const checkRetreatCost = new CheckRetreatCostEffect(effect.player);

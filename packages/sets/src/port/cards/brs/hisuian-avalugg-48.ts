@@ -1,0 +1,46 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  PowerEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class HisuianAvalugg_48 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Bergmite";
+  public hp: number = 140;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Massive Ice", powerType: PowerType.ABILITY, text: "This Pokémon takes 30 less damage from attacks (after applying Weakness and Resistance).", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Mountain Gale", cost: [], damage: "100+", text: "If a Stadium is in play, this attack does 120 more damage. Then, discard that Stadium." }
+  ];
+  public set: string = "BRS";
+  public name: string = "Hisuian Avalugg";
+  public fullName: string = "Hisuian Avalugg BRS 48";
+  public text: string = "Hisuian Avalugg";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 120, 1);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.reduceDamageSelfPower(this, store, state, effect).reduce(effect.power, 30);
+    }
+    return state;
+  }
+}

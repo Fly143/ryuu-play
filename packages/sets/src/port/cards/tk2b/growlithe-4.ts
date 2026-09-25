@@ -1,0 +1,37 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Growlithe_43 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 60;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Bite", cost: [], damage: "10", text: "" },
+      { name: "Flame Tail", cost: [], damage: "40", text: "" }
+  ];
+  public set: string = "TK2B";
+  public name: string = "Growlithe";
+  public fullName: string = "Growlithe TK2B 4";
+  public text: string = "Growlithe";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    /* no scripted effect */
+    return state;
+  }
+}

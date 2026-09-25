@@ -1,0 +1,46 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  PowerEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Serperior_6 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Servine";
+  public hp: number = 130;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Royal Heal", powerType: PowerType.ABILITY, text: "At any time between turns, heal 10 damage from each of your Pokémon.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Leaf Tornado", cost: [], damage: "60", text: "Move as many Grass Energy attached to your Pokémon to your other Pokémon in any way you like." }
+  ];
+  public set: string = "BW";
+  public name: string = "Serperior";
+  public fullName: string = "Serperior BW 6";
+  public text: string = "Serperior";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.energyTrans(this, store, state, effect).use(effect);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return /* healBetweenTurns:10 */ state;
+    }
+    return state;
+  }
+}

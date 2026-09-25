@@ -1,0 +1,37 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Luxio_70 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Shinx";
+  public hp: number = 90;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Zap Kick", cost: [], damage: "30", text: "" },
+      { name: "Head Bolt", cost: [], damage: "60", text: "" }
+  ];
+  public set: string = "PAL";
+  public name: string = "Luxio";
+  public fullName: string = "Luxio PAL 70";
+  public text: string = "Luxio";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    /* no scripted effect */
+    return state;
+  }
+}

@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class EnergyRemoval2_82 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.ITEM;
+  public set: string = "UF";
+  public name: string = "Energy Removal 2";
+  public fullName: string = "Energy Removal 2 UF 82";
+  public text: string = "Flip a coin. If heads, choose 1 Energy card attached to 1 of your opponent's Pokémon and discard it.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      return /* discardEnergyDefending:1 */ state;
+    }
+    return state;
+  }
+}

@@ -1,0 +1,39 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Klink_123 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 50;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Call Sign", cost: [], damage: "", text: "Search your deck for a Pokémon, reveal it, and put it into your hand. Then, shuffle your deck." }
+  ];
+  public set: string = "PGO";
+  public name: string = "Klink";
+  public fullName: string = "Klink PGO 123";
+  public text: string = "Klink";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* searchPokemonToHand:1 */ state;
+    }
+    return state;
+  }
+}

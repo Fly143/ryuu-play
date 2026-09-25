@@ -1,0 +1,46 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  PowerEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class CopperajahEx_150 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Cufant";
+  public hp: number = 300;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Bronze Body", powerType: PowerType.ABILITY, text: "This Pokémon takes 30 less damage from attacks (after applying Weakness and Resistance).", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Nosequake", cost: [], damage: "260", text: "This attack also does 30 damage to each of your Benched Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)" }
+  ];
+  public set: string = "PAL";
+  public name: string = "Copperajah ex";
+  public fullName: string = "Copperajah ex PAL 150";
+  public text: string = "Copperajah ex";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -30, 1);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.reduceDamageSelfPower(this, store, state, effect).reduce(effect.power, 30);
+    }
+    return state;
+  }
+}

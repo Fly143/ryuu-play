@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class ScoopUpCyclone_128 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.ITEM;
+  public set: string = "PRE";
+  public name: string = "Scoop Up Cyclone";
+  public fullName: string = "Scoop Up Cyclone PRE 128";
+  public text: string = "Put 1 of your Pokémon and all attached cards into your hand. You may play any number of Item cards during your turn.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      /* structural */
+    }
+    return state;
+  }
+}

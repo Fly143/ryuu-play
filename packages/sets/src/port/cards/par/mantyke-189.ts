@@ -1,0 +1,39 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Mantyke_189 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 30;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Buoyant Healing", cost: [], damage: "", text: "Heal 120 damage from 1 of your Benched Pokémon." }
+  ];
+  public set: string = "PAR";
+  public name: string = "Mantyke";
+  public fullName: string = "Mantyke PAR 189";
+  public text: string = "Mantyke";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* healBench:120 */ state;
+    }
+    return state;
+  }
+}

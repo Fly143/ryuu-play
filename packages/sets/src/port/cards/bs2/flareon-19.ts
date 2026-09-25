@@ -1,0 +1,44 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Flareon_19 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Eevee";
+  public hp: number = 70;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Quick Attack", cost: [], damage: "10+", text: "Flip a coin. If heads, this attack does 10 damage plus 20 more damage; if tails, this attack does 10 damage." },
+      { name: "Flamethrower", cost: [], damage: "60", text: "Discard 1 Fire Energy card attached to Flareon in order to use this attack." }
+  ];
+  public set: string = "BS2";
+  public name: string = "Flareon";
+  public fullName: string = "Flareon BS2 19";
+  public text: string = "Flareon";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 20);
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return /* structural */ state;
+    }
+    return state;
+  }
+}

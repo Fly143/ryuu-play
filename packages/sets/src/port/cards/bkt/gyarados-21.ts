@@ -1,0 +1,46 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Gyarados_21 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Magikarp";
+  public hp: number = 130;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "θ Double", powerType: PowerType.ABILITY, text: "This Pokémon may have up to 2 Pokémon Tool cards attached to it.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Full Retaliation", cost: [], damage: "30+", text: "This attack does 30 more damage for each damage counter on each of your Benched Magikarp." },
+      { name: "Thrash", cost: [], damage: "100+", text: "Flip a coin. If heads, this attack does 30 more damage. If tails, this Pokémon does 30 damage to itself." }
+  ];
+  public set: string = "BKT";
+  public name: string = "Gyarados";
+  public fullName: string = "Gyarados BKT 21";
+  public text: string = "Gyarados";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* bonusPerDamagedBench:30 */ state;
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 30, 1);
+    }
+    return state;
+  }
+}

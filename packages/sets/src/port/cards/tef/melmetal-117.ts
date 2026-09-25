@@ -1,0 +1,37 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Melmetal_117 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Meltan";
+  public hp: number = 160;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Hammer In", cost: [], damage: "120", text: "" },
+      { name: "Iron Bash", cost: [], damage: "230", text: "" }
+  ];
+  public set: string = "TEF";
+  public name: string = "Melmetal";
+  public fullName: string = "Melmetal TEF 117";
+  public text: string = "Melmetal";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    /* no scripted effect */
+    return state;
+  }
+}

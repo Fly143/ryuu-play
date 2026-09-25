@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class EnergyRecycler_108 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.ITEM;
+  public set: string = "POR";
+  public name: string = "Energy Recycler";
+  public fullName: string = "Energy Recycler POR 108";
+  public text: string = "Shuffle up to 5 Basic Energy cards from your discard pile into your deck. You may play any number of Item cards during your turn.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      return /* shuffleCardsFromDiscardToDeck:5 */ state;
+    }
+    return state;
+  }
+}

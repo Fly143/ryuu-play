@@ -1,0 +1,41 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  PowerEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class CynthiaSGabite_103 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Cynthia's Gible";
+  public hp: number = 100;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Champion's Call", powerType: PowerType.ABILITY, text: "Once during your turn, you may search your deck for a Cynthia's Pokémon, reveal it, and put it into your hand. Then, shuffle your deck.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Dragonslice", cost: [], damage: "40", text: "" }
+  ];
+  public set: string = "DRI";
+  public name: string = "Cynthia's Gabite";
+  public fullName: string = "Cynthia's Gabite DRI 103";
+  public text: string = "Cynthia's Gabite";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return /* searchAnyToHand:1 */ state;
+    }
+    return state;
+  }
+}

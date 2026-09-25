@@ -1,0 +1,40 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Deerling_15 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 60;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Tackle", cost: [], damage: "10", text: "" },
+      { name: "Wild Kick", cost: [], damage: "40", text: "Flip a coin. If tails, this attack does nothing." }
+  ];
+  public set: string = "EPO";
+  public name: string = "Deerling";
+  public fullName: string = "Deerling EPO 15";
+  public text: string = "Deerling";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return /* structural */ state;
+    }
+    return state;
+  }
+}

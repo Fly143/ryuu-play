@@ -1,0 +1,40 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class GolurkV_182 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 220;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Mega Punch", cost: [], damage: "80", text: "" },
+      { name: "Rewind Beam", cost: [], damage: "180", text: "If your opponent's Active Pokémon is an evolved Pokémon, devolve it by putting the highest Stage Evolution card on it into your opponent's hand." }
+  ];
+  public set: string = "CRE";
+  public name: string = "Golurk V";
+  public fullName: string = "Golurk V CRE 182";
+  public text: string = "Golurk V";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return /* devolve */ state;
+    }
+    return state;
+  }
+}

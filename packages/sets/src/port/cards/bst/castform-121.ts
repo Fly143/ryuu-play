@@ -1,0 +1,41 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Castform_121 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 70;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Weather Reading", powerType: PowerType.ABILITY, text: "If you have 8 or more Stadium cards in your discard pile, ignore all Energy in this Pokémon's attack costs.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Weather Force", cost: [], damage: "80", text: "Draw cards until you have 6 cards in your hand." }
+  ];
+  public set: string = "BST";
+  public name: string = "Castform";
+  public fullName: string = "Castform BST 121";
+  public text: string = "Castform";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* drawUntilHand:6 */ state;
+    }
+    return state;
+  }
+}

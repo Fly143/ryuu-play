@@ -1,0 +1,36 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class BulbasaurSWSH303 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 70;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Shake and Gather", cost: [], damage: "", text: "Flip a coin until you get tails. For each heads, draw a card." }
+  ];
+  public set: string = "PR-SW";
+  public name: string = "Bulbasaur";
+  public fullName: string = "Bulbasaur PR-SW SWSH303";
+  public text: string = "Bulbasaur";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    /* no scripted effect */
+    return state;
+  }
+}

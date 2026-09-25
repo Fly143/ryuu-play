@@ -1,0 +1,46 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  PowerEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class DubwoolVSV120 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 210;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Soft Wool", powerType: PowerType.ABILITY, text: "This Pokémon takes 30 less damage from attacks (after applying Weakness and Resistance).", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Revenge Blast", cost: [], damage: "120+", text: "This attack does 30 more damage for each Prize card your opponent has taken." }
+  ];
+  public set: string = "SHF";
+  public name: string = "Dubwool V";
+  public fullName: string = "Dubwool V SHF SV120";
+  public text: string = "Dubwool V";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.bonusPerPrize(this, store, state, effect).use(effect, 30);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.reduceDamageSelfPower(this, store, state, effect).reduce(effect.power, 30);
+    }
+    return state;
+  }
+}

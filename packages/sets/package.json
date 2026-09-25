@@ -16,7 +16,7 @@
   },
   "scripts": {
     "lint": "eslint -c .eslintrc.js --ext .ts src",
-    "compile": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "compile": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json && node -e \"const fs=require('fs');const p='src/port/plans.json';if(fs.existsSync(p)){fs.mkdirSync('dist/cjs/port',{recursive:true});fs.mkdirSync('dist/esm/port',{recursive:true});fs.copyFileSync(p,'dist/cjs/port/plans.json');fs.copyFileSync(p,'dist/esm/port/plans.json')}\"",
     "build": "npm run lint && npm run test && npm run compile",
     "test": "nyc -e \".ts\" -x \"tests/**/*.ts\" jasmine-ts \"tests/**/*.spec.ts\"",
     "coverage": "npm test && nyc report -r html"

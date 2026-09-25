@@ -1,0 +1,24 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  TrainerCard,
+  TrainerEffect,
+  TrainerType,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class DarkPatch_216 extends TrainerCard {
+  public trainerType: TrainerType = TrainerType.ITEM;
+  public set: string = "ASR";
+  public name: string = "Dark Patch";
+  public fullName: string = "Dark Patch ASR 216";
+  public text: string = "Attach a basic Darkness Energy card from your discard pile to 1 of your Benched Darkness Pokémon. You may play any number of Item cards during your turn.";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      /* structural */
+    }
+    return state;
+  }
+}

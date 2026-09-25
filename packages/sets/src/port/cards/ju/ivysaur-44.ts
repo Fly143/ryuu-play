@@ -1,0 +1,42 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+  SpecialCondition,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Ivysaur_44 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Bulbasaur";
+  public hp: number = 60;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Vine Whip", cost: [], damage: "30", text: "" },
+      { name: "Poisonpowder", cost: [], damage: "20", text: "The Defending Pokémon is now Poisoned." }
+  ];
+  public set: string = "JU";
+  public name: string = "Ivysaur";
+  public fullName: string = "Ivysaur JU 44";
+  public text: string = "Ivysaur";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.POISONED);
+    }
+    return state;
+  }
+}

@@ -1,0 +1,44 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Machoke_58 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Machop";
+  public hp: number = 90;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Karate Chop", cost: [], damage: "60-", text: "This attack does 60 damage minus 10 damage for each damage counter on this Pokémon." },
+      { name: "Submission", cost: [], damage: "80", text: "This Pokémon does 20 damage to itself." }
+  ];
+  public set: string = "EVO";
+  public name: string = "Machoke";
+  public fullName: string = "Machoke EVO 58";
+  public text: string = "Machoke";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 10, Math.floor(effect.player.active.damage / 10));
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, -20, 1);
+    }
+    return state;
+  }
+}

@@ -8,7 +8,7 @@ import { StateUtils } from '../state-utils';
 import { CheckPokemonTypeEffect, CheckPokemonStatsEffect,
   CheckProvidedEnergyEffect, CheckAttackCostEffect } from '../effects/check-effects';
 import { Weakness, Resistance } from '../card/pokemon-types';
-import { CardType, SpecialCondition, CardTag } from '../card/card-types';
+import { CardType, SpecialCondition, CardTag, prizeCountForTags } from '../card/card-types';
 import { AttackEffect, UseAttackEffect, HealEffect, KnockOutEffect,
   UsePowerEffect, PowerEffect, UseStadiumEffect, EvolveEffect } from '../effects/game-effects';
 import { CoinFlipPrompt } from '../prompts/coin-flip-prompt';
@@ -42,6 +42,33 @@ function applyWeaknessAndResistance(
   return (damage * multiply) + modifier;
 }
 
+/** Apply Ability/Tool/markers that modify incoming damage. */
+function applyDamageReductionMarkers(target: { marker: { markers: { name: string }[] } }, damage: number): number {
+  let reduced = 0;
+  for (const m of target.marker.markers) {
+    const match = /^REDUCE_DAMAGE_(\d+)$/.exec(m.name);
+    if (match) {
+      reduced += parseInt(match[1], 10);
+    }
+    if (m.name === 'PREVENT_EFFECTS' || m.name === 'PREVENT_DAMAGE') {
+      return 0;
+    }
+  }
+  return Math.max(0, damage - reduced);
+}
+
+/** PlusPower and similar attacker-side markers. */
+function applyAttackBonusMarkers(source: { marker: { markers: { name: string }[] } }, damage: number): number {
+  let bonus = 0;
+  for (const m of source.marker.markers) {
+    const match = /^PLUS_POWER_(\d+)$/.exec(m.name);
+    if (match) {
+      bonus += parseInt(match[1], 10);
+    }
+  }
+  return damage + bonus;
+}
+
 function* useAttack(next: Function, store: StoreLike, state: State, effect: UseAttackEffect): IterableIterator<State> {
   const player = effect.player;
   const opponent = StateUtils.getOpponent(state, player);
@@ -49,6 +76,11 @@ function* useAttack(next: Function, store: StoreLike, state: State, effect: UseA
   const sp = player.active.specialConditions;
   if (sp.includes(SpecialCondition.PARALYZED) || sp.includes(SpecialCondition.ASLEEP)) {
     throw new GameError(GameMessage.BLOCKED_BY_SPECIAL_CONDITION);
+  }
+
+  // "During your next turn, this Pokémon can't attack."
+  if (player.active.marker.hasMarker('CANT_ATTACK')) {
+    throw new GameError(GameMessage.BLOCKED_BY_EFFECT);
   }
 
   const attack = effect.attack;
@@ -109,11 +141,9 @@ export function gameReducer(store: StoreLike, state: State, effect: Effect): Sta
     const card = effect.target.getPokemonCard();
     if (card !== undefined) {
 
-      // Pokemon ex rule
-      if (card.tags.includes(CardTag.POKEMON_EX)) {
-        effect.prizeCount += 1;
-      }
-      
+      // Multi-prize Pokemon (ex / EX / V / VMAX / VSTAR / GX / TAG TEAM / Mega)
+      effect.prizeCount = prizeCountForTags(card.tags);
+
       // Fossil rule
       if (card.tags.includes(CardTag.FOSSIL) && state.rules.noPrizeForFossil) {
         effect.prizeCount = 0;
@@ -135,6 +165,10 @@ export function gameReducer(store: StoreLike, state: State, effect: Effect): Sta
     const weakness = effect.ignoreWeakness ? [] : checkPokemonStats.weakness;
     const resistance = effect.ignoreResistance ? [] : checkPokemonStats.resistance;
     effect.damage = applyWeaknessAndResistance(effect.damage, cardType, weakness, resistance);
+    // Attacker PlusPower-style markers
+    effect.damage = applyAttackBonusMarkers(effect.source, effect.damage);
+    // Defender Ability/Tool reduction / prevention markers
+    effect.damage = applyDamageReductionMarkers(effect.target, effect.damage);
     return state;
   }
 
@@ -168,6 +202,10 @@ export function gameReducer(store: StoreLike, state: State, effect: Effect): Sta
     const pokemonCard = effect.target.getPokemonCard();
     if (pokemonCard === undefined) {
       throw new GameError(GameMessage.INVALID_TARGET);
+    }
+    if (effect.player.marker.hasMarker('NO_EVOLUTION')
+      || effect.target.marker.hasMarker('NO_EVOLUTION')) {
+      throw new GameError(GameMessage.ILLEGAL_ACTION);
     }
     store.log(state, GameLog.LOG_PLAYER_EVOLVES_POKEMON, {
       name: effect.player.name,

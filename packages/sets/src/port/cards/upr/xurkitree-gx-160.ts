@@ -1,0 +1,46 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class XurkitreeGX_160 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 180;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Flashing Head", powerType: PowerType.ABILITY, text: "Prevent all damage done to this Pokémon by attacks from your opponent's Pokémon that have any Special Energy attached to them.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Rumbling Wires", cost: [], damage: "100", text: "Discard the top card of your opponent's deck." },
+      { name: "Lighting-GX", cost: [], damage: "", text: "Your opponent reveals their hand. Add a card you find there to their Prize cards face down. (You can't use more than 1 GX attack in a game.)" }
+  ];
+  public set: string = "UPR";
+  public name: string = "Xurkitree-GX";
+  public fullName: string = "Xurkitree-GX UPR 160";
+  public text: string = "Xurkitree-GX";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.millOpponent(this, store, state, effect).use(effect, 1);
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.gxOncePerGame(this, store, state, effect).use(effect);
+    }
+    return state;
+  }
+}

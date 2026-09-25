@@ -1,0 +1,44 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class GreninjaEx_198 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Frogadier";
+  public hp: number = 310;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Shinobi Blade", cost: [], damage: "170", text: "You may search your deck for a card and put it into your hand. Then, shuffle your deck." },
+      { name: "Mirage Barrage", cost: [], damage: "", text: "Discard 2 Energy from this Pokémon. This attack does 120 damage to 2 of your opponent's Pokémon. (Don't apply Weakness and Resistance for Benched Pokémon.)" }
+  ];
+  public set: string = "TWM";
+  public name: string = "Greninja ex";
+  public fullName: string = "Greninja ex TWM 198";
+  public text: string = "Greninja ex";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* searchTrainerToHand:1 */ state;
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.discardEnergySelf(this, store, state, effect).use(effect, 2);
+    }
+    return state;
+  }
+}

@@ -11,3 +11,9 @@ node_modules
 !/scans/.keep
 
 /database.sq3
+
+# large data dumps (regenerate via tools/cardgen)
+tcg-data.zip
+pokemon-tcg-data-master/
+database.sq3
+*.sq3

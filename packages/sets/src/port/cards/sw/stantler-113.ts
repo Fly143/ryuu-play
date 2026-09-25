@@ -1,0 +1,40 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class Stantler_113 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "";
+  public hp: number = 70;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Lead", cost: [], damage: "", text: "Search your deck for a Supporter card, show it to your opponent, and put it into your hand. Shuffle your deck afterward." },
+      { name: "Frighten Horn", cost: [], damage: "20", text: "If the Defending Pokémon isn't an Evolved Pokémon, that Pokémon is now Confused." }
+  ];
+  public set: string = "SW";
+  public name: string = "Stantler";
+  public fullName: string = "Stantler SW 113";
+  public text: string = "Stantler";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* searchTrainerToHand:1 */ state;
+    }
+    return state;
+  }
+}

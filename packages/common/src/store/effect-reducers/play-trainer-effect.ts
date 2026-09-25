@@ -77,6 +77,9 @@ export function playTrainerReducer(store: StoreLike, state: State, effect: Effec
 
   // Process trainer effect
   if (effect instanceof TrainerEffect) {
+    if (effect.player.marker.hasMarker('NO_TRAINERS')) {
+      throw new GameError(GameMessage.CANNOT_PLAY_THIS_CARD);
+    }
     if (effect.player.hand.cards.includes(effect.trainerCard)) {
       const isSupporter = effect.trainerCard.trainerType === TrainerType.SUPPORTER;
       const target = isSupporter ? effect.player.supporter : effect.player.discard;

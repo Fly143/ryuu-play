@@ -50,6 +50,12 @@ export function initNextTurn(store: StoreLike, state: State): State {
   state.turn++;
   store.log(state, GameLog.LOG_TURN, { turn: state.turn });
 
+  // Expire turn-scoped markers (CANT_ATTACK / CANT_RETREAT / PREVENT_DAMAGE / ...)
+  for (const p of state.players) {
+    p.active.marker.expireMarkers(state.turn);
+    p.bench.forEach(b => b.marker.expireMarkers(state.turn));
+  }
+
   // Skip draw card on first turn
   if (state.turn === 1 && !state.rules.firstTurnDrawCard) {
     return state;

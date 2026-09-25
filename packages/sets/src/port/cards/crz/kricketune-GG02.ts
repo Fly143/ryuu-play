@@ -1,0 +1,38 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+
+export class KricketuneGG02 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Kricketot";
+  public hp: number = 90;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [
+      { name: "Swelling Tune", powerType: PowerType.ABILITY, text: "Your Grass Pokémon in play, except any Kricketune, get +40 HP. You can't apply more than 1 Swelling Tune Ability at a time.", useWhenInPlay: true }
+  ];
+  public attacks: Attack[] = [
+      { name: "Slash", cost: [], damage: "50", text: "" }
+  ];
+  public set: string = "CRZ";
+  public name: string = "Kricketune";
+  public fullName: string = "Kricketune CRZ GG02";
+  public text: string = "Kricketune";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    /* no scripted effect */
+    return state;
+  }
+}

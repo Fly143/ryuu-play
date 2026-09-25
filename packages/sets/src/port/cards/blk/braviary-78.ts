@@ -1,0 +1,41 @@
+import {
+  Effect,
+  State,
+  StoreLike,
+  AttackEffect,
+  Attack,
+  CardType,
+  PokemonCard,
+  Power,
+  PowerType,
+  Stage,
+  Weakness,
+  Resistance,
+} from '@ptcg/common';
+import { commonEffects } from '../../../common';
+
+export class Braviary_78 extends PokemonCard {
+  public stage: Stage = Stage.BASIC;
+  public cardTypes: CardType[] = [];
+  public evolvesFrom = "Rufflet";
+  public hp: number = 140;
+  public weakness: Weakness[] = [];
+  public resistance: Resistance[] = [];
+  public retreat: CardType[] = [];
+  public powers: Power[] = [];
+  public attacks: Attack[] = [
+      { name: "Aerial Ace", cost: [], damage: "40+", text: "Flip a coin. If heads, this attack does 40 more damage." },
+      { name: "Speed Wing", cost: [], damage: "130", text: "" }
+  ];
+  public set: string = "BLK";
+  public name: string = "Braviary";
+  public fullName: string = "Braviary BLK 78";
+  public text: string = "Braviary";
+
+  public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 40, 1);
+    }
+    return state;
+  }
+}
