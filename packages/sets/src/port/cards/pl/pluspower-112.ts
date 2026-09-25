@@ -19,7 +19,7 @@ export class PlusPower_112 extends TrainerCard {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "plusPowerMarker");
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "plusPowerMarker");
-      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "plusPowerMarker");
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "plusPowerMarker:10");
     }
     return state;
   }

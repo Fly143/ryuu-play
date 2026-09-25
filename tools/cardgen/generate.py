@@ -2078,6 +2078,44 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         if re.search(r"(\d+) more damage", rest):
             m = re.search(r"(\d+) more damage", rest)
             return [f"plusPowerMarker:{m.group(1)}"]
+    # Stadium: flip a coin, if heads draw
+    if re.search(r"once during each player's turn.{0,80}flip a coin\.\s*if heads,?\s*that player draws", t):
+        return ["flipHeadsDraw:1"]
+    # Flip, put card from discard on top of deck
+    if re.search(r"flip a coin\.\s*if heads,?\s*put a card from your discard pile on top of your deck", t):
+        return ["flipHeadsTopDiscardToDeck"]
+    # Retreat cost of each basic is Colorless less
+    if re.search(r"retreat cost of each basic pok[eé]mon is [\w ]*less", t):
+        return ["auraNoRetreatCost"]
+    # Tool: +N damage to active
+    if re.search(r"does (\d+) more damage to the active pok[eé]mon", t):
+        m = re.search(r"(\d+) more damage", t)
+        return [f"plusPowerMarker:{m.group(1) if m else 20}"]
+    # Tool: damage when damaged
+    if re.search(r"is damaged by an opponent's attack.{0,60}this (?:card|power) does (\d+) damage", t):
+        return ["roughSkin"]
+    # Devolve
+    if re.search(r"devolve 1 of your evolved pok[eé]mon", t):
+        return ["devolve"]
+    # +N HP stadium
+    if re.search(r"gets? \+(\d+) hp", t) and "this card stays in play" in t:
+        return ["continuousStatic"]
+    # Move energy when KO
+    if re.search(r"when your active pok[eé]mon is knocked out.{0,60}you may move 1 basic energy", t):
+        return ["energyTrans"]
+    # Search on KO
+    if re.search(r"is knocked out.{0,60}search your deck for", t):
+        return ["searchAnyToHand:1"]
+    # Look at bottom 7 for named fossil
+    if re.search(r"look at the bottom 7 cards of your deck\.\s*you may reveal an? [\w' -]+ you find there and put it onto your bench", t):
+        return ["searchBasicToBench:1"]
+    # Opponent shuffles hand and draws N
+    if re.search(r"your opponent shuffles (?:his or her |their )?hand into (?:his or her |their )?deck and draws (\d+)", t):
+        m = re.search(r"draws (\d+)", t)
+        return [f"opponentShuffleDraw:{m.group(1) if m else 4}"]
+    # Put pokemon from discard on top of deck
+    if re.search(r"put a pok[eé]mon from your discard pile on top of your deck", t):
+        return ["flipHeadsTopDiscardToDeck"]
 
     # Draw N cards. (possibly with more clauses)
     m = re.search(r"^draw (\d+|two|three|four|five|six|seven|eight|nine|ten) cards?", t)
