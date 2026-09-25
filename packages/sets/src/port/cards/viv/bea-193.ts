@@ -17,7 +17,8 @@ export class Bea_193 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "millSelf:5");
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "attachBasicFromDiscardToBench:2");
     }
     return state;
   }

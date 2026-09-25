@@ -42,6 +42,9 @@ export class Swampert_36 extends PokemonCard {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchAnyToHand:1");
     }
+    if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "attachBasicFromHandToBench:2");
+    }
     return state;
   }
 }

@@ -2081,10 +2081,44 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     m = re.search(r"discard up to (\d+) cards? from your hand,? and draw (\d+) cards? for each card you discarded", t)
     if m:
         return [f"discardDrawPer:{m.group(2)}"]
-    # During this turn, your TYPE Pokémon's attacks do N more damage
-    m = re.search(r"during this turn,? your [\w ]*pok[eé]mon's attacks do (\d+) more damage", t)
+    # During this turn, attacks used by your TYPE Pokémon do N more damage
+    m = re.search(r"during this turn,? (?:attacks used by )?your [\w ]*pok[eé]mon(?:'s attacks)? do (\d+) more damage", t)
     if m:
         return [f"plusPowerMarker:{m.group(1)}"]
+    m = re.search(r"attacks used by your [\w ]*pok[eé]mon do (\d+) more damage", t)
+    if m:
+        return [f"plusPowerMarker:{m.group(1)}"]
+    # Draw N. If KO last turn, draw M more
+    m = re.search(r"draw (\d+) cards\.\s*if any of your pok[eé]mon were knocked out.{0,40}draw (\d+) more", t)
+    if m:
+        return [f"draw:{int(m.group(1)) + int(m.group(2))}"]
+    # Put Colorless/damaged Pokémon into hand
+    if re.search(r"put 1 of your [\w ]*pok[eé]mon (?:that has any damage counters on it )?and all attached cards into your hand", t):
+        return ["scoopUpSelf"]
+    # Heal all damage from 1 of your Pokémon
+    m = re.search(r"heal all damage from 1 of your", t)
+    if m:
+        return ["heal:999"]
+    # Mill top N, attach energy to bench
+    if re.search(r"discard the top (\d+) cards? of your deck,? and attach any energy cards? you discarded", t):
+        m = re.search(r"top (\d+)", t)
+        return [f"millSelf:{m.group(1) if m else 5}", "attachBasicFromDiscardToBench:2"]
+    # Search deck for Supporter with name / Pokemon with name
+    if re.search(r"search your deck for a supporter card", t):
+        return ["searchTrainerToHand:1"]
+    if re.search(r"search your deck for up to (\d+) basic [\w ]*pok[eé]mon", t):
+        m = re.search(r"up to (\d+) basic", t)
+        return [f"searchBasicToBench:{m.group(1) if m else 1}"]
+    # Search deck for card that evolves from
+    if re.search(r"search your deck for a card that evolves from", t):
+        return ["searchPokemonToHand:1"]
+    # Flip N coins, put basic energy from discard to hand
+    if re.search(r"flip (\d+) coins\.\s*for each heads,? put a basic energy card from your discard pile into your hand", t):
+        return ["recoverEnergyFromDiscard:2"]
+    # Opponent hand discard items already covered
+    # Ask opponent if each player may take a Prize
+    if re.search(r"ask your opponent if each player may take a prize", t):
+        return ["noop"]
     # Put a Pokémon or a Basic Energy from discard to hand
     if re.search(r"put a pok[eé]mon or a basic energy card from your discard pile into your hand", t):
         return ["recoverFromDiscard:1"]
@@ -2785,6 +2819,18 @@ def match_power(text: str) -> Optional[list[str]]:
         return []
     if re.search(r"you may play this card from your hand to evolve a pok[eé]mon during your first turn", t):
         return ["earlyEvolution"]
+    if re.search(r"when you attach an? energy card from your hand to this pok[eé]mon.{0,100}you may attach (\d+)", t):
+        m = re.search(r"you may attach (\d+)", t)
+        return [f"attachBasicFromHandToBench:{m.group(1) if m else 2}"]
+    if re.search(r"attacks used by your [\w ]*pok[eé]mon do (\d+) more damage", t) and "once" not in t:
+        m = re.search(r"(\d+) more damage", t)
+        return [f"auraPlusDamage:{m.group(1) if m else 20}"]
+    if re.search(r"during this turn,? attacks used by your [\w ]*pok[eé]mon do (\d+) more damage", t):
+        m = re.search(r"(\d+) more damage", t)
+        return [f"plusPowerMarker:{m.group(1)}"]
+    if re.search(r"once during each player's turn.{0,80}heal (\d+) damage from each", t):
+        m = re.search(r"heal (\d+)", t)
+        return [f"healEachPokemon:{m.group(1) if m else 10}"]
     if re.search(r"take 1 more prize card", t):
         return ["plusPrize:1"]
     if re.search(r"prevent all effects of your opponent's pok[eé]mon's abilities done to", t):
