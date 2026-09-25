@@ -2046,6 +2046,66 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if nm in NAME_OPS:
         return NAME_OPS[nm][:]
 
+    # Discard N from hand, draw M
+    m = re.search(r"discard (\d+) cards? from your hand\.\s*if you do,? draw (\d+) cards?", t)
+    if m:
+        return [f"discardFromHand:{m.group(1)}", f"draw:{m.group(2)}"]
+    # Choose up to N of your Pokémon and heal M from each
+    m = re.search(r"choose up to (\d+) of your pok[eé]mon and heal (\d+) damage from each", t)
+    if m:
+        return [f"healEachPokemon:{m.group(2)}"]
+    # Heal N from each of your Pokémon
+    m = re.search(r"heal (\d+) damage from each of (?:his or her |their |)your pok[eé]mon", t)
+    if m:
+        return [f"healEachPokemon:{m.group(1)}"]
+    m = re.search(r"heal (\d+) damage from each of (?:his or her |their )?pok[eé]mon", t)
+    if m:
+        return [f"healEachPokemon:{m.group(1)}"]
+    # Once during each player's turn ... heal 10
+    if re.search(r"once during each player's turn.{0,120}heal (\d+) damage from each", t):
+        m = re.search(r"heal (\d+)", t)
+        return [f"healEachPokemon:{m.group(1) if m else 10}"]
+    # Flip a coin. If heads, remove N damage counters from each Active
+    m = re.search(r"flip a coin\.\s*if heads,?\s*remove (\d+) damage counters? from each active", t)
+    if m:
+        return [f"healEachPokemon:{int(m.group(1))*10}"]
+    # Switch in opponent's Benched to Active
+    if re.search(r"switch in 1 of your opponent's benched pok[eé]mon to the active", t):
+        return ["gustOpponent"]
+    # Shuffle up to N Pokemon from discard into deck, then draw
+    m = re.search(r"shuffle up to (\d+) pok[eé]mon from your discard pile into your deck", t)
+    if m:
+        ops = [f"shuffleCardsFromDiscardToDeck:{m.group(1)}"]
+        if "draw" in t:
+            m2 = re.search(r"draw (\d+) cards?", t)
+            if m2:
+                ops.append(f"draw:{m2.group(1)}")
+        return ops
+    # Put Energy from opponent Active onto deck / into hand
+    if re.search(r"put an energy attached to your opponent's active pok[eé]mon on top of (?:his or her |their )?deck", t):
+        return ["discardEnergyDefending:1"]
+    # Search deck for Item and Energy
+    if re.search(r"search your deck for an item card", t):
+        return ["searchTrainerToHand:1"]
+    if re.search(r"search your deck for a basic pok[eé]mon and put it onto your bench", t):
+        return ["searchBasicToBench:1"]
+    # Opponent reveals hand, choose card to bottom of deck
+    if re.search(r"your opponent reveals (?:his or her |their )?hand,? and you choose a card", t):
+        return ["peekOpponentHand", "millOpponent:1"]
+    # Search deck for N Energy and attach
+    if re.search(r"search your deck for up to (\d+) [\w ]*energy cards? and attach", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchEnergyToSelf:{m.group(1) if m else 1}"]
+    # Choose 1 or both: put pokemon / energy from discard
+    if re.search(r"choose 1 or both", t) and "discard pile" in t:
+        return ["recoverFromDiscard:2"]
+    # Put pokemon with damage counters into hand
+    if re.search(r"put 1 of your pok[eé]mon that has any damage counters on it and all cards attached", t):
+        return ["scoopUpSelf"]
+    # Opponent Active Confused and Poisoned
+    if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
+        return ["specialBoth:CONFUSED", "specialBoth:POISONED"]
+
     # Opponent Active is now Confused and Poisoned
     if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
         return ["specialBoth:CONFUSED", "specialBoth:POISONED"]
@@ -2994,12 +3054,18 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["attackGate"]
     if re.search(r"flip a coin\.\s*if heads,?\s*prevent", t):
         return ["preventEffectsSelf"]
-    if re.search(r"once during each player's turn.{0,100}heal (\d+) damage from each", t):
+    if re.search(r"once during each player's turn.{0,120}heal (\d+) damage from each", t):
         m = re.search(r"heal (\d+)", t)
         return [f"healEachPokemon:{m.group(1) if m else 10}"]
-    if re.search(r"once during your turn.{0,80}you may discard 1 energy card from your hand\.?\s*then draw up to (\d+)", t):
-        m = re.search(r"draw up to (\d+)", t)
-        return ["discardEnergySelf:1", f"draw:{m.group(1) if m else 3}"]
+    if re.search(r"heal (\d+) damage from each of (?:his or her |their )?pok[eé]mon", t):
+        m = re.search(r"heal (\d+)", t)
+        return [f"healEachPokemon:{m.group(1)}"]
+    if re.search(r"your pok[eé]mon in play have no weakness|each of your pok[eé]mon has no weakness", t):
+        return ["noWeakness"]
+    if re.search(r"retreat cost (?:for [\w' -]+ )?is 0|has no retreat cost|no retreat cost", t):
+        return ["auraNoRetreatCost"]
+    if re.search(r"can't be poisoned|can't be affected by poison", t):
+        return ["immuneToSpecial"]
     if re.search(r"once during your turn.{0,80}you may shuffle 1 of your benched pok[eé]mon and all", t):
         return ["shuffleBenchToDeck"]
     if re.search(r"attacks cost [\w ]*more", t) and ("as long as" in t or "your opponent" in t):

@@ -17,7 +17,8 @@ export class Miriam_251 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "shuffleCardsFromDiscardToDeck:5");
+      return commonEffects.drawCards(this, store, state, effect).playCard(effect as TrainerEffect, 3);
     }
     return state;
   }

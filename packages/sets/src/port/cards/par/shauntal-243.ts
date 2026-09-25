@@ -17,7 +17,7 @@ export class Shauntal_243 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.switchSelfTrainer(this, store, state, effect).playCard(effect as TrainerEffect);
+      return commonEffects.gustOpponentTrainer(this, store, state, effect).playCard(effect as TrainerEffect);
     }
     return state;
   }

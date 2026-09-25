@@ -17,7 +17,7 @@ export class Fennel_162 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 40);
+      return commonEffects.healEachPokemon(this, store, state, effect).playCard(effect as TrainerEffect, 40);
     }
     return state;
   }
