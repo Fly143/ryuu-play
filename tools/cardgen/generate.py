@@ -2167,6 +2167,57 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if re.search(r"draw (\d+) cards\.\s*discard a stadium", t):
         m = re.search(r"draw (\d+)", t)
         return [f"draw:{m.group(1) if m else 3}", "discardStadium"]
+    # Choose up to N of TYPE and heal M from each
+    m = re.search(r"choose up to (\d+) of your [\w ]*pok[eé]mon and heal (\d+) damage from each", t)
+    if m:
+        return [f"healEachPokemon:{m.group(2)}"]
+    # Heal all damage from each of your Evolution Pokemon
+    if re.search(r"heal all damage from each of your evolution pok[eé]mon", t):
+        return ["healEachPokemon:999"]
+    if re.search(r"heal all damage from each of your [\w ]*pok[eé]mon", t):
+        return ["healEachPokemon:999"]
+    # Move damage counters from Active to opponent Active
+    if re.search(r"move up to (\d+) damage counters? from your active pok[eé]mon to your opponent's active", t):
+        return ["putDamageCounters:1"]
+    # Put cards from hand on bottom of deck, then draw that many
+    if re.search(r"put any number of cards from your hand on the bottom of your deck", t):
+        return ["drawUntilHand:6"]
+    # Move energy from Benched to Active
+    if re.search(r"move up to (\d+) energy from your benched pok[eé]mon to your active", t):
+        return ["energyTrans"]
+    # Look at bottom N, put Pokemon onto Bench
+    if re.search(r"look at the bottom (\d+) cards? of your deck\.\s*you may reveal a [\w' -]+ you find there and put it onto your bench", t):
+        return ["searchBasicToBench:1"]
+    # Opponent reveals hand, discard tools/special/stadium
+    if re.search(r"your opponent reveals .{0,20}hand\.\s*discard up to (\d+) in any combination of pok[eé]mon tool", t):
+        return ["peekOpponentHand", "discardOpponentTools:2"]
+    # Draw a card for each Benched (both players)
+    if re.search(r"draw a card for each benched pok[eé]mon", t):
+        return ["drawPerOpponentBench:1"]
+    # Challenge
+    if re.search(r"ask your opponent if (?:he or she |they )?accepts? your challenge", t):
+        return ["draw:2"]
+    # Search deck for Basic without Rule Box onto Bench
+    if re.search(r"search (?:his or her |their |)deck for a basic pok[eé]mon that doesn't have a rule box and put it onto", t):
+        return ["searchBasicToBench:1"]
+    # If you go first, search N Basic TYPE Pokemon
+    if re.search(r"if you go first.{0,80}search your deck for up to (\d+) basic", t):
+        m = re.search(r"up to (\d+) basic", t)
+        return [f"searchBasicToBench:{m.group(1) if m else 3}"]
+    # Opponent Active Energy to hand, then attach from own hand
+    if re.search(r"put an energy attached to your opponent's active pok[eé]mon into (?:his or her |their )?hand\.\s*if you do,? attach", t):
+        return ["discardEnergyDefending:1", "attachBasicFromHandToBench:1"]
+    # Discard 2 from hand as cost, then search
+    if re.search(r"you can play this card only if you discard (\d+) other cards? from your hand\.?\s*search your deck", t):
+        m = re.search(r"discard (\d+)", t)
+        return [f"discardFromHand:{m.group(1) if m else 2}", "searchAnyToHand:2"]
+    # Last card in hand: draw per bench
+    if re.search(r"last card in your hand\.?\s*draw a card for each benched", t):
+        return ["drawPerOpponentBench:1"]
+    # Last card: plus damage
+    if re.search(r"last card in your hand\.?\s*during this turn, attacks used by your pok[eé]mon", t):
+        m = re.search(r"(\d+) more damage", t)
+        return [f"plusPowerMarker:{m.group(1) if m else 30}"]
     # Opponent Active Confused and Poisoned
     if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
         return ["specialBoth:CONFUSED", "specialBoth:POISONED"]

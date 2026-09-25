@@ -17,7 +17,7 @@ export class Cheryl_173 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.healEachPokemon(this, store, state, effect).playCard(effect as TrainerEffect, 999);
     }
     return state;
   }
