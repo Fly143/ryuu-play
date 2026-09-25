@@ -165,6 +165,12 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
     # Flip until tails, discard random per heads
     if re.search(r"flip a coin until (?:you get |there is )?tails\.\s*for each heads,? choose 1 card from your opponent's hand", t):
         return ["discardRandomOpponentHand:3"]
+    # Flip heads, search discard for energy and attach
+    if re.search(r"flip a coin\.\s*if heads,?\s*search your discard pile for a [\w ]*energy card and attach", t):
+        return ["attachBasicFromDiscard"]
+    # Flip N coins, for each heads search discard for pokemon
+    if re.search(r"flip (\d+) coins\.\s*for each heads,? search your discard pile for a pok[eé]mon", t):
+        return ["recoverFromDiscard:3"]
     # Can't use this attack during your next turn
     if re.search(r"can't use [\w' -]+ during your next turn|can't use this attack during your next turn", t):
         return ["cantAttackNextTurn"]
@@ -2479,6 +2485,15 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Mime Jr / shuffle hand draw equal opponent hand
     if re.search(r"draw a number of cards equal to the number of cards in your opponent's hand", t):
         return ["shuffleDrawPerOppHand"]
+    # Flip heads, search discard for energy and attach
+    if re.search(r"flip a coin\.\s*if heads,?\s*search your discard pile for a [\w ]*energy card and attach", t):
+        return ["attachBasicFromDiscard"]
+    # Flip N coins, for each heads search discard for pokemon
+    if re.search(r"flip (\d+) coins\.\s*for each heads,? search your discard pile for a pok[eé]mon", t):
+        return ["recoverFromDiscard:3"]
+    # Weakness as x2
+    if re.search(r"apply weakness .{0,30}as .?2 instead", t):
+        return ["continuousStatic"]
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]

@@ -33,6 +33,9 @@ export class Electabuzz_35 extends PokemonCard {
   public text: string = "Electabuzz";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.attachBasicFromDiscard(this, store, state, effect).use(effect, 1);
+    }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 40);
     }

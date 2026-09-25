@@ -36,6 +36,9 @@ export class TeamAquaSElectrike_27 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 10);
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.attachBasicFromDiscard(this, store, state, effect).use(effect, 1);
+    }
     return state;
   }
 }
