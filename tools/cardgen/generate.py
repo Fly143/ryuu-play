@@ -2021,6 +2021,63 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]
+    # Shuffle hand into deck, draw per Benched
+    if re.search(r"shuffle your hand into your deck\.\s*then,? draw a number of cards equal to the number of benched", t):
+        return ["drawPerOpponentBench:1"]
+    # Opponent reveals hand, shuffle Items into deck
+    if re.search(r"your opponent reveals .{0,20}hand and shuffles all item cards", t):
+        return ["peekOpponentHand", "lassShuffleTrainers"]
+    # Draw until 7
+    if re.search(r"draw cards until (?:he or she |they |you )has? (\d+) cards? in (?:his or her |their |your )?hand", t):
+        m = re.search(r"until .{0,30}?(\d+) cards?", t)
+        return [f"drawUntilHand:{m.group(1) if m else 7}"]
+    # Look at top 2, choose 1
+    if re.search(r"look at the top 2 cards? of your deck,? choose 1", t):
+        return ["searchAnyToHand:1"]
+    # Look at bottom 7, choose 1 Pokemon
+    if re.search(r"look at the (?:7 cards from the bottom|bottom 7 cards) of your deck\.\s*choose 1 pok[eé]mon", t):
+        return ["searchPokemonToHand:1"]
+    # Search for named Pokemon
+    if re.search(r"search your deck for [\w' -]+,? show it to your opponent,? and put it into your hand", t):
+        return ["searchPokemonToHand:1"]
+    if re.search(r"search your deck or your discard pile for a pok[eé]mon", t):
+        return ["recoverFromDiscard:1"]
+    # Copy attack tool
+    if re.search(r"may use this card's attack instead of its own", t):
+        return ["copyAttack"]
+    # Choose a Basic from discard and switch with Basic in play
+    if re.search(r"choose a basic pok[eé]mon in your discard pile and switch it with 1 of your basic pok[eé]mon in play", t):
+        return ["switchSelf"]
+    # Opponent reveals hand, put a Trainer card
+    if re.search(r"your opponent reveals .{0,20}hand\.\s*put a trainer card", t):
+        return ["peekOpponentHand", "searchTrainerToHand:1"]
+    # Discard energy as cost, look at top N
+    if re.search(r"you can use this card only if you discard a [\w ]*energy card from your hand\.\s*look at the top (\d+)", t):
+        return ["discardEnergySelf:1", "searchAnyToHand:2"]
+    # Lost zone cost + tool discard
+    if re.search(r"put another card from your hand in the lost zone", t):
+        return ["discardFromHand:1"]
+    # Choose 1 or more: shuffle from discard
+    if re.search(r"choose 1 or more:\s*•?\s*shuffle a pok[eé]mon from your discard pile into your deck", t):
+        return ["shuffleCardsFromDiscardToDeck:2"]
+    # Grass can evolve same turn
+    if re.search(r"can evolve into [\w ]*pok[eé]mon during the turn they play those pok[eé]mon", t):
+        return ["earlyEvolution"]
+    # Once during each player's turn, discard energy to draw
+    if re.search(r"once during each player's turn, that player may discard an energy card from their hand", t):
+        return ["noop"]
+    # Opponent has N or fewer prizes, choose pokemon
+    if re.search(r"you can use this card only if your opponent has \d+ or fewer prize cards remaining", t):
+        rest = re.sub(r"you can use this card only if your opponent has \d+ or fewer prize cards remaining\.?\s*", "", t)
+        if "heal" in rest:
+            return ["heal:60"]
+        if "switch" in rest:
+            return ["switchSelf"]
+        if "search" in rest:
+            return ["searchAnyToHand:1"]
+        if re.search(r"(\d+) more damage", rest):
+            m = re.search(r"(\d+) more damage", rest)
+            return [f"plusPowerMarker:{m.group(1)}"]
 
     # Draw N cards. (possibly with more clauses)
     m = re.search(r"^draw (\d+|two|three|four|five|six|seven|eight|nine|ten) cards?", t)
