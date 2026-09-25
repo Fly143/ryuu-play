@@ -1656,6 +1656,28 @@ export function applyTrainerOp(
       player.active.marker.addMarker('PLUS_PRIZE_' + n, _self, state.turn + 1);
       return state;
     }
+    case 'earlyEvolution':
+      return state;
+    case 'showPrizes':
+      player.marker.addMarker('SHOW_PRIZES', _self, 9999);
+      return state;
+    case 'shuffleDrawPerOppHand': {
+      const opponent = state.players.find(p => p !== player) ?? player;
+      const n = Math.max(1, opponent.hand.cards.length);
+      player.hand.moveTo(player.deck, player.hand.cards.length);
+      return store.prompt(state, new ShuffleDeckPrompt(player.id), order => {
+        player.deck.applyOrder(order);
+        player.deck.moveTo(player.hand, n);
+      });
+    }
+    case 'discardDrawPer': {
+      const per = parseIntArg(op, 1, 2);
+      const n = Math.min(2, player.hand.cards.length);
+      const discarded = player.hand.cards.slice(0, n);
+      discarded.forEach((c: Card) => player.hand.moveCardTo(c, player.discard));
+      player.deck.moveTo(player.hand, per * n);
+      return state;
+    }
     default:
       return state;
   }
@@ -1803,6 +1825,28 @@ export function applyPowerOp(
     case 'plusPrize': {
       const n = parseIntArg(op, 1, 1);
       player.active.marker.addMarker('PLUS_PRIZE_' + n, self, state.turn + 1);
+      return state;
+    }
+    case 'earlyEvolution':
+      return state;
+    case 'showPrizes':
+      player.marker.addMarker('SHOW_PRIZES', self, 9999);
+      return state;
+    case 'shuffleDrawPerOppHand': {
+      const opponent = state.players.find(p => p !== player) ?? player;
+      const n = Math.max(1, opponent.hand.cards.length);
+      player.hand.moveTo(player.deck, player.hand.cards.length);
+      return store.prompt(state, new ShuffleDeckPrompt(player.id), order => {
+        player.deck.applyOrder(order);
+        player.deck.moveTo(player.hand, n);
+      });
+    }
+    case 'discardDrawPer': {
+      const per = parseIntArg(op, 1, 2);
+      const n = Math.min(2, player.hand.cards.length);
+      const discarded = player.hand.cards.slice(0, n);
+      discarded.forEach((c: Card) => player.hand.moveCardTo(c, player.discard));
+      player.deck.moveTo(player.hand, per * n);
       return state;
     }
     case 'auraReduceDamage':

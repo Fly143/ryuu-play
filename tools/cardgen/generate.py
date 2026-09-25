@@ -2013,6 +2013,57 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if nm in NAME_OPS:
         return NAME_OPS[nm][:]
 
+    # Δ Evolution / early evolution rule
+    if re.search(r"you may play this card from your hand to evolve a pok[eé]mon during your first turn", t):
+        return ["earlyEvolution"]
+    # When you attach an Energy from hand to this Pokémon, you may attach 2
+    if re.search(r"when you attach an? energy card from your hand to this pok[eé]mon.{0,80}you may attach (\d+)", t):
+        m = re.search(r"you may attach (\d+)", t)
+        return [f"attachBasicFromHandToBench:{m.group(1) if m else 2}"]
+    # Search deck for up to N Basic with HP or less → Bench
+    if re.search(r"search your deck for up to (\d+) basic pok[eé]mon with \d+ hp or less and put them onto your bench", t):
+        m = re.search(r"up to (\d+) basic", t)
+        return [f"searchBasicToBench:{m.group(1) if m else 2}"]
+    # Shuffle hand into deck, draw a card per opponent hand
+    if re.search(r"shuffle your hand into your deck\.?\s*then,? draw a card for each card in your opponent's hand", t):
+        return ["shuffleDrawPerOppHand"]
+    # Discard up to N from hand, draw M per discarded
+    m = re.search(r"discard up to (\d+) cards? from your hand,? and draw (\d+) cards? for each card you discarded", t)
+    if m:
+        return [f"discardDrawPer:{m.group(2)}"]
+    # During this turn, your TYPE Pokémon's attacks do N more damage
+    m = re.search(r"during this turn,? your [\w ]*pok[eé]mon's attacks do (\d+) more damage", t)
+    if m:
+        return [f"plusPowerMarker:{m.group(1)}"]
+    # Put a Pokémon or a Basic Energy from discard to hand
+    if re.search(r"put a pok[eé]mon or a basic energy card from your discard pile into your hand", t):
+        return ["recoverFromDiscard:1"]
+    # Put 1 of your Basic Pokémon and all attached cards into your hand
+    if re.search(r"put 1 of your (?:basic |colorless )?pok[eé]mon and all attached cards into your hand", t):
+        return ["scoopUpSelf"]
+    if re.search(r"put 1 of your pok[eé]mon in play into your hand", t):
+        return ["scoopUpSelf"]
+    # Each player plays with Prize cards face up
+    if re.search(r"prize cards face up for the rest of the game", t):
+        return ["showPrizes"]
+    # Search your deck for up to N cards and put them into your hand
+    m = re.search(r"search your deck for up to (\d+) cards and put them into your hand", t)
+    if m:
+        return [f"searchAnyToHand:{m.group(1)}"]
+    m = re.search(r"search your deck for (\d+) cards,? shuffle your deck,? then put those cards on top", t)
+    if m:
+        return [f"searchAnyToHand:{m.group(1)}"]
+    # Discard a card from your hand. If you do, look at the top N cards
+    m = re.search(r"discard a card from your hand\.\s*if you do,? look at the top (\d+) cards? of your deck and put (\d+) of them into your hand", t)
+    if m:
+        return ["discardFromHand:1", f"draw:{m.group(2)}"]
+    # Look at the top N cards. You may reveal a Pokémon and/or Trainer/Energy and put into hand
+    m = re.search(r"look at the top (\d+) cards? of your deck\.\s*you may reveal", t)
+    if m:
+        return [f"drawUntilHand:0"]  # pokedex-like peek; real selection is engine-side
+    if re.search(r"look at the top (\d+) cards? of your deck\.? you may reveal", t):
+        return ["pokedex"]
+
     # During this turn, attacks used by your Pokémon do N more damage
     m = re.search(r"during this turn,? (?:attacks used by |the attacks of )?your pok[eé]mon(?:'s attacks)? do (\d+) more damage", t)
     if m:

@@ -17,7 +17,7 @@ export class MistySDetermination_108 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "pokedex");
+      return commonEffects.discardFromHandTrainer(this, store, state, effect).playCard(effect as TrainerEffect, 1);
       return commonEffects.drawCards(this, store, state, effect).playCard(effect as TrainerEffect, 1);
     }
     return state;
