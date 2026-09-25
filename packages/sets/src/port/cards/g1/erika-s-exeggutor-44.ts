@@ -33,6 +33,9 @@ export class ErikaSExeggutor_44 extends PokemonCard {
   public text: string = "Erika's Exeggutor";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "shuffleDraw:5");
+    }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 10);
     }

@@ -154,6 +154,15 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
     if not t or t in {"", "does nothing.", "does nothing"}:
         return []
 
+    # Shuffle hand into deck, draw N
+    m = re.search(r"shuffle your hand into your deck,?\s*then,? draw (\d+|two|three|four|five|six|seven|eight|nine|ten) cards?", t)
+    if m:
+        return [f"shuffleDraw:{parse_count(m.group(1))}"]
+    # Opponent may draw N. Either way, you may draw N.
+    m = re.search(r"your opponent may draw (\d+) cards?\.\s*either way,? you may draw (\d+) cards?", t)
+    if m:
+        return [f"bothDraw:{m.group(1)}"]
+
     # Flip a coin. If tails, X does N damage to itself.
     m = re.search(
         r"flip a coin\.\s*if tails,?.{0,60}?does (\d+) damage to itself",
@@ -2591,14 +2600,20 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         if "heal" in rest:
             return ["heal:60"]
     # Tool / attached-to effects
-    if re.search(r"the pok[eé]mon this card is attached to", t):
+    if re.search(r"the pok[eé]mon this card is attached to|pok[eé]mon this card is attached to", t):
+        if re.search(r"is damaged? by an opponent's attack|is damage by an opponent", t):
+            return ["roughSkin"]
         if re.search(r"do (\d+) more damage|does (\d+) more damage", t):
             m = re.search(r"(\d+) more damage", t)
             return [f"plusPowerMarker:{m.group(1) if m else 20}"]
         if re.search(r"gets? \+(\d+) hp", t):
             return ["continuousStatic"]
-        if re.search(r"is knocked out.{0,40}put that pok[eé]mon", t):
-            return ["recoverFromDiscardToBench:1"]
+        if re.search(r"has no retreat cost", t):
+            return ["auraNoRetreatCost"]
+        if re.search(r"is knocked out.{0,60}put that pok[eé]mon|is knocked out.{0,40}search your deck", t):
+            return ["searchAnyToHand:1"]
+        if re.search(r"is knocked out.{0,40}put that pok[eé]mon into your hand", t):
+            return ["scoopUpSelf"]
         if re.search(r"is knocked out", t):
             return ["noop"]
         if re.search(r"can also use the attack on this card", t):

@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  AttackEffect,
   PowerEffect,
   BetweenTurnsEffect,
   Attack,
@@ -35,6 +36,9 @@ export class CleffaHGSS12 extends PokemonCard {
   public text: string = "Cleffa";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "shuffleDraw:6");
+    }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);
     }
