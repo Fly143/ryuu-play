@@ -2295,6 +2295,78 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Flip heads, search Evolution Team Rocket
     if re.search(r"flip a coin\.\s*if heads,?\s*search your deck for an evolution", t):
         return ["searchPokemonToHand:1"]
+    # Research Record / look at top N, put some back
+    if re.search(r"look at the top (\d+) cards? of your deck and put as many of them as you like back on top", t):
+        return ["pokedex"]
+    # Attach basic energy from discard to active
+    if re.search(r"attach a basic energy card from your discard pile to your active", t):
+        return ["attachBasicFromDiscard"]
+    # Discard a card from hand, draw N
+    if re.search(r"discard a card from your hand\.{0,40}draw (\d+) cards?", t):
+        m = re.search(r"draw (\d+)", t)
+        return [f"discardFromHand:1", f"draw:{m.group(1) if m else 3}"]
+    # Put up to N TYPE pokemon from discard to hand
+    if re.search(r"put up to (\d+) [\w ]*pok[eé]mon from your discard pile into your hand", t):
+        m = re.search(r"put up to (\d+)", t)
+        return [f"recoverFromDiscard:{m.group(1) if m else 3}"]
+    # Move basic energy from 1 pokemon to another
+    if re.search(r"move a basic energy from 1 of your pok[eé]mon to", t):
+        return ["energyTrans"]
+    # Stadium: once during each player's turn flip to play from hand
+    if re.search(r"once during each player's turn, that player may flip a coin\.\s*if heads, that player may play", t):
+        return ["flipHeadsDraw:1"]
+    # Frozen City / attach energy put damage
+    if re.search(r"whenever any player attaches an energy from .{0,40}put (\d+) damage counters", t):
+        return ["roughSkin"]
+    # Team Aqua Secret Base retreat more
+    if re.search(r"retreat cost of each pok[eé]mon in play .{0,40}is [\w ]*more", t):
+        return ["moreRetreatCostOpponent"]
+    # Look at top N and put into hand / discard rest
+    if re.search(r"look at the top (\d+) cards? of your deck and put (\d+) of them into your hand", t):
+        m = re.search(r"put (\d+) of them", t)
+        return [f"draw:{m.group(1) if m else 1}"]
+    # Opponent reveals hand, discard N energy
+    if re.search(r"your opponent reveals .{0,20}hand\.\s*discard (\d+) energy cards? from it", t):
+        return ["peekOpponentHand", "discardEnergyDefending:2"]
+    # Put N TYPE energy from discard to hand
+    if re.search(r"put (\d+) [\w ]*energy cards? from your discard pile into your hand", t):
+        m = re.search(r"put (\d+)", t)
+        return [f"recoverEnergyFromDiscard:{m.group(1) if m else 1}"]
+    # Discard metal energy, shuffle trainer from discard
+    if re.search(r"you can play this card only if you discard (\d+) [\w ]*energy cards? from your hand\.\s*shuffle a trainer", t):
+        return ["discardEnergySelf:2", "shuffleCardsFromDiscardToDeck:1"]
+    # GX/EX have no abilities
+    if re.search(r"pok[eé]mon-gx and pok[eé]mon-ex in play.{0,30}have no abilities", t):
+        return ["noPowers"]
+    # Remove all effects of attacks
+    if re.search(r"remove all effects of attacks on you", t):
+        return ["preventEffectsSelf"]
+    # Search deck for up to N Supporter
+    if re.search(r"search your deck for up to (\d+) supporter cards?", t):
+        return ["searchTrainerToHand:3"]
+    # Each player discards N from hand
+    if re.search(r"each player discards (\d+) cards? from (?:his or her |their )?hand", t):
+        return ["discardFromHand:2", "discardOpponentHand:2"]
+    # Move damage counters between opponent's pokemon
+    if re.search(r"move up to (\d+) damage counters? from 1 of your opponent's pok[eé]mon to another", t):
+        return ["moveDamageCounters"]
+    # Once during each player's turn, discard card then search
+    if re.search(r"once during each player's turn, that player may discard a card from (?:his or her |their )?hand\.\s*if (?:they|he or she) do,? that player searches", t):
+        return ["discardFromHand:1", "searchAnyToHand:1"]
+    # Non-Ultra Beast do less damage
+    if re.search(r"attacks of non-ultra beast", t):
+        return ["continuousStatic"]
+    # +N HP if energy attached
+    if re.search(r"if this pok[eé]mon has any [\w ]*energy attached,? it gets \+(\d+) hp", t):
+        return ["continuousStatic"]
+    if re.search(r"gets? \+(\d+) hp,? and the attacks it uses do (\d+) more damage", t):
+        return [f"plusPowerMarker:{2}"]
+    # Poisoned can't retreat
+    if re.search(r"poisoned pok[eé]mon can't retreat", t):
+        return ["cantRetreatPoisoned"]
+    # Opponent Active cost more
+    if re.search(r"attacks used by your opponent's active pok[eé]mon cost [\w ]*more", t):
+        return ["moreAttackCostOpponent"]
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]

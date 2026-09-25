@@ -17,7 +17,6 @@ export class AcroBike_123a extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "pokedex");
       return commonEffects.drawCards(this, store, state, effect).playCard(effect as TrainerEffect, 1);
     }
     return state;
