@@ -36,7 +36,7 @@ export class Ditto_17 extends PokemonCard {
       return commonEffects.runAttackOp(this, store, state, effect).use(effect, "copyAttack");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     return state;
   }

@@ -37,7 +37,7 @@ export class Haxorus_69 extends PokemonCard {
       return commonEffects.damageTimesEnergySelf(this, store, state, effect).use(effect, 40);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     return state;
   }

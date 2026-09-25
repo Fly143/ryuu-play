@@ -11,7 +11,9 @@ import {
   Stage,
   Weakness,
   Resistance,
+  SpecialCondition,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Skorupi_76 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -32,7 +34,10 @@ export class Skorupi_76 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "flipTailsBaseDamage:0");
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     return state;
   }

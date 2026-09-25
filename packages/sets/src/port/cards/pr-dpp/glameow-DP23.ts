@@ -37,7 +37,7 @@ export class GlameowDP23 extends PokemonCard {
       return commonEffects.selfReduceDamageNextTurn(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "flipTailsBaseDamage:0");
     }
     return state;
   }

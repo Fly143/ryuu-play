@@ -40,7 +40,7 @@ export class Nidoking_29 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.roughSkinPower(this, store, state, effect).reduce(effect.power);

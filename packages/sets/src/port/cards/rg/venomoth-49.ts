@@ -41,7 +41,7 @@ export class Venomoth_49 extends PokemonCard {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "flipTailsBaseDamage:0");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);

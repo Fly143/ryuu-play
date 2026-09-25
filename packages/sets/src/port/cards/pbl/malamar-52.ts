@@ -38,7 +38,7 @@ export class Malamar_52 extends PokemonCard {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     return state;
   }

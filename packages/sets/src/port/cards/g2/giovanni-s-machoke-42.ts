@@ -34,7 +34,7 @@ export class GiovanniSMachoke_42 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 20);

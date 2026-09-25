@@ -39,7 +39,7 @@ export class Unfezant_81 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 0, 0);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "flipTailsBaseDamage:0");
     }
     return state;
   }

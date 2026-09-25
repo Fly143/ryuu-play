@@ -736,6 +736,25 @@ export function applyAttackOp(
       }
       return state;
     }
+    case 'attachBasicFromHandToBench': {
+      const n = parseIntArg(op, 1, 1);
+      const slots = player.bench.filter(b => b.pokemons.cards.length > 0);
+      const energies = player.hand.cards
+        .filter((c: Card) => c instanceof EnergyCard && (c as EnergyCard).energyType === EnergyType.BASIC)
+        .slice(0, n * Math.max(1, slots.length)) as EnergyCard[];
+      energies.forEach((c, i) => {
+        const slot = slots[i % Math.max(1, slots.length)];
+        if (slot) {
+          player.hand.moveCardTo(c, slot.energies);
+        }
+      });
+      return state;
+    }
+    case 'plusPrize': {
+      const n = parseIntArg(op, 1, 1);
+      player.active.marker.addMarker('PLUS_PRIZE_' + n, effect.attack as any, state.turn + 1);
+      return state;
+    }
     case 'discardStadium': {
       for (const p of state.players) {
         if (p.stadium.cards.length > 0) {
@@ -1630,7 +1649,13 @@ export function applyTrainerOp(
     case 'preventEffectsNextTurn':
     case 'searchEnergyToSelf':
     case 'searchEnergyToHand':
+    case 'attachBasicFromHandToBench':
       return applyAttackOp(store, state, effect as unknown as AttackEffect, op);
+    case 'plusPrize': {
+      const n = parseIntArg(op, 1, 1);
+      player.active.marker.addMarker('PLUS_PRIZE_' + n, _self, state.turn + 1);
+      return state;
+    }
     default:
       return state;
   }
@@ -1773,6 +1798,25 @@ export function applyPowerOp(
       if (slot.getPokemonCard() === self) {
         slot.marker.addMarker('POISON_POINT', self);
       }
+      return state;
+    }
+    case 'plusPrize': {
+      const n = parseIntArg(op, 1, 1);
+      player.active.marker.addMarker('PLUS_PRIZE_' + n, self, state.turn + 1);
+      return state;
+    }
+    case 'attachBasicFromHandToBench': {
+      const n = parseIntArg(op, 1, 1);
+      const slots = player.bench.filter(b => b.pokemons.cards.length > 0);
+      const energies = player.hand.cards
+        .filter((c: Card) => c instanceof EnergyCard && (c as EnergyCard).energyType === EnergyType.BASIC)
+        .slice(0, n * Math.max(1, slots.length)) as EnergyCard[];
+      energies.forEach((c, i) => {
+        const slot = slots[i % Math.max(1, slots.length)];
+        if (slot) {
+          player.hand.moveCardTo(c, slot.energies);
+        }
+      });
       return state;
     }
     case 'continuousStatic':

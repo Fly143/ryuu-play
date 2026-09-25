@@ -37,7 +37,7 @@ export class Houndoom_4 extends PokemonCard {
       return commonEffects.plusPower(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     return state;
   }

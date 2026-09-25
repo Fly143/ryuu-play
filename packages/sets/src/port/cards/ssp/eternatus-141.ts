@@ -37,7 +37,7 @@ export class Eternatus_141 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 80, 1);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     return state;
   }

@@ -34,7 +34,7 @@ export class Weavile_70 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 3, 30);

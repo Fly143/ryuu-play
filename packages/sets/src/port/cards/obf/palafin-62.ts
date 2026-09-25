@@ -37,7 +37,7 @@ export class Palafin_62 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     return state;
   }

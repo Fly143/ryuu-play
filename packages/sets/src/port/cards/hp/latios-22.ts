@@ -11,6 +11,7 @@ import {
   Stage,
   Weakness,
   Resistance,
+  SpecialCondition,
 } from '@ptcg/common';
 import { commonEffects } from '../../../common';
 
@@ -37,7 +38,10 @@ export class Latios_22 extends PokemonCard {
       return commonEffects.flipHeadsBonusDamage(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "flipTailsBaseDamage:0");
+    }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.PARALYZED);
     }
     return state;
   }

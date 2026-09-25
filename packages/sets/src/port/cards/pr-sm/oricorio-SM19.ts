@@ -37,7 +37,7 @@ export class OricorioSM19 extends PokemonCard {
       return commonEffects.putCountersEachOpponent(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
-      return /* structural */ state;
+      return commonEffects.runAttackOp(this, store, state, effect).use(effect, "attackGate");
     }
     return state;
   }

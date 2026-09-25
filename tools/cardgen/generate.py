@@ -1340,8 +1340,17 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
 
     # "Unless this attack Knocks Out the Defending Pokémon, ..." — complex
     # "This attack does nothing" / "does no damage"
+    if re.search(r"flip a coin\.\s*if tails,?\s*this attack does nothing", t):
+        rest = re.sub(r"flip a coin\.\s*if tails,?\s*this attack does nothing\.?", "", t).strip()
+        rest = re.sub(r"^(?:either way,|if heads,)", "", rest).strip()
+        ops = ["flipTailsBaseDamage:0"]
+        if rest and len(rest) > 15:
+            sub = match_attack(rest, damage)
+            if sub:
+                ops = ops + sub
+        return ops
     if re.search(r"this attack does nothing|does no damage", t):
-        return ["attackCost"]  # base damage 0 already
+        return ["attackGate"]
 
     # Discard all Energy attached to this Pokémon.
     if re.search(r"discard all energy(?: cards)? attached to this pok[eé]mon", t):
@@ -2003,6 +2012,54 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     }
     if nm in NAME_OPS:
         return NAME_OPS[nm][:]
+
+    # Shuffle your hand into your deck. Then, draw N cards.
+    m = re.search(
+        r"shuffle your hand into your deck\.?\s*(?:then,?\s*)?draw (?:a card|(\d+|two|three|four|five|six|seven|eight|nine|ten)) cards?",
+        t,
+    )
+    if m:
+        n = 1 if m.group(0).find("a card") >= 0 else parse_count(m.group(1) or "1", 1)
+        return [f"shuffleDraw:{n}"]
+
+    # Take 1 more Prize card when you Knock Out ...
+    if re.search(r"take 1 more prize card", t):
+        return ["plusPrize:1"]
+    if re.search(r"take (\d+) more prize cards?", t):
+        m = re.search(r"take (\d+) more prize", t)
+        return [f"plusPrize:{m.group(1) if m else 1}"]
+
+    # Attach a basic Energy from hand to your Bench / Active
+    if re.search(r"attach a basic energy card from your hand to 1 of your benched", t):
+        return ["attachBasicFromHandToBench:1"]
+    if re.search(r"attach a [\w ]*energy card? from your hand to 1 of your benched", t):
+        return ["attachBasicFromHandToBench:1"]
+    if re.search(r"attach a basic energy card from your discard pile to 1 of your", t):
+        return ["attachBasicFromDiscard:1"]
+    if re.search(r"attach a [\w ]*energy card? from your discard pile to 1 of your", t):
+        return ["attachBasicFromDiscard:1"]
+
+    # Put N in any combination of X and Y from discard to hand
+    m = re.search(r"put (?:up to )?(\d+) in any combination of [\w ]+ from your discard pile into your hand", t)
+    if m:
+        return [f"recoverFromDiscard:{m.group(1)}"]
+
+    # Look at the top N cards of your deck and put M of them into your hand
+    m = re.search(r"look at the top (\d+) cards? of your deck and put (\d+) of them into your hand", t)
+    if m:
+        return [f"pokedex", f"draw:{m.group(2)}"]
+
+    # Discard a Special Energy from each of your opponent's Pokémon
+    if re.search(r"discard a special energy from each of your opponent", t):
+        return ["discardEnergyDefending:99"]
+
+    # Choose up to N Pokémon Tools ... and discard them
+    if re.search(r"discard them\.?", t) and "tool" in t and "discard" in t:
+        return ["discardOpponentTools:2"]
+
+    # Switch Active with Benched (self)
+    if re.search(r"switch your active pok[eé]mon with 1 of your benched", t):
+        return ["switchActive"]
 
     # Flip a coin until tails: draw a card per heads
     if re.search(r"flip a coin until (?:you get |there is )?tails", t) and "draw a card" in t:
