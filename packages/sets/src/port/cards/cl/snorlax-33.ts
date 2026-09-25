@@ -34,7 +34,7 @@ export class Snorlax_33 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 999);
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
     }
     return state;
   }

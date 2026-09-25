@@ -36,6 +36,9 @@ export class Doduo_80 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.flipTimesDamage(this, store, state, effect).use(effect, 2, 10);
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
+    }
     return state;
   }
 }

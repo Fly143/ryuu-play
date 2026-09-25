@@ -34,6 +34,9 @@ export class Raichu_8 extends PokemonCard {
   public text: string = "Raichu";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
+    }
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.energyTrans(this, store, state, effect).use(effect);
     }

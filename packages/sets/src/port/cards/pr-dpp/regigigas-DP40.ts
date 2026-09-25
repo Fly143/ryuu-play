@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  AttackEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -11,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class RegigigasDP40 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -31,7 +33,9 @@ export class RegigigasDP40 extends PokemonCard {
   public text: string = "Regigigas";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
-    /* no scripted effect */
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
+    }
     return state;
   }
 }

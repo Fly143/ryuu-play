@@ -36,6 +36,9 @@ export class Torterra_30 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.selfDamage(this, store, state, effect).use(effect, 10);
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
+    }
     return state;
   }
 }

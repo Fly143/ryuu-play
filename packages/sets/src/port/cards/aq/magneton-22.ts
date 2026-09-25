@@ -39,7 +39,7 @@ export class Magneton_22 extends PokemonCard {
       return commonEffects.damageAllBench(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "flipHeadsDraw:1");
     }
     return state;
   }

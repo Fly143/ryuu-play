@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  AttackEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -32,7 +33,9 @@ export class Nidoqueen_31 extends PokemonCard {
   public text: string = "Nidoqueen";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
-    /* no scripted effect */
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return /* structural */ state;
+    }
     return state;
   }
 }

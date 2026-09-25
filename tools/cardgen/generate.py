@@ -162,6 +162,15 @@ def match_attack(text: str, damage: str) -> Optional[list[str]]:
     m = re.search(r"your opponent may draw (\d+) cards?\.\s*either way,? you may draw (\d+) cards?", t)
     if m:
         return [f"bothDraw:{m.group(1)}"]
+    # Flip until tails, discard random per heads
+    if re.search(r"flip a coin until (?:you get |there is )?tails\.\s*for each heads,? choose 1 card from your opponent's hand", t):
+        return ["discardRandomOpponentHand:3"]
+    # Can't use this attack during your next turn
+    if re.search(r"can't use [\w' -]+ during your next turn|can't use this attack during your next turn", t):
+        return ["cantAttackNextTurn"]
+    # If bench fewer than opponent, base damage is
+    if re.search(r"if you have the same number of or less benched pok[eé]mon than your opponent,? this attack's base damage", t):
+        return ["attackCost"]
 
     # Flip a coin. If tails, X does N damage to itself.
     m = re.search(
@@ -2467,6 +2476,9 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if re.search(r"draw cards from your deck until you have (\d+) cards? in your hand", t):
         m = re.search(r"until you have (\d+)", t)
         return [f"drawUntilHand:{m.group(1) if m else 6}"]
+    # Mime Jr / shuffle hand draw equal opponent hand
+    if re.search(r"draw a number of cards equal to the number of cards in your opponent's hand", t):
+        return ["shuffleDrawPerOppHand"]
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]
@@ -3794,6 +3806,14 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["gustOpponent"]
     if re.search(r"you may put [\w' -]+ from your hand onto [\w' -]+", t):
         return ["searchBasicToBench:1"]
+    if re.search(r"can use any attack from its basic pok[eé]mon", t):
+        return ["copyAttack"]
+    if re.search(r"retreat cost for each of your [\w ]*pok[eé]mon is [\w ]*less", t):
+        return ["auraNoRetreatCost"]
+    if re.search(r"the attack cost of your .{0,40}attacks is [\w ]*less", t):
+        return ["attackCost"]
+    if re.search(r"once during your turn.{0,60}if [\w' -]+ is your active pok[eé]mon,? you may flip a coin", t):
+        return ["flipHeadsDraw:1"]
     if re.search(r"once during your turn.{0,60}you may move a basic energy from 1 of your pok[eé]mon", t):
         return ["energyTrans"]
     if re.search(r"once during your turn.{0,40}you may put [\w' -]+ from your hand", t):

@@ -38,6 +38,9 @@ export class WashRotomRT5 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 30);
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.discardOpponentHand(this, store, state, effect).use(effect, 3);
+    }
     return state;
   }
 }

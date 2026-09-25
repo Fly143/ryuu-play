@@ -35,7 +35,7 @@ export class GarchompCLVX_145 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 80);
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
     }
     return state;
   }

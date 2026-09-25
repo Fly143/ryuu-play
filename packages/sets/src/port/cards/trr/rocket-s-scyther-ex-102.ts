@@ -39,6 +39,9 @@ export class RocketSScytherEx_102 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.runAttackOp(this, store, state, effect).use(effect, "switchSelfAfterAttack");
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
+    }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return /* structural */ state;
     }

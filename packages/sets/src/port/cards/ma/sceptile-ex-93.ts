@@ -40,6 +40,9 @@ export class SceptileEx_93 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.cantRetreatNextTurn(this, store, state, effect).use(effect);
     }
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[2]) {
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
+    }
     return state;
   }
 }

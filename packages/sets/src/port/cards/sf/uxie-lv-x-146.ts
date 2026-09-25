@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  AttackEffect,
   PowerEffect,
   Attack,
   CardType,
@@ -34,6 +35,9 @@ export class UxieLVX_146 extends PokemonCard {
   public text: string = "Uxie LV.X";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
+    }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "pokedex");
     }

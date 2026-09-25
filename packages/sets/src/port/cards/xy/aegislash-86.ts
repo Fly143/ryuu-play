@@ -36,7 +36,7 @@ export class Aegislash_86 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
-      return commonEffects.preventDamageNextTurn(this, store, state, effect).use(effect);
+      return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return commonEffects.switchSelfPower(this, store, state, effect).reduce(effect.power);

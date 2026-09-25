@@ -2,6 +2,8 @@ import {
   Effect,
   State,
   StoreLike,
+  AttackEffect,
+  PowerEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -11,6 +13,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Gyarados_26 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -32,7 +35,12 @@ export class Gyarados_26 extends PokemonCard {
   public text: string = "Gyarados";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
-    /* no scripted effect */
+    if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
+      return commonEffects.discardOpponentHand(this, store, state, effect).use(effect, 3);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "copyAttack");
+    }
     return state;
   }
 }
