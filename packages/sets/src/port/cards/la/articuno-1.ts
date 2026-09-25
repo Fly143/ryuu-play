@@ -3,6 +3,7 @@ import {
   State,
   StoreLike,
   AttackEffect,
+  PowerEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -36,6 +37,9 @@ export class Articuno_1 extends PokemonCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.damageAllBench(this, store, state, effect).use(effect, 10);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "flipHeadsDraw:1");
     }
     return state;
   }

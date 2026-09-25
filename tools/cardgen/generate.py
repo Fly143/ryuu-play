@@ -2228,6 +2228,37 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Colorless have no abilities
     if re.search(r"[\w ]*pok[eé]mon in play .{0,20}have no abilities", t):
         return ["noPowers"]
+    # Battle City / stadium flip draw
+    if re.search(r"once during each player's turn, that player may flip a coin\.\s*if heads,?\s*(?:the )?player draws", t):
+        return ["flipHeadsDraw:1"]
+    # Discard a named card from hand, draw N (Team Plasma Grunt etc.)
+    if re.search(r"discard a [\w ]+ card from your (?:hand|card)\.", t):
+        m = re.search(r"draw (\d+) cards?", t)
+        return ["discardFromHand:1"] + ([f"draw:{m.group(1)}"] if m else [])
+    # Put special energy from opponent into lost zone
+    if re.search(r"put 1 special energy card attached to 1 of your opponent's pok[eé]mon in the lost zone", t):
+        return ["discardEnergyDefending:1"]
+    # Frozen City: attach energy from hand, put damage
+    if re.search(r"whenever any player attaches an energy from .{0,30}hand.{0,50}put (\d+) damage counters", t):
+        return ["roughSkin"]
+    # Life Dew: fewer prizes
+    if re.search(r"takes 1 fewer prize", t):
+        return ["noop"]
+    # Put energy in lost zone
+    if re.search(r"put all energy cards attached to [\w' -]+ in the lost zone|put all energy cards attached to this pok[eé]mon", t):
+        return ["discardEnergySelf:99"]
+    # When put onto bench, flip coins / attach energy
+    if re.search(r"when you put [\w' -]+ from your hand onto your bench,? you may flip", t):
+        return ["flipHeadsDraw:1"]
+    if re.search(r"when you put [\w' -]+ from your hand onto your bench,? you may attach up to (\d+)", t):
+        m = re.search(r"attach up to (\d+)", t)
+        return [f"attachBasicFromHandToBench:{m.group(1) if m else 2}"]
+    # Search named Pokemon
+    if re.search(r"search your deck for a card named [\w' -]+", t):
+        return ["searchPokemonToHand:1"]
+    # Choose opponent's evolved Pokemon
+    if re.search(r"choose a number of your opponent's stage", t):
+        return ["putDamageCounters:1"]
     # Tool: opponent takes fewer prizes
     if re.search(r"your opponent takes (\d+) fewer prize", t):
         return ["noop"]
@@ -3539,6 +3570,17 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["noPowers"]
     if re.search(r"you may flip a coin\.\s*if heads,?\s*your opponent's active pok[eé]mon", t):
         return ["flipHeadsSpecial:CONFUSED"]
+    if re.search(r"when you put [\w' -]+ from your hand onto your bench,? you may flip", t):
+        return ["flipHeadsDraw:1"]
+    if re.search(r"when you put [\w' -]+ from your hand onto your bench,? you may attach up to (\d+)", t):
+        m = re.search(r"attach up to (\d+)", t)
+        return [f"attachBasicFromHandToBench:{m.group(1) if m else 2}"]
+    if re.search(r"put all energy cards attached to", t):
+        return ["discardEnergySelf:99"]
+    if re.search(r"put a basic pok[eé]mon from your hand on top of this pok[eé]mon", t):
+        return ["dittoTransform"]
+    if re.search(r"if this pok[eé]mon is your active pok[eé]mon,? you may have you", t):
+        return ["gustOpponent"]
     if re.search(r"once during your turn.{0,80}you may shuffle 1 of your benched pok[eé]mon and all", t):
         return ["shuffleBenchToDeck"]
     if re.search(r"attacks cost [\w ]*more", t) and ("as long as" in t or "your opponent" in t):
