@@ -1981,6 +1981,47 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
             if ok and composed:
                 return composed
 
+    # Each player shuffles hand into deck (with or without draw)
+    if re.search(r"each player shuffles (?:his or her|their) hand into (?:his or her|their) deck", t):
+        m = re.search(r"draw (\d+|four|five|seven|eight) cards?", t)
+        n = parse_count(m.group(1), 4) if m else 4
+        return [f"bothShuffleDraw:{n}"]
+    # Shuffle hand into deck, draw equal to opponent's hand
+    if re.search(r"shuffle your hand into your deck\.\s*then,? draw a number of cards equal to the number of cards in your opponent's hand", t):
+        return ["shuffleDrawPerOppHand"]
+    # Search deck for an evolution card
+    if re.search(r"search your deck for an evolution card", t):
+        return ["searchPokemonToHand:1"]
+    # Choose 1 card in hand, shuffle rest into deck, draw N
+    if re.search(r"choose 1 card in your hand and shuffle the rest of your cards? into your deck\.\s*then,? draw (\d+)", t):
+        m = re.search(r"draw (\d+)", t)
+        return [f"shuffleHandToBottomDraw:{m.group(1) if m else 4}:0"]
+    # Reveal top N, opponent chooses M
+    if re.search(r"reveal the top (\d+) cards? of your deck\.\s*your opponent chooses (\d+)", t):
+        m = re.search(r"chooses (\d+)", t)
+        return [f"draw:{m.group(1) if m else 3}"]
+    # Search deck or discard for trainer/fossil
+    if re.search(r"search your deck or discard pile for a trainer card", t):
+        return ["searchTrainerToHand:1"]
+    # Show prizes face up
+    if re.search(r"turn all of your prize cards face up|prize cards face up for the rest of the game", t):
+        return ["showPrizes"]
+    # Heal all damage when becomes / evolves
+    if re.search(r"when 1 of your pok[eé]mon becomes this pok[eé]mon,? heal all damage", t):
+        return ["heal:999"]
+    # Damage isn't affected by effects on opponent Active
+    if re.search(r"isn't affected by any effects on your opponent's active", t):
+        return ["ignoreAllEffects"]
+    # Choose up to N TYPE, search energy attach
+    if re.search(r"choose up to (\d+) of your [\w ]*pok[eé]mon\.\s*for each of those pok[eé]mon,? search your deck for a [\w ]*energy", t):
+        return ["searchEnergyToSelf:2"]
+    # Opponent deck peek discard Items
+    if re.search(r"look at the top (\d+) cards? of your opponent's deck and discard", t):
+        return ["millOpponent:2"]
+    # Prize cards into hand
+    if re.search(r"put up to (\d+) prize cards? into your hand", t):
+        return ["noop"]
+
     # Draw N cards. (possibly with more clauses)
     m = re.search(r"^draw (\d+|two|three|four|five|six|seven|eight|nine|ten) cards?", t)
     if m:
