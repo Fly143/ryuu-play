@@ -17,7 +17,8 @@ export class HolonAdventurer_85 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.discardFromHandTrainer(this, store, state, effect).playCard(effect as TrainerEffect, 1);
+      return commonEffects.drawCards(this, store, state, effect).playCard(effect as TrainerEffect, 3);
     }
     return state;
   }

@@ -43,7 +43,7 @@ export class IncineroarGX_188 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 50, Math.floor(effect.player.active.damage / 10));
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchEnergyToSelf");
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchEnergyToSelf:3");
     }
     return state;
   }

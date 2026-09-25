@@ -2494,6 +2494,36 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Weakness as x2
     if re.search(r"apply weakness .{0,30}as .?2 instead", t):
         return ["continuousStatic"]
+    # Search deck for up to N TYPE energy and attach
+    if re.search(r"search your deck for up to (\d+) [\w ]*energy cards? and attach them", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchEnergyToSelf:{m.group(1) if m else 2}"]
+    # If opponent has N+ cards in hand, discard without looking
+    if re.search(r"if your opponent has \d+ or more cards in .{0,20}hand,? discard a number of cards without looking", t):
+        return ["discardRandomOpponentHand:2"]
+    # Change Active's type
+    if re.search(r"each of your active pok[eé]mon's type|change the type of your active", t):
+        return ["dualType"]
+    # Mime Jr power put Mr Mime
+    if re.search(r"you may put [\w' -]+ from your hand onto [\w' -]+ \(this", t):
+        return ["searchBasicToBench:1"]
+    # Holon series: discard a card, then search/draw
+    if re.search(r"discard a card from your hand\.\s*if you can't discard a card from your hand,? you can't play this card\.", t):
+        rest = re.sub(r"discard a card from your hand\.\s*if you can't discard a card from your hand,? you can't play this card\.\s*", "", t)
+        if "draw" in rest:
+            m = re.search(r"draw (\d+) cards?", rest)
+            return [f"discardFromHand:1", f"draw:{m.group(1) if m else 3}"]
+        if "search your discard pile" in rest:
+            return ["discardFromHand:1", "recoverEnergyFromDiscard:3"]
+        if "search your deck" in rest:
+            return ["discardFromHand:1", "searchEnergyToHand:1"]
+        return ["discardFromHand:1"]
+    # Mary's Request: draw 1, if no stage 2 draw 2 more
+    if re.search(r"draw a card\.\s*if you don't have any stage 2 evolved pok[eé]mon in play,? draw 2 more", t):
+        return ["draw:3"]
+    # Town Volunteers: take 5 from discard shuffle
+    if re.search(r"take 5 baby pok[eé]mon.{0,60}from your discard pile", t):
+        return ["shuffleCardsFromDiscardToDeck:5"]
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]
@@ -3829,6 +3859,11 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["attackCost"]
     if re.search(r"once during your turn.{0,60}if [\w' -]+ is your active pok[eé]mon,? you may flip a coin", t):
         return ["flipHeadsDraw:1"]
+    if re.search(r"you may use this power\.\s*each of your active pok[eé]mon", t):
+        return ["dualType"]
+    if re.search(r"search your deck for up to (\d+) [\w ]*energy cards? and attach", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchEnergyToSelf:{m.group(1) if m else 2}"]
     if re.search(r"once during your turn.{0,60}you may move a basic energy from 1 of your pok[eé]mon", t):
         return ["energyTrans"]
     if re.search(r"once during your turn.{0,40}you may put [\w' -]+ from your hand", t):

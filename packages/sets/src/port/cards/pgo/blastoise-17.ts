@@ -39,7 +39,7 @@ export class Blastoise_17 extends PokemonCard {
       return commonEffects.bonusPerEnergySelf(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchEnergyToSelf");
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchEnergyToSelf:6");
     }
     return state;
   }
