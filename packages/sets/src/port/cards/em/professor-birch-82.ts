@@ -17,7 +17,7 @@ export class ProfessorBirch_82 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.drawUntilHand(this, store, state, effect).playCard(effect as TrainerEffect, 6);
     }
     return state;
   }

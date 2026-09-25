@@ -2415,6 +2415,58 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Colorless have no abilities
     if re.search(r"colorless pok[eé]mon in play.{0,20}have no abilities", t):
         return ["noPowers"]
+    # Unown letters: on bench, flip a coin
+    if re.search(r"if unown [\w\[\]]+ is on your bench,? you may flip", t):
+        return ["flipHeadsDraw:1"]
+    # Night Pokemon Center: flip 2 coins, remove all damage / discard energy
+    if re.search(r"choose 1 of your pok[eé]mon\.\s*flip 2 coins\.\s*if both are heads,? remove all damage", t):
+        return ["heal:999"]
+    # Shuffle hand, draw equal to opponent hand (Mime Jr attack)
+    if re.search(r"shuffle your hand into your deck\.\s*then,? draw a number of cards equal to the number of cards in your opponent's hand", t):
+        return ["shuffleDrawPerOppHand"]
+    # Attack cost of opponent's basic cost more
+    if re.search(r"the attack cost of each of your opponent's basic pok[eé]mon", t):
+        return ["moreAttackCostOpponent"]
+    # Opponent can't attach special energy
+    if re.search(r"can't attach any special energy", t):
+        return ["continuousStatic"]
+    # Felicity / Juggler style: discard up to 2, draw 3/4
+    if re.search(r"discard up to 2 cards? from your hand\.\s*if you discard 1 card,? draw 3 cards?\.\s*if you discard 2 cards?,? draw 4", t):
+        return ["discardDrawPer:3"]
+    if re.search(r"discard up to 2 basic energy cards? from your hand\.\s*if you discarded 1", t):
+        return ["discardDrawPer:3"]
+    # Search discard for trainer/supporter/stadium
+    if re.search(r"search your discard pile for \d+ different trainer", t):
+        return ["searchTrainerToHand:1"]
+    # Copycat: shuffle hand, draw equal to opponent hand
+    if re.search(r"shuffle your hand into your deck\.\s*then,? count the number of cards in your opponent's hand", t):
+        return ["shuffleDrawPerOppHand"]
+    if re.search(r"shuffle your hand into your deck\.\s*then,? draw (?:that many|a number of) cards equal to", t):
+        return ["shuffleDrawPerOppHand"]
+    # Pokemon Nurse: remove all damage, discard energy
+    if re.search(r"remove all damage counters from 1 of your pok[eé]mon\.\s*then discard all energy", t):
+        return ["heal:999"]
+    # Look at top N, take energy
+    if re.search(r"look at the top (\d+) cards? of your deck\.\s*take all basic energy cards", t):
+        return ["searchEnergyToHand:2"]
+    # Take N from discard, shuffle into deck
+    if re.search(r"take (\d+) baby pok[eé]mon.{0,40}from your discard pile", t):
+        return ["shuffleCardsFromDiscardToDeck:5"]
+    if re.search(r"take (\d+) [\w ]+ from your discard pile and then show", t):
+        m = re.search(r"take (\d+)", t)
+        return [f"shuffleCardsFromDiscardToDeck:{m.group(1) if m else 5}"]
+    # Search deck for up to N trainer/tool
+    if re.search(r"search your deck for up to (\d+) technical machine", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchTrainerToHand:{m.group(1) if m else 2}"]
+    # Search deck for up to N different types of basic energy
+    if re.search(r"search your deck for up to (\d+) different types of basic energy", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchEnergyToHand:{m.group(1) if m else 3}"]
+    # Draw until N in hand
+    if re.search(r"draw cards from your deck until you have (\d+) cards? in your hand", t):
+        m = re.search(r"until you have (\d+)", t)
+        return [f"drawUntilHand:{m.group(1) if m else 6}"]
     # Prize cards into hand
     if re.search(r"put up to (\d+) prize cards? into your hand", t):
         return ["noop"]
@@ -3746,6 +3798,16 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["energyTrans"]
     if re.search(r"once during your turn.{0,40}you may put [\w' -]+ from your hand", t):
         return ["searchBasicToBench:1"]
+    if re.search(r"if unown [\w\[\]]+ is on your bench,? you may flip", t):
+        return ["flipHeadsDraw:1"]
+    if re.search(r"if [\w' -]+ is on your bench,? you may flip", t):
+        return ["flipHeadsDraw:1"]
+    if re.search(r"the attack cost of each of your opponent's basic pok[eé]mon", t):
+        return ["moreAttackCostOpponent"]
+    if re.search(r"can't attach any special energy", t):
+        return ["continuousStatic"]
+    if re.search(r"shuffle your hand into your deck\.\s*then,? draw a number of cards equal to the number of cards in your opponent's hand", t):
+        return ["shuffleDrawPerOppHand"]
     if re.search(r"once during your turn.{0,80}you may shuffle 1 of your benched pok[eé]mon and all", t):
         return ["shuffleBenchToDeck"]
     if re.search(r"attacks cost [\w ]*more", t) and ("as long as" in t or "your opponent" in t):
