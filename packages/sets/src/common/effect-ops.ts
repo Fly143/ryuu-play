@@ -1653,6 +1653,7 @@ export function applyTrainerOp(
     case 'moreAttackCostOpponent':
     case 'noStadium':
     case 'cantRetreatPoisoned':
+    case 'drawPerOpponentBench':
       return applyAttackOp(store, state, effect as unknown as AttackEffect, op);
     case 'plusPrize': {
       const n = parseIntArg(op, 1, 1);
@@ -1691,6 +1692,15 @@ export function applyTrainerOp(
         slot.damage = 0;
         slot.specialConditions = [];
       });
+      return state;
+    }
+    case 'drawPerOpponentBench': {
+      const per = parseIntArg(op, 1, 1);
+      const opponent = state.players.find(p => p !== player) ?? player;
+      const n = Math.max(0, opponent.bench.filter(b => b.pokemons.cards.length > 0).length) * per;
+      if (n > 0) {
+        player.deck.moveTo(player.hand, n);
+      }
       return state;
     }
     case 'toolSlots':
@@ -1884,6 +1894,15 @@ export function applyPowerOp(
         slot.damage = 0;
         slot.specialConditions = [];
       });
+      return state;
+    }
+    case 'drawPerOpponentBench': {
+      const per = parseIntArg(op, 1, 1);
+      const opponent = state.players.find(p => p !== player) ?? player;
+      const n = Math.max(0, opponent.bench.filter(b => b.pokemons.cards.length > 0).length) * per;
+      if (n > 0) {
+        player.deck.moveTo(player.hand, n);
+      }
       return state;
     }
     case 'toolSlots':

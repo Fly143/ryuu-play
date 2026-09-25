@@ -2105,6 +2105,50 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Opponent Active Confused and Poisoned
     if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
         return ["specialBoth:CONFUSED", "specialBoth:POISONED"]
+    # Move energy between own Pokemon
+    if re.search(r"move up to (\d+) energy from 1 of your pok[eé]mon to another", t):
+        return ["energyTrans"]
+    # Heal N from each of your TYPE Pokemon
+    m = re.search(r"heal (\d+) damage from each of your [\w ]*pok[eé]mon", t)
+    if m:
+        return [f"healEachPokemon:{m.group(1)}"]
+    # Switch opponent Basic to Active, then Confused
+    if re.search(r"switch in 1 of your opponent's benched basic pok[eé]mon to the active", t):
+        ops = ["gustOpponent"]
+        if "confused" in t:
+            ops.append("specialDefending:CONFUSED")
+        return ops
+    # Opponent reveals hand, draw per Supporter/Trainer
+    if re.search(r"your opponent reveals (?:his or her |their )?hand,? and you draw (\d+) cards? for each supporter", t):
+        m = re.search(r"draw (\d+) cards?", t)
+        return ["peekOpponentHand", f"draw:{m.group(1) if m else 2}"]
+    # Search deck for TYPE energy / combination
+    if re.search(r"search your deck for up to \d+ in any combination of [\w' ]+ and basic [\w ]*energy", t):
+        return ["searchEnergyToSelf:2"]
+    if re.search(r"choose up to (\d+) of your [\w ]*pok[eé]mon\.\s*for each of those pok[eé]mon,? search your deck for a basic [\w ]*energy", t):
+        return [f"searchEnergyToSelf:{m.group(1) if m else 2}"]
+    # Attach energy from discard to VMAX/ex then draw
+    if re.search(r"attach up to (\d+) basic energy cards? from your discard pile to 1 of your pok[eé]mon", t):
+        ops = [f"attachBasicFromDiscardToBench:{1}"]
+        if "draw" in t:
+            m2 = re.search(r"draw (\d+) cards?", t)
+            if m2:
+                ops.append(f"draw:{m2.group(1)}")
+        return ops
+    # Search 2 energy different types, 1 hand 1 attach
+    if re.search(r"search your deck for up to 2 basic energy cards? of different types", t):
+        return ["searchEnergyToSelf:1"]
+    # Draw card for each opponent Pokemon/Bench
+    if re.search(r"draw a card for each of your opponent's benched pok[eé]mon", t):
+        return ["drawPerOpponentBench:1"]
+    if re.search(r"draw a card for each of your opponent's pok[eé]mon in play", t):
+        return ["drawPerOpponentBench:1"]
+    # copy attack tool
+    if re.search(r"can (?:also )?use the attack on this card", t):
+        return ["copyAttack"]
+    # Search deck for card that evolves / put onto pokemon
+    if re.search(r"search your deck for a card that", t) and "evolves from" in t:
+        return ["searchPokemonToHand:1"]
 
     # Opponent Active is now Confused and Poisoned
     if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
