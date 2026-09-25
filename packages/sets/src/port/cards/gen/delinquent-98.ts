@@ -17,6 +17,7 @@ export class Delinquent_98 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "discardStadium");
       return commonEffects.discardOpponentHandTrainer(this, store, state, effect).playCard(effect as TrainerEffect, 3);
     }
     return state;

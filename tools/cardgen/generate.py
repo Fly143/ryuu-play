@@ -1964,6 +1964,36 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if stripped and stripped != t:
         t = stripped
 
+    # Multi-sentence trainer effects: match each clause and compose
+    if t.count(". ") >= 1 or t.endswith("."):
+        parts = [p.strip() for p in re.split(r"(?<=[.!?])\s+", t) if p.strip()]
+        if len(parts) >= 2:
+            composed: list[str] = []
+            ok = True
+            for part in parts:
+                sub = match_trainer(part, subtypes, nm)
+                if sub is None:
+                    ok = False
+                    break
+                if sub == ["noop"]:
+                    continue
+                composed.extend(sub)
+            if ok and composed:
+                return composed
+
+    # Draw N cards. (possibly with more clauses)
+    m = re.search(r"^draw (\d+|two|three|four|five|six|seven|eight|nine|ten) cards?", t)
+    if m:
+        ops = [f"draw:{parse_count(m.group(1))}"]
+        rest = t[m.end():].strip(" .")
+        if "discard a stadium" in rest or "discard the stadium" in rest or "discard a stadium" in t:
+            ops.append("discardStadium")
+        if "discard" in rest and "stadium" not in rest and "hand" not in rest:
+            pass
+        return ops
+    if re.search(r"discard a stadium|discard the stadium|discard any stadium", t):
+        return ["discardStadium"]
+
     # Name-first for famous trainers (text can be noisy with rule boxes)
     NAME_OPS: dict[str, list[str]] = {
         "switch": ["switchActive"],
@@ -2102,6 +2132,41 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Put pokemon with damage counters into hand
     if re.search(r"put 1 of your pok[eé]mon that has any damage counters on it and all cards attached", t):
         return ["scoopUpSelf"]
+    # Choose 1: put pokemon to hand / shuffle into deck
+    if re.search(r"choose 1:\s*•?\s*put a pok[eé]mon from your discard pile into your hand", t):
+        return ["recoverFromDiscard:1"]
+    if re.search(r"put a pok[eé]mon from your discard pile into your hand", t):
+        return ["recoverFromDiscard:1"]
+    if re.search(r"shuffle (\d+) pok[eé]mon from your discard pile into your deck", t):
+        m = re.search(r"shuffle (\d+)", t)
+        return [f"shuffleCardsFromDiscardToDeck:{m.group(1) if m else 3}"]
+    # Draw until N more than opponent
+    if re.search(r"draw cards until you have 1 more card in your hand than your opponent", t):
+        return ["drawUntilHand:7"]
+    # Draw 2. If name contains X, draw 2 more
+    m = re.search(r"draw (\d+) cards\.\s*if your active pok[eé]mon has .+ draw (\d+) more", t)
+    if m:
+        return [f"draw:{int(m.group(1)) + int(m.group(2))}"]
+    # Choose a card in hand, discard others, draw N
+    if re.search(r"choose a card in your hand,? and discard the other cards\.\s*if you do,? draw (\d+)", t):
+        m = re.search(r"draw (\d+)", t)
+        return ["discardHandDraw:" + (m.group(1) if m else "4")]
+    # Flip N coins, put cards from discard on top of deck
+    if re.search(r"flip (\d+) coins\.\s*put a number of cards up to the number of heads from your discard pile", t):
+        return ["recoverFromDiscard:2"]
+    # Look at top card, put in hand or discard and draw
+    if re.search(r"look at the top card of your deck\.\s*you may put that card into your hand", t):
+        return ["pokedex"]
+    # Opponent puts Basic from hand onto their bench
+    if re.search(r"your opponent reveals .{0,20}hand,? and you put a basic pok[eé]mon you find there onto your opponent's bench", t):
+        return ["peekOpponentHand"]
+    # Search deck for Pokemon with no abilities that evolves
+    if re.search(r"search your deck for a card that has no abilities and evolves", t):
+        return ["searchPokemonToHand:1"]
+    # Draw 3. Discard a Stadium
+    if re.search(r"draw (\d+) cards\.\s*discard a stadium", t):
+        m = re.search(r"draw (\d+)", t)
+        return [f"draw:{m.group(1) if m else 3}", "discardStadium"]
     # Opponent Active Confused and Poisoned
     if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
         return ["specialBoth:CONFUSED", "specialBoth:POISONED"]
@@ -2439,6 +2504,10 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     m = re.search(r"put (\d+|two|three) basic energy cards? from your discard pile into your hand", t)
     if m:
         return [f"recoverEnergyFromDiscard:{parse_count(m.group(1))}"]
+    # Put up to N in any combination of ... from discard to hand
+    m = re.search(r"put (?:up to )?(\d+) in any combination of .+ from your discard pile into your hand", t)
+    if m:
+        return [f"recoverFromDiscard:{m.group(1)}"]
 
     # Move a basic Energy from 1 of your Pokémon to another
     if re.search(r"move a basic energy from 1 of your pok[eé]mon to another", t):

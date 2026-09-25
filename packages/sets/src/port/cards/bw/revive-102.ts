@@ -18,6 +18,7 @@ export class Revive_102 extends TrainerCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "recoverPokemonFromDiscard:1");
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "recoverPokemonFromDiscard:1");
     }
     return state;
   }

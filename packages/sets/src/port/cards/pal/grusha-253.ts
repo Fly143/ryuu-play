@@ -18,6 +18,7 @@ export class Grusha_253 extends TrainerCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.drawUntilHand(this, store, state, effect).playCard(effect as TrainerEffect, 5);
+      return commonEffects.drawUntilHand(this, store, state, effect).playCard(effect as TrainerEffect, 7);
     }
     return state;
   }

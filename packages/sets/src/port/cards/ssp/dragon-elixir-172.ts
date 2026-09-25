@@ -17,7 +17,7 @@ export class DragonElixir_172 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 60);
     }
     return state;
   }

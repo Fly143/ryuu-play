@@ -18,6 +18,8 @@ export class PokBall_113 extends TrainerCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
+      return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
+      return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
     }
     return state;
   }

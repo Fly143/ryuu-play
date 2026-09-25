@@ -17,7 +17,7 @@ export class Zisu_189 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.drawUntilHand(this, store, state, effect).playCard(effect as TrainerEffect, 7);
     }
     return state;
   }

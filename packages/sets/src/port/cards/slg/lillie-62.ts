@@ -18,6 +18,7 @@ export class Lillie_62 extends TrainerCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.drawUntilHand(this, store, state, effect).playCard(effect as TrainerEffect, 6);
+      return commonEffects.drawUntilHand(this, store, state, effect).playCard(effect as TrainerEffect, 8);
     }
     return state;
   }

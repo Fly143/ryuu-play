@@ -18,6 +18,7 @@ export class Potion_37 extends TrainerCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 2 * 10);
+      return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 2 * 10);
     }
     return state;
   }

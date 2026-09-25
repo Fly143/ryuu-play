@@ -18,6 +18,7 @@ export class IngoEmmet_144 extends TrainerCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
       return commonEffects.discardHandDraw(this, store, state, effect).playCard(effect as TrainerEffect, 5);
+      return commonEffects.discardHandDraw(this, store, state, effect).playCard(effect as TrainerEffect, 5);
     }
     return state;
   }
