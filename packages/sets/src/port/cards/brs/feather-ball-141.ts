@@ -17,7 +17,7 @@ export class FeatherBall_141 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "auraNoRetreatCost");
     }
     return state;
   }

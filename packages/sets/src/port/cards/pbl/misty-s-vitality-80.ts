@@ -17,7 +17,7 @@ export class MistySVitality_80 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "searchEnergyToSelf:4");
+      return commonEffects.searchEnergyToHand(this, store, state, effect).playCard(effect as TrainerEffect, 4);
     }
     return state;
   }

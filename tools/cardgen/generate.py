@@ -2162,6 +2162,51 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Put Basic from hand into play
     if re.search(r"put a basic pok[eé]mon card from your hand into play", t):
         return ["searchBasicToBench:1"]
+    # Tool: no retreat cost
+    if re.search(r"the pok[eé]mon this card is attached to has no retreat cost|has no retreat cost", t):
+        return ["auraNoRetreatCost"]
+    # Tool: max HP set
+    if re.search(r"its maximum hp is \d+|maximum hp is \d+", t):
+        return ["continuousStatic"]
+    # Tool: attacks regardless of energy
+    if re.search(r"regardless of the amount or type of energy attached", t):
+        return ["attackCost"]
+    # Tool: if damaged, put damage counters (Rocky Helmet)
+    if re.search(r"is damaged by an opponent's attack.{0,80}put (\d+) damage counters", t):
+        return ["roughSkin"]
+    if re.search(r"is damaged by an opponent's attack", t) and "knocked out" in t:
+        return ["roughSkin"]
+    # Tool: opponent takes fewer prizes
+    if re.search(r"your opponent takes (\d+) fewer prize", t):
+        return ["noop"]
+    # Tool: attach energy from hand, put damage
+    if re.search(r"whenever any player attaches an energy from .{0,20}hand.{0,40}put (\d+) damage counters", t):
+        return ["roughSkin"]
+    # Tool: when KO, search deck
+    if re.search(r"if the pok[eé]mon this card is attached to is knocked out.{0,80}search your deck", t):
+        return ["searchAnyToHand:1"]
+    # Prevent damage counters on Bench
+    if re.search(r"prevent all damage counters from being placed on benched", t):
+        return ["auraProtectBench"]
+    # Search deck for up to N Basic Energy
+    if re.search(r"search your deck for up to (\d+) basic [\w ]*energy cards?[, ]", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchEnergyToHand:{m.group(1) if m else 1}"]
+    # Look at top N, put Pokemon onto Bench
+    if re.search(r"look at the top (\d+) cards? of your deck and put a [\w ]*pok[eé]mon you find there onto your bench", t):
+        return ["searchBasicToBench:1"]
+    # Once during each player's turn, switch Active TYPE
+    if re.search(r"once during each player's turn, that player may switch their active [\w ]*pok[eé]mon", t):
+        return ["switchSelf"]
+    # Giovanni / named energy attach cost
+    if re.search(r"choose 1 of your pok[eé]mon in play with [\w' -]+ in its name", t):
+        return ["noop"]
+    # Koga poison
+    if re.search(r"does damage to a defending pok[eé]mon this turn,? that pok[eé]mon is then poisoned", t):
+        return ["poisonDefending"]
+    # Sabrina energy move
+    if re.search(r"take all energy cards attached to 1 of your pok[eé]mon", t):
+        return ["energyTrans"]
 
     # Draw N cards. (possibly with more clauses)
     m = re.search(r"^draw (\d+|two|three|four|five|six|seven|eight|nine|ten) cards?", t)
@@ -3412,6 +3457,14 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["auraNoRetreatCost"]
     if re.search(r"can't be poisoned|can't be affected by poison", t):
         return ["immuneToSpecial"]
+    if re.search(r"when 1 of your pok[eé]mon becomes this pok[eé]mon,? heal all damage", t):
+        return ["heal:999"]
+    if re.search(r"change the type of", t):
+        return ["dualType"]
+    if re.search(r"may play a restored pok[eé]mon from their hand", t):
+        return ["searchBasicToBench:1"]
+    if re.search(r"if the effect of a pok[eé]mon power.{0,60}would put a card in a discard pile into its owner's hand", t):
+        return ["continuousStatic"]
     if re.search(r"once during your turn.{0,80}you may shuffle 1 of your benched pok[eé]mon and all", t):
         return ["shuffleBenchToDeck"]
     if re.search(r"attacks cost [\w ]*more", t) and ("as long as" in t or "your opponent" in t):
