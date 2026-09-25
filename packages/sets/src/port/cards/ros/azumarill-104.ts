@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -43,7 +44,10 @@ export class Azumarill_104 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 10, Math.floor(effect.player.active.damage / 10));
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "healDouble");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "healDouble");
     }
     return state;
   }

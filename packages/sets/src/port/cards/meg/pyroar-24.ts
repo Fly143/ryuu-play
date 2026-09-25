@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -40,7 +41,10 @@ export class Pyroar_24 extends PokemonCard {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.BURNED);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "auraReduceDamage:30");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "auraReduceDamage:30");
     }
     return state;
   }

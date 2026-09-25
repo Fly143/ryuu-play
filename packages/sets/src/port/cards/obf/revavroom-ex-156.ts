@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -39,7 +40,10 @@ export class RevavroomEx_156 extends PokemonCard {
       return commonEffects.reduceDamageNextTurn(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "toolSlots:4");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "toolSlots:4");
     }
     return state;
   }

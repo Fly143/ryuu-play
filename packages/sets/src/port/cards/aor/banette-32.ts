@@ -3,6 +3,7 @@ import {
   State,
   StoreLike,
   AttackEffect,
+  PowerEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -37,6 +38,9 @@ export class Banette_32 extends PokemonCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[1]) {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 50, 1);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "earlyEvolution");
     }
     return state;
   }

@@ -17,7 +17,7 @@ export class BebeSSearch_109 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.searchToHand(this, store, state, effect).playCard(effect as TrainerEffect, 1);
+      /* structural */
     }
     return state;
   }

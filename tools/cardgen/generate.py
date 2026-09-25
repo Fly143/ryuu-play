@@ -2016,6 +2016,56 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     # Δ Evolution / early evolution rule
     if re.search(r"you may play this card from your hand to evolve a pok[eé]mon during your first turn", t):
         return ["earlyEvolution"]
+    # Opponent reveals hand, discard up to N Item/Trainer
+    m = re.search(r"your opponent reveals (?:his or her |their )?hand,? and you discard up to (\d+) item cards", t)
+    if m:
+        return ["peekOpponentHand", f"discardOpponentHand:{m.group(1)}"]
+    if re.search(r"look at your opponent's hand\.\s*discard up to (\d+)", t):
+        return ["peekOpponentHand", f"discardOpponentHand:{m.group(1)}"]
+    # Put an Energy attached to opponent's Pokémon into their hand
+    if re.search(r"put an energy attached to 1 of your opponent's pok[eé]mon into (?:his or her |their )?hand", t):
+        return ["discardEnergyDefending:1"]
+    # Discard an Energy attached to opponent's Active
+    if re.search(r"discard an energy attached to your opponent's active", t):
+        return ["discardEnergyDefending:1"]
+    # Reveal from top until Supporter / Trainer
+    if re.search(r"reveal cards from the top of your deck until you reveal a supporter", t):
+        return ["searchTrainerToHand:1"]
+    if re.search(r"reveal cards from the top of your deck until you reveal a trainer", t):
+        return ["searchTrainerToHand:1"]
+    # Discard N. If you do, draw M / look at top
+    m = re.search(r"discard (\d+) of the other cards in your hand", t)
+    if m:
+        return [f"discardFromHand:{m.group(1)}"]
+    # Draw N. If you do / if you drew, draw/discard more
+    m = re.search(r"draw (\d+) cards\.\s*if you (?:drew|do)", t)
+    if m:
+        return [f"draw:{m.group(1)}"]
+    # Put a Pokémon and all attached into hand (scoop)
+    if re.search(r"put 1 of your pok[eé]mon (?:in play |with any damage counters on it )?and all attached cards into your hand", t):
+        return ["scoopUpSelf"]
+    # Discard a Benched Pokémon V / VMAX and all attached
+    if re.search(r"discard 1 of your benched pok[eé]mon (?:v|vmax|ex) and all attached", t):
+        return ["discardBench:1"]
+    # Search discard for up to N Pokémon and/or basic Energy
+    if re.search(r"search your discard pile for up to \d+ in any combination of pok[eé]mon and basic energy", t):
+        return ["recoverFromDiscard:3"]
+    if re.search(r"search your discard pile for up to (\d+) pok[eé]mon", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"recoverFromDiscard:{m.group(1) if m else 1}"]
+    # Choose up to N of TYPE Pokémon and attach basic energy from discard
+    if re.search(r"choose up to (\d+) of your [\w ]*pok[eé]mon and attach a basic energy card from your discard pile", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"attachBasicFromDiscardToBench:{m.group(1) if m else 2}"]
+    # Supporter rule text
+    if re.search(r"you can play only one supporter card each turn", t):
+        return ["noop"]
+    # Flip N coins. Search deck for up to number of heads
+    if re.search(r"flip (\d+) coins\.\s*search your deck for a number of cards up to the number of heads", t):
+        return ["searchAnyToHand:2"]
+    # Each player shuffles hand into deck (prize gate already ignored)
+    if re.search(r"each player shuffles (?:his or her |their )?hand into (?:his or her |their )?deck", t) and "draw" not in t:
+        return ["bothShuffleDraw:0"]
     # When you attach an Energy from hand to this Pokémon, you may attach 2
     if re.search(r"when you attach an? energy card from your hand to this pok[eé]mon.{0,80}you may attach (\d+)", t):
         m = re.search(r"you may attach (\d+)", t)
@@ -2733,6 +2783,8 @@ def match_power(text: str) -> Optional[list[str]]:
     t = norm_text(text).lower()
     if not t:
         return []
+    if re.search(r"you may play this card from your hand to evolve a pok[eé]mon during your first turn", t):
+        return ["earlyEvolution"]
     if re.search(r"take 1 more prize card", t):
         return ["plusPrize:1"]
     if re.search(r"prevent all effects of your opponent's pok[eé]mon's abilities done to", t):
@@ -2742,6 +2794,29 @@ def match_power(text: str) -> Optional[list[str]]:
     if re.search(r"attacks used by your pok[eé]mon do (\d+) more damage", t) and "once" not in t:
         m = re.search(r"(\d+) more damage", t)
         return [f"auraPlusDamage:{m.group(1) if m else 20}"]
+    # Opponent Active does N less damage while this is active
+    m = re.search(r"attacks used by your opponent's active pok[eé]mon do (\d+) less damage", t)
+    if m:
+        return [f"auraReduceDamage:{m.group(1)}"]
+    if re.search(r"your opponent's active pok[eé]mon can't retreat", t):
+        return ["auraCantRetreatOpponent"]
+    if re.search(r"has no abilities|have no abilities|no abilities, except", t):
+        return ["noPowers"]
+    if re.search(r"has no weakness|have no weakness|no weakness", t) and "as long as" in t or re.search(r"your pok[eé]mon in play have no weakness", t):
+        return ["noWeakness"]
+    if re.search(r"each of your pok[eé]mon that has any energy attached .{0,30}has no weakness", t):
+        return ["noWeakness"]
+    if re.search(r"this pok[eé]mon may have up to (\d+) pok[eé]mon tool", t):
+        m = re.search(r"up to (\d+) pok[eé]mon tool", t)
+        return [f"toolSlots:{m.group(1) if m else 2}"]
+    if re.search(r"this pok[eé]mon may attack twice", t):
+        return ["attackTwice"]
+    if re.search(r"when this pok[eé]mon is healed,? double", t):
+        return ["healDouble"]
+    if re.search(r"can't attack unless you have \d+ or more", t):
+        return ["attackGate"]
+    if re.search(r"it is [\w ]+ and [\w ]+ type", t) and "as long as" in t:
+        return ["dualType"]
     if ("once during your turn" in t or "once per turn" in t) and "draw" in t and len(t) < 140:
         m = re.search(r"draw (\d+|a|two|three) cards?", t)
         if m:

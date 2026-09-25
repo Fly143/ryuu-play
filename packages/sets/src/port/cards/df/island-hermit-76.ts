@@ -17,7 +17,7 @@ export class IslandHermit_76 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.drawCards(this, store, state, effect).playCard(effect as TrainerEffect, 2);
+      /* structural */
     }
     return state;
   }

@@ -44,7 +44,10 @@ export class Golurk_35 extends PokemonCard {
       return commonEffects.selfDamage(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "dualType");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "dualType");
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
       return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);

@@ -3,6 +3,7 @@ import {
   State,
   StoreLike,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -12,6 +13,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Pikachu_28 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -34,7 +36,10 @@ export class Pikachu_28 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "auraReduceDamage:20");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "auraReduceDamage:20");
     }
     return state;
   }

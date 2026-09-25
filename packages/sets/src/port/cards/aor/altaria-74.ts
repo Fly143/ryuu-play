@@ -12,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Altaria_74 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -36,6 +37,9 @@ export class Altaria_74 extends PokemonCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
       return /* structural */ state;
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "earlyEvolution");
     }
     return state;
   }

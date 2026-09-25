@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -39,7 +40,10 @@ export class TeamRocketSMewtwoEx_79 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 60, 0);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "attackGate");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "attackGate");
     }
     return state;
   }

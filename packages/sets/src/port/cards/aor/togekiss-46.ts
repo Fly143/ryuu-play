@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  PowerEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -11,6 +12,7 @@ import {
   Weakness,
   Resistance,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Togekiss_46 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -33,7 +35,9 @@ export class Togekiss_46 extends PokemonCard {
   public text: string = "Togekiss";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
-    /* no scripted effect */
+    if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "earlyEvolution");
+    }
     return state;
   }
 }

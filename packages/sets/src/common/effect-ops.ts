@@ -1678,6 +1678,28 @@ export function applyTrainerOp(
       player.deck.moveTo(player.hand, per * n);
       return state;
     }
+    case 'discardBench': {
+      const n = parseIntArg(op, 1, 1);
+      const slots = player.bench.filter(b => b.pokemons.cards.length > 0).slice(0, n);
+      slots.forEach(slot => {
+        slot.energies.cards.slice().forEach((c: any) => slot.energies.moveCardTo(c, player.discard));
+        slot.trainers.cards.slice().forEach((c: any) => slot.trainers.moveCardTo(c, player.discard));
+        slot.pokemons.cards.slice().forEach((c: any) => slot.pokemons.moveCardTo(c, player.discard));
+        slot.damage = 0;
+        slot.specialConditions = [];
+      });
+      return state;
+    }
+    case 'toolSlots':
+    case 'attackTwice':
+    case 'dualType':
+      return state;
+    case 'healDouble':
+      player.active.marker.addMarker('HEAL_DOUBLE', _self, state.turn + 1);
+      return state;
+    case 'noWeakness':
+      player.marker.addMarker('NO_WEAKNESS', _self, state.turn + 1);
+      return state;
     default:
       return state;
   }
@@ -1849,6 +1871,28 @@ export function applyPowerOp(
       player.deck.moveTo(player.hand, per * n);
       return state;
     }
+    case 'discardBench': {
+      const n = parseIntArg(op, 1, 1);
+      const slots = player.bench.filter(b => b.pokemons.cards.length > 0).slice(0, n);
+      slots.forEach(slot => {
+        slot.energies.cards.slice().forEach((c: any) => slot.energies.moveCardTo(c, player.discard));
+        slot.trainers.cards.slice().forEach((c: any) => slot.trainers.moveCardTo(c, player.discard));
+        slot.pokemons.cards.slice().forEach((c: any) => slot.pokemons.moveCardTo(c, player.discard));
+        slot.damage = 0;
+        slot.specialConditions = [];
+      });
+      return state;
+    }
+    case 'toolSlots':
+    case 'attackTwice':
+    case 'dualType':
+      return state;
+    case 'healDouble':
+      player.active.marker.addMarker('HEAL_DOUBLE', self, state.turn + 1);
+      return state;
+    case 'noWeakness':
+      player.marker.addMarker('NO_WEAKNESS', self, state.turn + 1);
+      return state;
     case 'auraReduceDamage':
     case 'auraPreventEffects':
     case 'auraNoRetreatCost':
@@ -1943,6 +1987,22 @@ export function applyContinuousAura(
         player.marker.addMarker('NO_TRAINERS', self, turn + 1);
         break;
       }
+      case 'noPowers': {
+        player.marker.addMarker('NO_POWERS', self, turn + 1);
+        break;
+      }
+      case 'noWeakness': {
+        player.marker.addMarker('NO_WEAKNESS', self, turn + 1);
+        break;
+      }
+      case 'healDouble': {
+        player.active.marker.addMarker('HEAL_DOUBLE', self, turn + 1);
+        break;
+      }
+      case 'toolSlots':
+      case 'attackTwice':
+      case 'dualType':
+        break;
       case 'noEvolution': {
         player.marker.addMarker('NO_EVOLUTION', self, turn + 1);
         break;
