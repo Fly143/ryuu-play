@@ -41,6 +41,9 @@ export class MalamarXY58 extends PokemonCard {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
     }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return /* structural */ state;
+    }
     if (effect instanceof PowerEffect && effect.power === this.powers[1]) {
       return commonEffects.preventEffectsSelfPower(this, store, state, effect).reduce(effect.power);
     }

@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  PowerEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -32,7 +33,9 @@ export class UnownE_65 extends PokemonCard {
   public text: string = "Unown [E]";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
-    /* no scripted effect */
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return /* structural */ state;
+    }
     return state;
   }
 }

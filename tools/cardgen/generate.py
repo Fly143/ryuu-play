@@ -2172,10 +2172,53 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if re.search(r"regardless of the amount or type of energy attached", t):
         return ["attackCost"]
     # Tool: if damaged, put damage counters (Rocky Helmet)
-    if re.search(r"is damaged by an opponent's attack.{0,80}put (\d+) damage counters", t):
+    if re.search(r"is damaged by an opponent's attack.{0,100}put (\d+) damage counters", t):
         return ["roughSkin"]
-    if re.search(r"is damaged by an opponent's attack", t) and "knocked out" in t:
+    if re.search(r"is damaged by an opponent's attack.{0,100}does (\d+) damage", t):
         return ["roughSkin"]
+    if re.search(r"is damage[dn] by an opponent's attack", t) and "knocked out" in t:
+        return ["roughSkin"]
+    if re.search(r"is damaged by an opponent's attack", t):
+        return ["roughSkin"]
+    # Random hand discard
+    if re.search(r"choose (\d+) random cards? from your opponent's hand", t):
+        m = re.search(r"choose (\d+)", t)
+        return [f"discardRandomOpponentHand:{m.group(1) if m else 1}"]
+    # Each player draws or discards until N
+    if re.search(r"draws? or discard cards? until (?:he or she |they |)has (\d+) cards", t):
+        m = re.search(r"until .{0,20}?(\d+) cards", t)
+        return [f"drawUntilHand:{m.group(1) if m else 5}"]
+    # Discard a named-type card, then draw N
+    if re.search(r"discard a [\w ]+ card from your (?:hand|card)\.{0,40}draw (\d+) cards?", t):
+        m = re.search(r"draw (\d+)", t)
+        return [f"discardFromHand:1", f"draw:{m.group(1) if m else 4}"]
+    # Put a named-type card from discard to hand
+    if re.search(r"put a [\w ]+ card from your discard pile into your hand", t):
+        return ["recoverFromDiscard:1"]
+    # KO this pokemon, put damage counters
+    if re.search(r"knock out this pok[eé]mon\.\s*if you do,? put (\d+) damage counters", t):
+        return ["putCountersEachOpponent:30"]
+    # +N HP
+    if re.search(r"gets? \+(\d+) hp", t):
+        return ["continuousStatic"]
+    # Treat flip as tails
+    if re.search(r"treat it as tails", t):
+        return ["continuousStatic"]
+    # When KO, search deck
+    if re.search(r"when this pok[eé]mon is knocked out.{0,80}search your deck", t):
+        return ["searchAnyToHand:1"]
+    # Flip N coins, attach energy from discard to bench
+    if re.search(r"flip (\d+) coins\.\s*for each heads,? attach a [\w ]*energy card from your discard pile to your benched", t):
+        return ["attachBasicFromDiscardToBench:3"]
+    # From discard pile, put this pokemon onto bench / to bottom
+    if re.search(r"if this pok[eé]mon is in your discard pile,? you may put this pok[eé]mon", t):
+        return ["toBottomOfDeck"]
+    # Team plasma type
+    if re.search(r"is a team plasma pok[eé]mon", t):
+        return ["continuousStatic"]
+    # Colorless have no abilities
+    if re.search(r"[\w ]*pok[eé]mon in play .{0,20}have no abilities", t):
+        return ["noPowers"]
     # Tool: opponent takes fewer prizes
     if re.search(r"your opponent takes (\d+) fewer prize", t):
         return ["noop"]
@@ -3465,6 +3508,22 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["searchBasicToBench:1"]
     if re.search(r"if the effect of a pok[eé]mon power.{0,60}would put a card in a discard pile into its owner's hand", t):
         return ["continuousStatic"]
+    if re.search(r"if this pok[eé]mon is in your discard pile,? you may put this pok[eé]mon", t):
+        return ["toBottomOfDeck"]
+    if re.search(r"knock out this pok[eé]mon\.\s*if you do,? put (\d+) damage counters", t):
+        return ["putCountersEachOpponent:30"]
+    if re.search(r"gets? \+(\d+) hp", t):
+        return ["continuousStatic"]
+    if re.search(r"treat it as tails", t):
+        return ["continuousStatic"]
+    if re.search(r"when this pok[eé]mon is knocked out.{0,80}search your deck", t):
+        return ["searchAnyToHand:1"]
+    if re.search(r"flip (\d+) coins\.\s*for each heads,? attach a [\w ]*energy card from your discard pile to your benched", t):
+        return ["attachBasicFromDiscardToBench:3"]
+    if re.search(r"[\w ]*pok[eé]mon in play .{0,30}have no abilities", t):
+        return ["noPowers"]
+    if re.search(r"you may flip a coin\.\s*if heads,?\s*your opponent's active pok[eé]mon", t):
+        return ["flipHeadsSpecial:CONFUSED"]
     if re.search(r"once during your turn.{0,80}you may shuffle 1 of your benched pok[eé]mon and all", t):
         return ["shuffleBenchToDeck"]
     if re.search(r"attacks cost [\w ]*more", t) and ("as long as" in t or "your opponent" in t):
