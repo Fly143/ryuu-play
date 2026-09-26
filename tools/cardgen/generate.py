@@ -2928,6 +2928,22 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         return ["searchPokemonToHand:1"]
     if re.search(r"look at 7 cards from the top of your deck\.\s*you may choose a basic pok[eé]mon or evolution", t):
         return ["searchPokemonToHand:1"]
+    if re.search(r"that pok[eé]mon m[ay] us[es]? this card's attack instead of its own", t):
+        return ["copyAttack"]
+    if re.search(r"discard any number of other cards from your hand,? then flip a coin\.\s*if heads,? draw twice", t):
+        return ["discardDrawPer:2"]
+    if re.search(r"for each of your pok[eé]mon,? you may return any number of energy cards attached to it to your hand", t):
+        return ["energyTrans"]
+    if re.search(r"you and your opponent play a game of rock-paper-scissors", t):
+        return ["bothShuffleDraw:5"]
+    if re.search(r"your opponent chooses 1 of the following", t):
+        return ["draw:2"]
+    if re.search(r"flip a coin\.\s*if heads,? your opponent sets aside all the cards in", t):
+        return ["discardRandomOpponentHand:3"]
+    if re.search(r"attach [\w' -]+ to 1 of your pok[eé]mon .{0,60}that doesn't alre", t):
+        return ["recoverFromDiscard:1"]
+    if re.search(r"attach [\w' -]+ to 1 of your (?:evolved |active )?pok[eé]mon", t) and "tool" in t:
+        return ["recoverFromDiscard:1"]
     if re.search(r"that pok[eé]mon m[ay] use this card's attack instead of its own", t):
         return ["copyAttack"]
     if re.search(r"flip 2 coins\.\s*if both are heads,? discard all energy cards attached to the defending", t):
