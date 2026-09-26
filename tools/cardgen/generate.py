@@ -2944,6 +2944,16 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         return ["recoverFromDiscard:1"]
     if re.search(r"attach [\w' -]+ to 1 of your (?:evolved |active )?pok[eé]mon", t) and "tool" in t:
         return ["recoverFromDiscard:1"]
+    if re.search(r"count the number of cards in your discard pile and shuffle them into your deck", t):
+        return ["shuffleCardsFromDiscardToDeck:5"]
+    if re.search(r"that pok[eé]mon m[ay] us this card's attack", t):
+        return ["copyAttack"]
+    if re.search(r"your active pok[eé]mon is now confused", t):
+        return ["specialBoth:CONFUSED"]
+    if re.search(r"choose 1 of your pok[eé]mon in play with [\w' -]+ in its name\.\s*for the rest of your turn,? you may evolve", t):
+        return ["earlyEvolution"]
+    if re.search(r"attach [\w' -]+ to your active pok[eé]mon", t) and "tool" in t:
+        return ["noop"]
     if re.search(r"that pok[eé]mon m[ay] use this card's attack instead of its own", t):
         return ["copyAttack"]
     if re.search(r"flip 2 coins\.\s*if both are heads,? discard all energy cards attached to the defending", t):
