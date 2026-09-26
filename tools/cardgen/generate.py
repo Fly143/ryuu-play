@@ -4077,6 +4077,42 @@ def match_power(text: str) -> Optional[list[str]]:
     # Once during your turn, if X is anywhere under, you may
     if re.search(r"once during your turn.{0,80}if [\w' -]+ is anywhere under", t):
         return ["oncePerTurnDraw:1"]
+    # Whenever opponent attack damages, this power does N damage
+    if re.search(r"whenever your opponent's attack damages [\w' -]+.{0,40}this power does (\d+) damage", t):
+        return ["roughSkin"]
+    # Take/Move energy from another of your Pokemon
+    if re.search(r"you may take 1 [\w ]*energy card attached to 1 of your other pok[eé]mon", t):
+        return ["energyTrans"]
+    # Search deck for card that evolves
+    if re.search(r"search your deck for a card that evolves from", t):
+        return ["searchPokemonToHand:1"]
+    # Choose 1 of Defending / opponent's
+    if re.search(r"you may choose 1 of (?:the )?defending|choose 1 of your opponent", t) and "once during your turn" in t:
+        return ["putDamageCounters:1"]
+    # Attach as many TYPE energy from hand
+    if re.search(r"you may attach as many [\w ]*energy cards? from your hand", t):
+        return ["oncePerTurnAttachFromHand"]
+    # Put damage counter on opponent Active between turns
+    if re.search(r"put 1 damage counter on each of your opponent's active pok[eé]mon between", t):
+        return ["roughSkin"]
+    # Search opponent's discard for Supporter
+    if re.search(r"search your opponent's discard pile for a supporter", t):
+        return ["searchTrainerToHand:1"]
+    # Flip coin, choose Asleep/Burned/Poisoned
+    if re.search(r"flip a coin\.\s*if heads,? choose either asleep,? burned,? or poison", t):
+        return ["flipHeadsSpecial:POISONED"]
+    # If any Pokemon KO'd last turn
+    if re.search(r"if any pok[eé]mon were knocked out during your opponent's last turn", t):
+        return ["oncePerTurnDraw:1"]
+    # Remove N damage from each of your TYPE Pokemon
+    if re.search(r"you may remove (\d+) damage counter from each of your [\w ]*pok[eé]mon", t):
+        return ["healEachPokemon:10"]
+    # Can use another's attacks
+    if re.search(r"can use [\w' -]+'s attacks|can use honchkrow's attacks", t):
+        return ["copyAttack"]
+    # Discard all cards attached
+    if re.search(r"discard all cards attached to", t):
+        return ["discardEnergySelf:99"]
     # Opponent can't attach special energy (continuous)
     if re.search(r"can't attach any special energy", t):
         return ["continuousStatic"]

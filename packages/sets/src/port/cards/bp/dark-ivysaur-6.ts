@@ -35,7 +35,7 @@ export class DarkIvysaur_6 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "gustOpponent");
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "putDamageCounters:1");
     }
     return state;
   }

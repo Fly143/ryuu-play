@@ -39,7 +39,7 @@ export class Xatu_55 extends PokemonCard {
       return commonEffects.putCountersEachOpponent(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "healEachPokemon:10");
     }
     return state;
   }

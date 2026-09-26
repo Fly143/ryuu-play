@@ -35,7 +35,7 @@ export class Tentacool_56 extends PokemonCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.scoopUpSelf(this, store, state, effect).use(effect as any);
+      return commonEffects.discardEnergySelfPower(this, store, state, effect).reduce(effect.power, 99);
     }
     return state;
   }

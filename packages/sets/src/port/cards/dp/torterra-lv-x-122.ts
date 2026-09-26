@@ -39,7 +39,7 @@ export class TorterraLVX_122 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 30);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchAnyToHand:1");
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "putDamageCounters:1");
     }
     return state;
   }

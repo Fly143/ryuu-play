@@ -39,7 +39,7 @@ export class MagmortarLVX_123 extends PokemonCard {
       return commonEffects.damageOneOpponent(this, store, state, effect).use(effect, 100);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "putDamageCounters:1");
     }
     return state;
   }
