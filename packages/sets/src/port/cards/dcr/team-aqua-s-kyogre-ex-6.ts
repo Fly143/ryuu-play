@@ -19,6 +19,7 @@ export class TeamAquaSKyogreEX_6 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 190;
+    public height?: number = 3.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class LugiaBREAK_79 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lugia";
   public hp: number = 150;
+    public height?: number = 5.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

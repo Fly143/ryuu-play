@@ -20,6 +20,7 @@ export class MistySStarmie_56 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Misty's Staryu";
   public hp: number = 80;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

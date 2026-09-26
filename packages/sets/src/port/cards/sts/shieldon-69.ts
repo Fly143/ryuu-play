@@ -19,6 +19,7 @@ export class Shieldon_69 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Armor Fossil Shieldon";
   public hp: number = 90;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

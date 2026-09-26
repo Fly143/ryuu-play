@@ -21,6 +21,7 @@ export class Gligar_98 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 60;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

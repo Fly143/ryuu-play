@@ -19,6 +19,7 @@ export class EeveeVMAXSWSH087 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Eevee V";
   public hp: number = 300;
+    public height?: number = 0.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

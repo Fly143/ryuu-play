@@ -17,6 +17,7 @@ export class Banette_60 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Shuppet";
   public hp: number = 90;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

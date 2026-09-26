@@ -17,6 +17,7 @@ export class Mismagius_86 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Misdreavus";
   public hp: number = 110;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

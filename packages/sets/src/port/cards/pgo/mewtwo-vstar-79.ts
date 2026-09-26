@@ -19,6 +19,7 @@ export class MewtwoVSTAR_79 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mewtwo V";
   public hp: number = 280;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

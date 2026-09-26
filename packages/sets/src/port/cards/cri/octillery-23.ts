@@ -19,6 +19,7 @@ export class Octillery_23 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Remoraid";
   public hp: number = 100;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class GardevoirVMAX_17 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gardevoir V";
   public hp: number = 320;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -21,6 +21,7 @@ export class CobalionGX_189 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 170;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class MegaCharizardYEx_22 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Charmeleon";
   public hp: number = 360;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

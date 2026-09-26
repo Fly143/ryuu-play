@@ -20,6 +20,7 @@ export class RegigigasLVX_100 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Regigigas";
   public hp: number = 150;
+    public height?: number = 4.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

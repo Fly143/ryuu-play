@@ -21,6 +21,7 @@ export class Volcarona_18 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Larvesta";
   public hp: number = 110;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

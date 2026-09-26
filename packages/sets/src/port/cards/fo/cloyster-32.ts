@@ -20,6 +20,7 @@ export class Cloyster_32 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Shellder";
   public hp: number = 50;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

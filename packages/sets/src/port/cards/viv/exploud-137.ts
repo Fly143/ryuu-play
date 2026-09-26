@@ -17,6 +17,7 @@ export class Exploud_137 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Loudred";
   public hp: number = 160;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class MGengarEXXY166 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gengar-EX";
   public hp: number = 210;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -21,6 +21,7 @@ export class Omastar_23 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Omanyte";
   public hp: number = 90;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -17,6 +17,7 @@ export class Emboar_33 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pignite";
   public hp: number = 170;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

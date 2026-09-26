@@ -20,6 +20,7 @@ export class StaraptorFBLVX_147 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Staraptor FB";
   public hp: number = 100;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

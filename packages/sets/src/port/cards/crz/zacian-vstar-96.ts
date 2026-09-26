@@ -19,6 +19,7 @@ export class ZacianVSTAR_96 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Zacian V";
   public hp: number = 270;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -17,6 +17,7 @@ export class ImakuniSDoduo_112 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 50;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

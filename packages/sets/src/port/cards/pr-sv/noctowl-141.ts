@@ -17,6 +17,7 @@ export class Noctowl_141 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Hoothoot";
   public hp: number = 100;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

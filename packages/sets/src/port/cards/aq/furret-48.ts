@@ -19,6 +19,7 @@ export class Furret_48 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sentret";
   public hp: number = 70;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

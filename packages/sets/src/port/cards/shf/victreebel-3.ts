@@ -19,6 +19,7 @@ export class Victreebel_34 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Weepinbell";
   public hp: number = 150;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class Cutiefly_145 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 30;
+    public height?: number = 0.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

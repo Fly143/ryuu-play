@@ -19,6 +19,7 @@ export class Trevenant_15 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Phantump";
   public hp: number = 130;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

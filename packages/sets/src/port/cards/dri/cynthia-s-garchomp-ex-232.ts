@@ -19,6 +19,7 @@ export class CynthiaSGarchompEx_232 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Cynthia's Gabite";
   public hp: number = 330;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

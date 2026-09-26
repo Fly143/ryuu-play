@@ -17,6 +17,7 @@ export class EspeonEx_70 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Eevee";
   public hp: number = 260;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

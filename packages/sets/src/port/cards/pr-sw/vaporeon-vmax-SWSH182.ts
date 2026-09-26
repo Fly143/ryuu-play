@@ -19,6 +19,7 @@ export class VaporeonVMAXSWSH182 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Vaporeon V";
   public hp: number = 320;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

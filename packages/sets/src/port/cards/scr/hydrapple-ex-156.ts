@@ -20,6 +20,7 @@ export class HydrappleEx_156 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dipplin";
   public hp: number = 330;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

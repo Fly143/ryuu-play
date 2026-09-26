@@ -20,6 +20,7 @@ export class Grumpig_29 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Spoink";
   public hp: number = 80;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

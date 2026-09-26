@@ -19,6 +19,7 @@ export class Wormadam_59 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Burmy";
   public hp: number = 100;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

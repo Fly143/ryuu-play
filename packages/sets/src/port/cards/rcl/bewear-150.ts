@@ -19,6 +19,7 @@ export class Bewear_150 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Stufful";
   public hp: number = 140;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

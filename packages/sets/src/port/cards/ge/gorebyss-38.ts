@@ -20,6 +20,7 @@ export class Gorebyss_38 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Clamperl";
   public hp: number = 80;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

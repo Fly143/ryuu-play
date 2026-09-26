@@ -20,6 +20,7 @@ export class SuicuneEnteiLEGEND_94 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 160;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

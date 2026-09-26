@@ -19,6 +19,7 @@ export class Steelix_24 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Onix";
   public hp: number = 120;
+    public height?: number = 9.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class Butterfree_2 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Metapod";
   public hp: number = 100;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

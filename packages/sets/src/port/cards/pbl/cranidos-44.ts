@@ -17,6 +17,7 @@ export class Cranidos_44 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Antique Skull Fossil";
   public hp: number = 100;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

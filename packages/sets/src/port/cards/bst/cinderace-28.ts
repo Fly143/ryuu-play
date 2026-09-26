@@ -21,6 +21,7 @@ export class Cinderace_282 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Raboot";
   public hp: number = 170;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

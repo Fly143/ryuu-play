@@ -21,6 +21,7 @@ export class Metagross_52 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Metang";
   public hp: number = 140;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

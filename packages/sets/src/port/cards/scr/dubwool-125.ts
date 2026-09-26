@@ -20,6 +20,7 @@ export class Dubwool_125 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Wooloo";
   public hp: number = 130;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

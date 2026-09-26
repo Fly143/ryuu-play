@@ -20,6 +20,7 @@ export class RotomVSTAR_46 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rotom V";
   public hp: number = 250;
+    public height?: number = 0.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

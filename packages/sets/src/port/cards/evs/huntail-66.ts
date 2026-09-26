@@ -20,6 +20,7 @@ export class Huntail_66 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Clamperl";
   public hp: number = 110;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

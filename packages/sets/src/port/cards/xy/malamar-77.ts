@@ -19,6 +19,7 @@ export class Malamar_77 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Inkay";
   public hp: number = 100;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

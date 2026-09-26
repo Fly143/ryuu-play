@@ -19,6 +19,7 @@ export class TyranitarGX_121 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pupitar";
   public hp: number = 250;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

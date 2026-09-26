@@ -131,7 +131,7 @@ export class RootFossil extends TrainerCard implements PokemonCard {
       const player = effect.player;
       const pokemonSlot = StateUtils.findPokemonSlot(state, this);
 
-      if (!pokemonSlot || pokemonSlot.getPokemonCard() !== this) {
+      if (!pokemonSlot || (pokemonSlot.getPokemonCard() as unknown) !== (this as unknown)) {
         throw new GameError(GameMessage.CANNOT_USE_POWER);
       }
 
@@ -144,7 +144,7 @@ export class RootFossil extends TrainerCard implements PokemonCard {
     }
 
     // Block retreat
-    if (effect instanceof RetreatEffect && effect.player.active.getPokemonCard() === this) {
+    if (effect instanceof RetreatEffect && (effect.player.active.getPokemonCard() as unknown) === (this as unknown)) {
       throw new GameError(GameMessage.BLOCKED_BY_EFFECT);
     }
 
@@ -154,7 +154,7 @@ export class RootFossil extends TrainerCard implements PokemonCard {
         if (player.active.specialConditions.length === 0) {
           return;
         }
-        if (player.active.getPokemonCard() === this) {
+        if ((player.active.getPokemonCard() as unknown) === (this as unknown)) {
           const conditions = player.active.specialConditions.slice();
           conditions.forEach(condition => {
             player.active.removeSpecialCondition(condition);

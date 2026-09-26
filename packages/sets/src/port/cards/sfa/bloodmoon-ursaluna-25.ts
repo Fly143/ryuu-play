@@ -19,6 +19,7 @@ export class BloodmoonUrsaluna_25 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 150;
+    public height?: number = 2.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class Eelektrik_114 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Tynamo";
   public hp: number = 90;
+    public height?: number = 0.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

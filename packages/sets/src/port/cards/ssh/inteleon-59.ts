@@ -19,6 +19,7 @@ export class Inteleon_59 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Drizzile";
   public hp: number = 160;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

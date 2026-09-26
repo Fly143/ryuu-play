@@ -17,6 +17,7 @@ export class RhyperiorLVXDP29 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rhyperior";
   public hp: number = 170;
+    public height?: number = 2.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

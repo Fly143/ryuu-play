@@ -20,6 +20,7 @@ export class Yanmega_14 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Yanma";
   public hp: number = 100;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

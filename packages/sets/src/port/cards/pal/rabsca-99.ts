@@ -20,6 +20,7 @@ export class Rabsca_99 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rellor";
   public hp: number = 70;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

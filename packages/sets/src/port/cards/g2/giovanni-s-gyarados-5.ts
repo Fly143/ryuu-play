@@ -19,6 +19,7 @@ export class GiovanniSGyarados_5 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Giovanni's Magikarp";
   public hp: number = 90;
+    public height?: number = 6.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

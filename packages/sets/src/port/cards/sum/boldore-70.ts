@@ -19,6 +19,7 @@ export class Boldore_70 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Roggenrola";
   public hp: number = 110;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

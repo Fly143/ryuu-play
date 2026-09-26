@@ -19,6 +19,7 @@ export class BlazikenGX_28 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Combusken";
   public hp: number = 240;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

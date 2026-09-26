@@ -20,6 +20,7 @@ export class Meowscarada_18 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Floragato";
   public hp: number = 160;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

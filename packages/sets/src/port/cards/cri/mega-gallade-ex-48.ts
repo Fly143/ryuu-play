@@ -19,6 +19,7 @@ export class MegaGalladeEx_48 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Kirlia";
   public hp: number = 350;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

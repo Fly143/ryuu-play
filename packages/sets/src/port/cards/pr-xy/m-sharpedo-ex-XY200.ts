@@ -19,6 +19,7 @@ export class MSharpedoEXXY200 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sharpedo-EX";
   public hp: number = 210;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

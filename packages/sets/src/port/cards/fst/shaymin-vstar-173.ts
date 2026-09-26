@@ -20,6 +20,7 @@ export class ShayminVSTAR_173 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Shaymin V";
   public hp: number = 250;
+    public height?: number = 0.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

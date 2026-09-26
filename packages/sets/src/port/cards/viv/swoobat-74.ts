@@ -17,6 +17,7 @@ export class Swoobat_74 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Woobat";
   public hp: number = 100;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class TeamAquaSSealeo_16 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Aqua's Spheal";
   public hp: number = 70;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

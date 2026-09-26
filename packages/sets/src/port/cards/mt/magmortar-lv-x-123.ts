@@ -20,6 +20,7 @@ export class MagmortarLVX_123 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Magmortar";
   public hp: number = 130;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

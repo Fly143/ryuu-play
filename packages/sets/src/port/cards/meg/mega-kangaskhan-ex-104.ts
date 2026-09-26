@@ -20,6 +20,7 @@ export class MegaKangaskhanEx_104 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 300;
+    public height?: number = 2.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

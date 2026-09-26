@@ -20,6 +20,7 @@ export class Gloom_2 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Oddish";
   public hp: number = 80;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

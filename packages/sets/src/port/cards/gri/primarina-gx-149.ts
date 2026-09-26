@@ -19,6 +19,7 @@ export class PrimarinaGX_149 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Brionne";
   public hp: number = 250;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

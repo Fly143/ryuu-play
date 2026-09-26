@@ -17,6 +17,7 @@ export class StonjournerVMAX_205 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Stonjourner V";
   public hp: number = 330;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

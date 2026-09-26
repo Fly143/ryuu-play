@@ -21,6 +21,7 @@ export class Cradily_32 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lileep";
   public hp: number = 100;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

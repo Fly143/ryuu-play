@@ -19,6 +19,7 @@ export class AlolanNinetalesGXSV53 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Alolan Vulpix";
   public hp: number = 210;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

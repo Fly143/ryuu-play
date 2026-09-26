@@ -19,6 +19,7 @@ export class HisuianTyphlosionVSTAR_54 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Hisuian Typhlosion V";
   public hp: number = 260;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

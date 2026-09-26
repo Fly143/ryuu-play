@@ -19,6 +19,7 @@ export class MMewtwoEX_63 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mewtwo-EX";
   public hp: number = 230;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

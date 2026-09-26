@@ -19,6 +19,7 @@ export class SnorlaxVMAX_206 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Snorlax V";
   public hp: number = 340;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

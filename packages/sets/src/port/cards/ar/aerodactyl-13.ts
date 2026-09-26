@@ -20,6 +20,7 @@ export class Aerodactyl_132 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Old Amber";
   public hp: number = 80;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

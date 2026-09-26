@@ -19,6 +19,7 @@ export class DittoVMAXSV119 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Ditto V";
   public hp: number = 320;
+    public height?: number = 0.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

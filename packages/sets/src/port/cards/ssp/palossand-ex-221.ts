@@ -19,6 +19,7 @@ export class PalossandEx_221 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sandygast";
   public hp: number = 280;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

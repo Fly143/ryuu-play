@@ -17,6 +17,7 @@ export class Pidgeotto_197 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pidgey";
   public hp: number = 80;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

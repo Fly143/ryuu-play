@@ -20,6 +20,7 @@ export class Breloom_5 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Shroomish";
   public hp: number = 110;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

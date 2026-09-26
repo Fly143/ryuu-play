@@ -19,6 +19,7 @@ export class Drizzile_42 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sobble";
   public hp: number = 90;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

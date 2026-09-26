@@ -17,6 +17,7 @@ export class Centiskorch_49 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sizzlipede";
   public hp: number = 130;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

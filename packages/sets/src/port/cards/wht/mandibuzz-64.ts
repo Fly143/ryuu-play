@@ -17,6 +17,7 @@ export class Mandibuzz_64 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Vullaby";
   public hp: number = 110;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

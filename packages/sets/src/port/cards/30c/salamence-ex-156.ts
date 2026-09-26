@@ -19,6 +19,7 @@ export class SalamenceEx_156 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Shelgon";
   public hp: number = 330;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class WigglytuffEx_40 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Jigglypuff";
   public hp: number = 250;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class HisuianGoodraGG21 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Hisuian Sliggoo";
   public hp: number = 160;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

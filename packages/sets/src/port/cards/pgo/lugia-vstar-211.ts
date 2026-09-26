@@ -19,6 +19,7 @@ export class LugiaVSTAR_211 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lugia V";
   public hp: number = 280;
+    public height?: number = 5.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

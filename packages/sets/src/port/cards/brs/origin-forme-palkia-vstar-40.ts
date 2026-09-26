@@ -20,6 +20,7 @@ export class OriginFormePalkiaVSTAR_40 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Origin Forme Palkia V";
   public hp: number = 280;
+    public height?: number = 5.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

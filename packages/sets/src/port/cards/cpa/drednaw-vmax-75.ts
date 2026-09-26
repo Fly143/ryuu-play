@@ -21,6 +21,7 @@ export class DrednawVMAX_75 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Drednaw V";
   public hp: number = 320;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

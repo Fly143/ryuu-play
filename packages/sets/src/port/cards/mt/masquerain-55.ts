@@ -20,6 +20,7 @@ export class Masquerain_55 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Surskit";
   public hp: number = 70;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

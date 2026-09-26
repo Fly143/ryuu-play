@@ -20,6 +20,7 @@ export class ShadowRiderCalyrexVMAX_75 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Shadow Rider Calyrex V";
   public hp: number = 320;
+    public height?: number = 2.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

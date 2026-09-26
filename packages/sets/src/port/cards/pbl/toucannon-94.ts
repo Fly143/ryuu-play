@@ -20,6 +20,7 @@ export class Toucannon_94 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Trumbeak";
   public hp: number = 150;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

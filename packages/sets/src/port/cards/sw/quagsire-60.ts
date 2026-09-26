@@ -21,6 +21,7 @@ export class Quagsire_60 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Wooper";
   public hp: number = 90;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class LucarioGX_122 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Riolu";
   public hp: number = 210;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class TornadusVMAX_209 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Tornadus V";
   public hp: number = 320;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

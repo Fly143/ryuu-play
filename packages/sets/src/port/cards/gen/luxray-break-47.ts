@@ -19,6 +19,7 @@ export class LuxrayBREAK_47 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Luxray";
   public hp: number = 170;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

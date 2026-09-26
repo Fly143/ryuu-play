@@ -19,6 +19,7 @@ export class AmpharosEx_16 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Flaaffy";
   public hp: number = 330;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -21,6 +21,7 @@ export class AlolanRaichu_31 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pikachu";
   public hp: number = 110;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

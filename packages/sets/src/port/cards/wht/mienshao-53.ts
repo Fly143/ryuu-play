@@ -19,6 +19,7 @@ export class Mienshao_53 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mienfoo";
   public hp: number = 100;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

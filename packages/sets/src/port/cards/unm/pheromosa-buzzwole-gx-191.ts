@@ -19,6 +19,7 @@ export class PheromosaBuzzwoleGX_191 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 260;
+    public height?: number = 2.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -17,6 +17,7 @@ export class Aggron_123 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lairon";
   public hp: number = 160;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

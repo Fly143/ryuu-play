@@ -20,6 +20,7 @@ export class MegaVenusaurEx_177 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Ivysaur";
   public hp: number = 380;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

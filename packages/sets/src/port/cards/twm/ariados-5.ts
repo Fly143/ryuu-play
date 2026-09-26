@@ -21,6 +21,7 @@ export class Ariados_5 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Spinarak";
   public hp: number = 90;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

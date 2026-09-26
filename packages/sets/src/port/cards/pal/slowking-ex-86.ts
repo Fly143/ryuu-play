@@ -20,6 +20,7 @@ export class SlowkingEx_86 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Slowpoke";
   public hp: number = 270;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

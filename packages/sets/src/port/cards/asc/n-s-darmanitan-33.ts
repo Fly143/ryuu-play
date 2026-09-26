@@ -19,6 +19,7 @@ export class NSDarmanitan_33 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "N's Darumaka";
   public hp: number = 140;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

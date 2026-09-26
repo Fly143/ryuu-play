@@ -20,6 +20,7 @@ export class Lickilicky_12 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lickitung";
   public hp: number = 110;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

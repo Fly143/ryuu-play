@@ -17,6 +17,7 @@ export class Pawmot_34 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pawmo";
   public hp: number = 140;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

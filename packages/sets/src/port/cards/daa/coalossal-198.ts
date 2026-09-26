@@ -19,6 +19,7 @@ export class Coalossal_198 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Carkol";
   public hp: number = 160;
+    public height?: number = 2.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

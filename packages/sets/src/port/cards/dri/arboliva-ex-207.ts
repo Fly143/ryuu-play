@@ -17,6 +17,7 @@ export class ArbolivaEx_207 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dolliv";
   public hp: number = 310;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -21,6 +21,7 @@ export class Whiscash_100 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Barboach";
   public hp: number = 140;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

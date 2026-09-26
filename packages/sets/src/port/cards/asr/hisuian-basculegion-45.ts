@@ -19,6 +19,7 @@ export class HisuianBasculegion_45 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Hisuian Basculin";
   public hp: number = 110;
+    public height?: number = 2.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

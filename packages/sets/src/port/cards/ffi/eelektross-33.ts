@@ -19,6 +19,7 @@ export class Eelektross_33 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Eelektrik";
   public hp: number = 140;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

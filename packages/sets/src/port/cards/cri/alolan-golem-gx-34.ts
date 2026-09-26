@@ -19,6 +19,7 @@ export class AlolanGolemGX_34 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Alolan Graveler";
   public hp: number = 250;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

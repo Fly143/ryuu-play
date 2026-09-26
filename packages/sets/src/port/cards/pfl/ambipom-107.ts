@@ -19,6 +19,7 @@ export class Ambipom_107 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Aipom";
   public hp: number = 110;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class Delphox_13 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Braixen";
   public hp: number = 160;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

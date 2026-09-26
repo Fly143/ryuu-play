@@ -21,6 +21,7 @@ export class Crustle_11 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dwebble";
   public hp: number = 120;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -21,6 +21,7 @@ export class DuraludonVMAXTG30 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Duraludon V";
   public hp: number = 330;
+    public height?: number = 3.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

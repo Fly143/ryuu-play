@@ -19,6 +19,7 @@ export class SabrinaSGengar_14 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sabrina's Haunter";
   public hp: number = 80;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

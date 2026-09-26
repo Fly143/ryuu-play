@@ -20,6 +20,7 @@ export class Hypno_62 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Drowzee";
   public hp: number = 110;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

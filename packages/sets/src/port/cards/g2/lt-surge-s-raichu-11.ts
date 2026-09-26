@@ -20,6 +20,7 @@ export class LtSurgeSRaichu_11 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lt. Surge's Pikachu";
   public hp: number = 80;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -25,4 +25,7 @@ export abstract class PokemonCard extends Card {
 
   public attacks: Attack[] = [];
 
+  /** Official height in meters (Pokedex / printed on card). Used by Cedric Juniper. */
+  public height?: number;
+
 }

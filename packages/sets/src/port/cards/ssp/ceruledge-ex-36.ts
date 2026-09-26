@@ -19,6 +19,7 @@ export class CeruledgeEx_36 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Charcadet";
   public hp: number = 270;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

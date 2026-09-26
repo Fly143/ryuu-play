@@ -19,6 +19,7 @@ export class MCameruptEXXY198a extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Camerupt-EX";
   public hp: number = 230;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

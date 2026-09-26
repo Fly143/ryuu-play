@@ -19,6 +19,7 @@ export class CramorantVMAX_55 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Cramorant V";
   public hp: number = 320;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

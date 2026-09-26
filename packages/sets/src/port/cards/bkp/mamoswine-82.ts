@@ -21,6 +21,7 @@ export class Mamoswine_82 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Piloswine";
   public hp: number = 160;
+    public height?: number = 2.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

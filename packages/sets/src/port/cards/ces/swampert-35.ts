@@ -20,6 +20,7 @@ export class Swampert_35 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Marshtomp";
   public hp: number = 160;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

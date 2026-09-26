@@ -19,6 +19,7 @@ export class Archeops_67 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Archen";
   public hp: number = 130;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -21,6 +21,7 @@ export class WhimsicottGX_226 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Cottonee";
   public hp: number = 190;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

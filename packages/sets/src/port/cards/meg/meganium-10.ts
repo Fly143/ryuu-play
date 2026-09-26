@@ -17,6 +17,7 @@ export class Meganium_10 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Bayleef";
   public hp: number = 160;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

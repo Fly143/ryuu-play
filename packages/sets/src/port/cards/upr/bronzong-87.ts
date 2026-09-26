@@ -20,6 +20,7 @@ export class Bronzong_87 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Bronzor";
   public hp: number = 110;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

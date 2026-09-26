@@ -19,6 +19,7 @@ export class NSVanillish_50 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "N's Vanillite";
   public hp: number = 100;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

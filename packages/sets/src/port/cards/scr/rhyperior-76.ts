@@ -20,6 +20,7 @@ export class Rhyperior_76 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rhydon";
   public hp: number = 200;
+    public height?: number = 2.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

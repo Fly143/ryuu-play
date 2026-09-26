@@ -20,6 +20,7 @@ export class Wartortle_422 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Squirtle";
   public hp: number = 70;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class SilvallyGX_184 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Type: Null";
   public hp: number = 210;
+    public height?: number = 2.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

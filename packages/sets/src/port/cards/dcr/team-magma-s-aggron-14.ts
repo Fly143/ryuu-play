@@ -19,6 +19,7 @@ export class TeamMagmaSAggron_14 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Magma's Lairon";
   public hp: number = 140;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

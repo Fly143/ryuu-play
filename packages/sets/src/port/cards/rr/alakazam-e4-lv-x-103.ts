@@ -20,6 +20,7 @@ export class AlakazamE4LVX_103 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Alakazam E4";
   public hp: number = 100;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

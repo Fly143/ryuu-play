@@ -19,6 +19,7 @@ export class ZeraoraVMAXSWSH264 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Zeraora V";
   public hp: number = 320;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class PolitoedEx_107 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Poliwhirl";
   public hp: number = 150;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -17,6 +17,7 @@ export class MLucarioEX_55a extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lucario-EX";
   public hp: number = 220;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

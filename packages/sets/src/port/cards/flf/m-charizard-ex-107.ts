@@ -19,6 +19,7 @@ export class MCharizardEX_107 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Charizard-EX";
   public hp: number = 220;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

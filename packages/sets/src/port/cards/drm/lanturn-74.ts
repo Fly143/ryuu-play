@@ -20,6 +20,7 @@ export class Lanturn_74 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Chinchou";
   public hp: number = 110;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

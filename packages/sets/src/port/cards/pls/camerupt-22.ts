@@ -20,6 +20,7 @@ export class Camerupt_22 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Numel";
   public hp: number = 130;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class DialgaLVXDP37 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dialga";
   public hp: number = 110;
+    public height?: number = 5.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

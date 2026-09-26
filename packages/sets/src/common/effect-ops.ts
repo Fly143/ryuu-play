@@ -14,6 +14,7 @@ import {
   GameError,
   GameMessage,
   HealEffect,
+  NumberPrompt,
   PlayerType,
   PokemonCard,
   PokemonSlot,
@@ -1871,6 +1872,49 @@ export function applyPowerOp(
       const n = parseIntArg(op, 1, 1);
       player.active.marker.addMarker('MINUS_PRIZE_' + n, self, state.turn + 1);
       return state;
+    }
+    case 'cerebroGuessHeight': {
+      // Official Cedric Juniper: put a Pokemon face down, opponent guesses its height.
+      // Right -> opponent draws 3; wrong -> you draw 3. Pokemon stays in hand.
+      const opponent = state.players.find(p => p !== player) ?? player;
+      return store.prompt(
+        state,
+        new ChooseCardsPrompt(
+          player.id,
+          GameMessage.CHOOSE_CARD_TO_HAND,
+          player.hand,
+          { superType: SuperType.POKEMON },
+          { min: 1, max: 1, allowCancel: false },
+        ),
+        cards => {
+          const chosen = (cards || [])[0] as PokemonCard | undefined;
+          if (!chosen || chosen.height === undefined) {
+            throw new GameError(GameMessage.CANNOT_PLAY_THIS_CARD);
+          }
+          const height = chosen.height;
+          return store.prompt(
+            state,
+            new NumberPrompt(opponent.id, GameMessage.GUESS_POKEMON_HEIGHT, {
+              min: 0,
+              max: 25,
+              defaultValue: 1,
+              unit: 'm',
+              allowCancel: false,
+            }),
+            guess => {
+              const g = typeof guess === 'number' ? guess : 0;
+              // Official printed heights are to 0.1 m — exact match on that scale.
+              const correct = Math.abs(g - height) < 0.05;
+              if (correct) {
+                opponent.deck.moveTo(opponent.hand, 3);
+              } else {
+                player.deck.moveTo(player.hand, 3);
+              }
+              return state;
+            },
+          );
+        },
+      );
     }
     case 'earlyEvolution':
       return state;

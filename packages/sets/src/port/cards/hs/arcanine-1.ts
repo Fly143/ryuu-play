@@ -17,6 +17,7 @@ export class Arcanine_1 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Growlithe";
   public hp: number = 110;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class Carracosta_28 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Tirtouga";
   public hp: number = 140;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

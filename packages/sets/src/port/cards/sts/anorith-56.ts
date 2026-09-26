@@ -21,6 +21,7 @@ export class Anorith_56 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Claw Fossil Anorith";
   public hp: number = 80;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

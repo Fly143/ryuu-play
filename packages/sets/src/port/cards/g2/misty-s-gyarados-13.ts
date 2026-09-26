@@ -17,6 +17,7 @@ export class MistySGyarados_13 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Misty's Magikarp";
   public hp: number = 100;
+    public height?: number = 6.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

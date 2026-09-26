@@ -20,6 +20,7 @@ export class Aerodactyl_1 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mysterious Fossil";
   public hp: number = 60;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

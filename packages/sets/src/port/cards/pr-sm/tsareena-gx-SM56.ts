@@ -19,6 +19,7 @@ export class TsareenaGXSM56 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Steenee";
   public hp: number = 230;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

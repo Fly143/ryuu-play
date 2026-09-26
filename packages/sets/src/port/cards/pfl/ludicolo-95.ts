@@ -17,6 +17,7 @@ export class Ludicolo_95 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lombre";
   public hp: number = 160;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

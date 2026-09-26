@@ -20,6 +20,7 @@ export class TeamRocketSNidokingEx_216 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Rocket's Nidorino";
   public hp: number = 330;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

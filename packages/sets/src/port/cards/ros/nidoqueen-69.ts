@@ -22,6 +22,7 @@ export class Nidoqueen_69 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Nidorina";
   public hp: number = 140;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

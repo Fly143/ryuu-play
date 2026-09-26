@@ -19,6 +19,7 @@ export class LuxrayEx_195 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Luxio";
   public hp: number = 310;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

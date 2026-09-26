@@ -20,6 +20,7 @@ export class KogaSArbok_25 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Koga's Ekans";
   public hp: number = 90;
+    public height?: number = 3.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

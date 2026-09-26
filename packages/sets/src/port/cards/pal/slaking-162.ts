@@ -20,6 +20,7 @@ export class Slaking_162 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Vigoroth";
   public hp: number = 180;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -17,6 +17,7 @@ export class MistySPoliwrath_31 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Misty's Poliwhirl";
   public hp: number = 90;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

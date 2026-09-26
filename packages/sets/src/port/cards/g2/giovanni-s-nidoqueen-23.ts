@@ -19,6 +19,7 @@ export class GiovanniSNidoqueen_23 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Giovanni's Nidorina";
   public hp: number = 100;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

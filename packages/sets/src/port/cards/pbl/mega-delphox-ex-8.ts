@@ -20,6 +20,7 @@ export class MegaDelphoxEx_8 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Braixen";
   public hp: number = 350;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

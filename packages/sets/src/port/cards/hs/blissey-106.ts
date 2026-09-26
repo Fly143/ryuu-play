@@ -17,6 +17,7 @@ export class Blissey_106 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Chansey";
   public hp: number = 130;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

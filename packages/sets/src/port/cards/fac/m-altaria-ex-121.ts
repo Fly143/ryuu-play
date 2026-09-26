@@ -19,6 +19,7 @@ export class MAltariaEX_121 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Altaria-EX";
   public hp: number = 220;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

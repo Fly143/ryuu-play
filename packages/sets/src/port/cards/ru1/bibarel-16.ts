@@ -17,6 +17,7 @@ export class Bibarel_16 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Bidoof";
   public hp: number = 90;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

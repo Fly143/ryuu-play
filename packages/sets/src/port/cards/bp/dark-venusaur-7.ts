@@ -20,6 +20,7 @@ export class DarkVenusaur_7 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dark Ivysaur";
   public hp: number = 70;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class TeamRocketSPorygonZ_155 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Rocket's Porygon2";
   public hp: number = 140;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

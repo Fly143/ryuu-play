@@ -17,6 +17,7 @@ export class Krokorok_69 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sandile";
   public hp: number = 90;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

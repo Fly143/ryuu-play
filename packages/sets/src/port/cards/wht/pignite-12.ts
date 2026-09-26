@@ -17,6 +17,7 @@ export class Pignite_12 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Tepig";
   public hp: number = 110;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -17,6 +17,7 @@ export class Cinccino_183 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Minccino";
   public hp: number = 110;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

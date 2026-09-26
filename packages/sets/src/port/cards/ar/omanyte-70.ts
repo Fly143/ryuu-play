@@ -20,6 +20,7 @@ export class Omanyte_702 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Helix Fossil";
   public hp: number = 80;
+    public height?: number = 0.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

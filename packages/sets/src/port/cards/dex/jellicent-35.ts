@@ -19,6 +19,7 @@ export class Jellicent_35 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Frillish";
   public hp: number = 120;
+    public height?: number = 2.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

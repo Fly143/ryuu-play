@@ -19,6 +19,7 @@ export class NoivernGX_141 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Noibat";
   public hp: number = 200;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class DracozoltSV045 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rare Fossil";
   public hp: number = 160;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

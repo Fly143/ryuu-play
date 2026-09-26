@@ -19,6 +19,7 @@ export class MGarchompEXXY168 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Garchomp-EX";
   public hp: number = 210;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

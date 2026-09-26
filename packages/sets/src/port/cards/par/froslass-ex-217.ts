@@ -21,6 +21,7 @@ export class FroslassEx_217 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Snorunt";
   public hp: number = 250;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

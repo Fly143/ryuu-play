@@ -20,6 +20,7 @@ export class Scovillain_29 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Capsakid";
   public hp: number = 110;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

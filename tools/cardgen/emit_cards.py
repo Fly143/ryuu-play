@@ -320,6 +320,8 @@ def is_continuous_op(op: str) -> bool:
 def emit_pokemon(p: dict) -> str:
     cn = class_name(p["name"], p["set"], p.get("number") or "")
     hp = p.get("hp") or 0
+    height = p.get("height")
+    height_line = f"  public height?: number = {height};" if height is not None else ""
     text = ts_str(p.get("name") or "")
     full = ts_str(p.get("fullName") or "")
     name = ts_str(p.get("name") or "")
@@ -418,6 +420,7 @@ export class {cn} extends PokemonCard {{
   public cardTypes: CardType[] = [];
   public evolvesFrom = {ts_str(p.get('evolvesFrom') or '')};
   public hp: number = {hp};
+  {height_line}
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

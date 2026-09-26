@@ -19,6 +19,7 @@ export class MimikyuVMAXTG17 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mimikyu V";
   public hp: number = 300;
+    public height?: number = 0.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

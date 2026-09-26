@@ -19,6 +19,7 @@ export class SkeledirgeEx_81 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Crocalor";
   public hp: number = 340;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

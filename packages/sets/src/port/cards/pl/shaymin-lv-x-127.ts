@@ -17,6 +17,7 @@ export class ShayminLVX_127 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Shaymin";
   public hp: number = 110;
+    public height?: number = 0.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class Tinkaton_20 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Tinkatuff";
   public hp: number = 140;
+    public height?: number = 2.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

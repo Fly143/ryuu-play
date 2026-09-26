@@ -17,6 +17,7 @@ export class Exeggutor_25 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Exeggcute";
   public hp: number = 120;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

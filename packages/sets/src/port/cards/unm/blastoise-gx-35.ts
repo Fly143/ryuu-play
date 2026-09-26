@@ -21,6 +21,7 @@ export class BlastoiseGX_35 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Wartortle";
   public hp: number = 240;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

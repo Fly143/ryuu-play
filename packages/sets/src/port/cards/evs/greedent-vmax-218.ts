@@ -19,6 +19,7 @@ export class GreedentVMAX_218 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Greedent V";
   public hp: number = 320;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

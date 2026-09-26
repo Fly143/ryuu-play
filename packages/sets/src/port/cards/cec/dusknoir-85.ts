@@ -19,6 +19,7 @@ export class Dusknoir_85 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dusclops";
   public hp: number = 160;
+    public height?: number = 2.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

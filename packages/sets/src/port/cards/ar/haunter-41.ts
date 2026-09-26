@@ -21,6 +21,7 @@ export class Haunter_41 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gastly";
   public hp: number = 70;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

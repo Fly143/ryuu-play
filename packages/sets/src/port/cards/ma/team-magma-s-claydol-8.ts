@@ -18,6 +18,7 @@ export class TeamMagmaSClaydol_8 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Magma's Baltoy";
   public hp: number = 80;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class YveltalBREAK_66 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Yveltal";
   public hp: number = 150;
+    public height?: number = 5.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -17,6 +17,7 @@ export class ArmarougeEx_105 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Charcadet";
   public hp: number = 260;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

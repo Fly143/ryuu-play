@@ -17,6 +17,7 @@ export class Dragonair_3 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dratini";
   public hp: number = 70;
+    public height?: number = 4.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

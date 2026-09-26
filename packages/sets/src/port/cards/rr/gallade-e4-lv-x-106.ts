@@ -19,6 +19,7 @@ export class GalladeE4LVX_106 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gallade E4";
   public hp: number = 100;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class EternatusVMAXTG22 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Eternatus V";
   public hp: number = 340;
+    public height?: number = 20.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

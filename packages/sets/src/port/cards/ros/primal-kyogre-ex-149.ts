@@ -20,6 +20,7 @@ export class PrimalKyogreEX_149 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Kyogre-EX";
   public hp: number = 240;
+    public height?: number = 3.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

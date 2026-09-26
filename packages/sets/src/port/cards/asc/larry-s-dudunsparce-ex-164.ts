@@ -19,6 +19,7 @@ export class LarrySDudunsparceEx_164 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Larry's Dunsparce";
   public hp: number = 270;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

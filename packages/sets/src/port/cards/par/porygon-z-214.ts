@@ -19,6 +19,7 @@ export class PorygonZ_214 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Porygon2";
   public hp: number = 150;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

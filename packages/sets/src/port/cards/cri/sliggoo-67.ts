@@ -17,6 +17,7 @@ export class Sliggoo_67 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Goomy";
   public hp: number = 90;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

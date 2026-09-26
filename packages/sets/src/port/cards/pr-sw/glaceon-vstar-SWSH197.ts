@@ -19,6 +19,7 @@ export class GlaceonVSTARSWSH197 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Glaceon V";
   public hp: number = 260;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

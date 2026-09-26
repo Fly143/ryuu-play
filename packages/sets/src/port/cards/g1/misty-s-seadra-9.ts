@@ -19,6 +19,7 @@ export class MistySSeadra_9 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Misty's Horsea";
   public hp: number = 70;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

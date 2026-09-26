@@ -17,6 +17,7 @@ export class Simisage_11 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pansage";
   public hp: number = 90;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

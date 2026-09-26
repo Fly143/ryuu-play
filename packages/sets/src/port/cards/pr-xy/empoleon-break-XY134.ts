@@ -17,6 +17,7 @@ export class EmpoleonBREAKXY134 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Empoleon";
   public hp: number = 170;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

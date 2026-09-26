@@ -19,6 +19,7 @@ export class GiovanniSNidoking_7 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Giovanni's Nidorino";
   public hp: number = 120;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -21,6 +21,7 @@ export class Aurorus_92 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Amaura";
   public hp: number = 170;
+    public height?: number = 2.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

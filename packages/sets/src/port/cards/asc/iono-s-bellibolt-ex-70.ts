@@ -20,6 +20,7 @@ export class IonoSBelliboltEx_70 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Iono's Tadbulb";
   public hp: number = 280;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

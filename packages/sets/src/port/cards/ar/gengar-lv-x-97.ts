@@ -20,6 +20,7 @@ export class GengarLVX_97 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gengar";
   public hp: number = 140;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

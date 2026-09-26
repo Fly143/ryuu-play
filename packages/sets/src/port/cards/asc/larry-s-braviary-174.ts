@@ -19,6 +19,7 @@ export class LarrySBraviary_174 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Larry's Rufflet";
   public hp: number = 130;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

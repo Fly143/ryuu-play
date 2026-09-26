@@ -20,6 +20,7 @@ export class WailordEx_97 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Wailmer";
   public hp: number = 380;
+    public height?: number = 14.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

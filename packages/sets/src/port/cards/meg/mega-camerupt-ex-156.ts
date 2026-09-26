@@ -19,6 +19,7 @@ export class MegaCameruptEx_156 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Numel";
   public hp: number = 340;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

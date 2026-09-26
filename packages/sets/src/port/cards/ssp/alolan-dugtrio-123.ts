@@ -19,6 +19,7 @@ export class AlolanDugtrio_1232 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Alolan Diglett";
   public hp: number = 110;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

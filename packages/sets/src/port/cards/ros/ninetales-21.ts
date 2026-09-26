@@ -22,6 +22,7 @@ export class Ninetales_213 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Vulpix";
   public hp: number = 90;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

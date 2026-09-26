@@ -20,6 +20,7 @@ export class DarkraiVSTAR_99 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Darkrai V";
   public hp: number = 270;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

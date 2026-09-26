@@ -19,6 +19,7 @@ export class Slowbro_202 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Slowpoke";
   public hp: number = 100;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

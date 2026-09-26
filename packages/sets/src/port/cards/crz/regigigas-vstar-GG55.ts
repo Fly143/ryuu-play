@@ -20,6 +20,7 @@ export class RegigigasVSTARGG55 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Regigigas V";
   public hp: number = 300;
+    public height?: number = 4.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class CynthiaSMilotic_53 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Cynthia's Feebas";
   public hp: number = 130;
+    public height?: number = 6.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

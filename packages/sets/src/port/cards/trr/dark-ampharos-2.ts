@@ -19,6 +19,7 @@ export class DarkAmpharos_2 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dark Flaaffy";
   public hp: number = 120;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

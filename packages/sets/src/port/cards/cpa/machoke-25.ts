@@ -19,6 +19,7 @@ export class Machoke_25 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Machop";
   public hp: number = 110;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

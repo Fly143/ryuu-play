@@ -20,6 +20,7 @@ export class TeamAquaSCacturne_1 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Aqua's Cacnea";
   public hp: number = 80;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

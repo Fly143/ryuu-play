@@ -20,6 +20,7 @@ export class Dudunsparce_157 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dunsparce";
   public hp: number = 140;
+    public height?: number = 5.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

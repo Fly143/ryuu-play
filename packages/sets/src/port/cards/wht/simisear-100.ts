@@ -17,6 +17,7 @@ export class Simisear_100 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pansear";
   public hp: number = 100;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

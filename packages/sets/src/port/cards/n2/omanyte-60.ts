@@ -21,6 +21,7 @@ export class Omanyte_602 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mysterious Fossil";
   public hp: number = 50;
+    public height?: number = 0.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

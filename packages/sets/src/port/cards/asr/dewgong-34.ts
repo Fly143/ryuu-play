@@ -19,6 +19,7 @@ export class Dewgong_34 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Seel";
   public hp: number = 120;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

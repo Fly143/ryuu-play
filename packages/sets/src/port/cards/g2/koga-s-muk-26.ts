@@ -18,6 +18,7 @@ export class KogaSMuk_26 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Koga's Grimer";
   public hp: number = 80;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

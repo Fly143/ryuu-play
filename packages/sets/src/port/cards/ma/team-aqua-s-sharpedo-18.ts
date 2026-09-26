@@ -20,6 +20,7 @@ export class TeamAquaSSharpedo_18 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Aqua's Carvanha";
   public hp: number = 70;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

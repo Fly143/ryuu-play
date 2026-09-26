@@ -19,6 +19,7 @@ export class Garbodor_67 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Trubbish";
   public hp: number = 110;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

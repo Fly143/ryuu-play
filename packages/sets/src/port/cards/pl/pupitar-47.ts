@@ -21,6 +21,7 @@ export class Pupitar_47 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Larvitar";
   public hp: number = 80;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

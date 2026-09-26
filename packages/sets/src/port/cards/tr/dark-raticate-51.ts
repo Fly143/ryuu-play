@@ -19,6 +19,7 @@ export class DarkRaticate_51 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rattata";
   public hp: number = 50;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

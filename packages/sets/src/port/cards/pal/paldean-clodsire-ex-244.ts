@@ -19,6 +19,7 @@ export class PaldeanClodsireEx_244 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Paldean Wooper";
   public hp: number = 280;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class SalazzleEx_16 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Salandit";
   public hp: number = 260;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

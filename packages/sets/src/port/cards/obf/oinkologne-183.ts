@@ -20,6 +20,7 @@ export class Oinkologne_183 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lechonk";
   public hp: number = 120;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

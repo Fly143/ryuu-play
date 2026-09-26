@@ -20,6 +20,7 @@ export class NSZoroarkEx_175 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "N's Zorua";
   public hp: number = 280;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

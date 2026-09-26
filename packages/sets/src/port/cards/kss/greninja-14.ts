@@ -19,6 +19,7 @@ export class Greninja_14 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Frogadier";
   public hp: number = 140;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

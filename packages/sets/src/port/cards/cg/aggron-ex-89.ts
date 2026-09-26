@@ -20,6 +20,7 @@ export class AggronEx_89 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lairon";
   public hp: number = 150;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

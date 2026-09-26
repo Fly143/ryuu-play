@@ -19,6 +19,7 @@ export class Serperior_13 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Servine";
   public hp: number = 140;
+    public height?: number = 3.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

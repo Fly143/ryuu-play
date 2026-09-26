@@ -19,6 +19,7 @@ export class MAggronEX_154 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Aggron-EX";
   public hp: number = 240;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class BlazikenVMAXTG15 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Blaziken V";
   public hp: number = 320;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

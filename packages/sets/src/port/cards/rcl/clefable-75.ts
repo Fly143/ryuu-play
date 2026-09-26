@@ -17,6 +17,7 @@ export class Clefable_752 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Clefairy";
   public hp: number = 110;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

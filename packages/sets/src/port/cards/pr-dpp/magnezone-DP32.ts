@@ -19,6 +19,7 @@ export class MagnezoneDP32 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Magneton";
   public hp: number = 130;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

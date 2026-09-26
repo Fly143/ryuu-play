@@ -20,6 +20,7 @@ export class Infernape_59 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Monferno";
   public hp: number = 130;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

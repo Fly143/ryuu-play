@@ -20,6 +20,7 @@ export class ToxicroakEx_232 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Croagunk";
   public hp: number = 250;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

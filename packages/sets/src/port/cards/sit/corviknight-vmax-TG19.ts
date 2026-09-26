@@ -21,6 +21,7 @@ export class CorviknightVMAXTG19 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Corviknight V";
   public hp: number = 320;
+    public height?: number = 2.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

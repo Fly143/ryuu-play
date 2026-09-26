@@ -17,6 +17,7 @@ export class Armaldo_1 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Anorith";
   public hp: number = 110;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

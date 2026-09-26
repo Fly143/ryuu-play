@@ -20,6 +20,7 @@ export class Amaura_23 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Antique Sail Fossil";
   public hp: number = 100;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

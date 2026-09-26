@@ -20,6 +20,7 @@ export class Hariyama_33 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Makuhita";
   public hp: number = 80;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

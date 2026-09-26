@@ -19,6 +19,7 @@ export class Archaludon_75 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Duraludon";
   public hp: number = 180;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

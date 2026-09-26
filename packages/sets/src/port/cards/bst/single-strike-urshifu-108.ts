@@ -19,6 +19,7 @@ export class SingleStrikeUrshifu_108 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Kubfu";
   public hp: number = 140;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

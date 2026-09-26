@@ -20,6 +20,7 @@ export class Klinklang_76 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Klang";
   public hp: number = 140;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

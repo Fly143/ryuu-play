@@ -20,6 +20,7 @@ export class GliscorLVX_141 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gliscor";
   public hp: number = 110;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

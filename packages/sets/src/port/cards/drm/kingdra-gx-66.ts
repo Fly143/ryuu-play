@@ -19,6 +19,7 @@ export class KingdraGX_66 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Seadra";
   public hp: number = 230;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -2948,9 +2948,10 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         return ["shuffleCardsFromDiscardToDeck:5"]
     # Cedric Juniper / face-down name + height guess
     if re.search(r"put a pok[eé]mon from your hand face down in front of you and tell your opponent its name", t):
-        return ["draw:3"]
+        # Cedric Juniper: full effect is implemented in the card's TS (NumberPrompt height guess).
+        return ["cerebroGuessHeight"]
     if re.search(r"put a basic pok[eé]mon or evolution card from your hand face down in front of you and tell your opponent its name", t):
-        return ["draw:3"]
+        return ["cerebroGuessHeight"]
     # Takes 1 fewer Prize (Life Dew / Hero's Medal / etc.)
     if re.search(r"takes? (\d+) fewer prize", t):
         m = re.search(r"takes? (\d+) fewer", t)
@@ -4603,6 +4604,26 @@ def load_sets() -> dict[str, dict]:
     return {s["id"]: s for s in data}
 
 
+_HEIGHTS_PATH = Path(__file__).resolve().parent / "pokedex_heights.json"
+_HEIGHTS: dict[int, float] = {}
+if _HEIGHTS_PATH.exists():
+    _raw = json.loads(_HEIGHTS_PATH.read_text(encoding="utf-8"))
+    _HEIGHTS = {int(k): float(v) for k, v in _raw.items()}
+
+
+def _dex_height(card: dict) -> float | None:
+    """Official height in meters from national Pokedex number, if known."""
+    nums = card.get("nationalPokedexNumbers") or []
+    if not nums:
+        return None
+    try:
+        n = int(nums[0])
+    except (TypeError, ValueError):
+        return None
+    h = _HEIGHTS.get(n)
+    return float(h) if h is not None else None
+
+
 def set_code(set_id: str, meta: dict) -> str:
     if set_id in SET_CODE_OVERRIDES:
         return SET_CODE_OVERRIDES[set_id]
@@ -4817,6 +4838,7 @@ def build_plan(card: dict, meta: dict) -> dict:
         "subtypes": subtypes,
         "tags": tags,
         "hp": hp,
+        "height": _dex_height(card),
         "types": card.get("types") or [],
         "evolvesFrom": card.get("evolvesFrom") or "",
         "stage": stage,

@@ -18,6 +18,7 @@ export class Ribombee_146 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Cutiefly";
   public hp: number = 60;
+    public height?: number = 0.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

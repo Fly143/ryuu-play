@@ -19,6 +19,7 @@ export class Talonflame_30 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Fletchinder";
   public hp: number = 150;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

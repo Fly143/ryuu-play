@@ -19,6 +19,7 @@ export class IceRiderCalyrexVMAX_203 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Ice Rider Calyrex V";
   public hp: number = 320;
+    public height?: number = 2.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

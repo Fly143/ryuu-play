@@ -21,6 +21,7 @@ export class Nidoking_45 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Nidorino";
   public hp: number = 150;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

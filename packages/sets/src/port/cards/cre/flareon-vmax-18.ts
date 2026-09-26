@@ -19,6 +19,7 @@ export class FlareonVMAX_18 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Flareon V";
   public hp: number = 320;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class Dusclops_61 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Duskull";
   public hp: number = 90;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

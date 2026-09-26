@@ -20,6 +20,7 @@ export class Magmortar_27 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Magmar";
   public hp: number = 100;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

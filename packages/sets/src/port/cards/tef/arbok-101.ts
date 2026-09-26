@@ -20,6 +20,7 @@ export class Arbok_101 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Ekans";
   public hp: number = 130;
+    public height?: number = 3.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

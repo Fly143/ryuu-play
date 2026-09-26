@@ -17,6 +17,7 @@ export class KommoO_143 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Hakamo-o";
   public hp: number = 180;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class Electivire_472 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Electabuzz";
   public hp: number = 140;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

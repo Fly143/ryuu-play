@@ -21,6 +21,7 @@ export class Charizard_33 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Charmeleon";
   public hp: number = 160;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

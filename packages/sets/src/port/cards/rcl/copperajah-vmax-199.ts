@@ -19,6 +19,7 @@ export class CopperajahVMAX_199 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Copperajah V";
   public hp: number = 340;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

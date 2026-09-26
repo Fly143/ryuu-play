@@ -19,6 +19,7 @@ export class ErikaSDragonair_4 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Erika's Dratini";
   public hp: number = 80;
+    public height?: number = 4.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

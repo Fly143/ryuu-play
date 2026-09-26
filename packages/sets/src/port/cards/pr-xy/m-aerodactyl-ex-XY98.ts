@@ -19,6 +19,7 @@ export class MAerodactylEXXY98 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Aerodactyl-EX";
   public hp: number = 210;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

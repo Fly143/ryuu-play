@@ -19,6 +19,7 @@ export class Mothim_42 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Burmy";
   public hp: number = 80;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

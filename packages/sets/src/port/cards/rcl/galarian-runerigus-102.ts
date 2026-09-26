@@ -19,6 +19,7 @@ export class GalarianRunerigus_102 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Galarian Yamask";
   public hp: number = 100;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

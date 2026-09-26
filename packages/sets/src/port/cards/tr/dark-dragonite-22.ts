@@ -20,6 +20,7 @@ export class DarkDragonite_22 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dark Dragonair";
   public hp: number = 70;
+    public height?: number = 2.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

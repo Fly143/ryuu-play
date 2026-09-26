@@ -17,6 +17,7 @@ export class Beedrill_32 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Kakuna";
   public hp: number = 120;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

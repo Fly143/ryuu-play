@@ -19,6 +19,7 @@ export class Polteageist_98 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sinistea";
   public hp: number = 70;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

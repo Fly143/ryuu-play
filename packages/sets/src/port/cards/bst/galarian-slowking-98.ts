@@ -19,6 +19,7 @@ export class GalarianSlowking_98 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Galarian Slowpoke";
   public hp: number = 120;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

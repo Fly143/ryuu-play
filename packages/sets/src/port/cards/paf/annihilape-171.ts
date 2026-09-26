@@ -19,6 +19,7 @@ export class Annihilape_171 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Primeape";
   public hp: number = 140;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

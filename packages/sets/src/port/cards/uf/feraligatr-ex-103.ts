@@ -21,6 +21,7 @@ export class FeraligatrEx_103 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Croconaw";
   public hp: number = 150;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

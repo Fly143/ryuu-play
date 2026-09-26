@@ -19,6 +19,7 @@ export class Torracat_33 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Litten";
   public hp: number = 100;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

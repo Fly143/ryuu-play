@@ -20,6 +20,7 @@ export class Farigiraf_84 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Girafarig";
   public hp: number = 140;
+    public height?: number = 1.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

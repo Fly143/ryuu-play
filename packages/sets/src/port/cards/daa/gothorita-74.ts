@@ -19,6 +19,7 @@ export class Gothorita_74 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gothita";
   public hp: number = 80;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

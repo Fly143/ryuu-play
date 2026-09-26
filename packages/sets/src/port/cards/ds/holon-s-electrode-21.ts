@@ -20,6 +20,7 @@ export class HolonSElectrode_21 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Holon's Voltorb";
   public hp: number = 70;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

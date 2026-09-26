@@ -19,6 +19,7 @@ export class Grapploct_101 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Clobbopus";
   public hp: number = 130;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

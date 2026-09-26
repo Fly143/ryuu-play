@@ -19,6 +19,7 @@ export class Vanillish_342 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Vanillite";
   public hp: number = 80;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

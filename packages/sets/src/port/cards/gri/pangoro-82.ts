@@ -19,6 +19,7 @@ export class Pangoro_82 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pancham";
   public hp: number = 130;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

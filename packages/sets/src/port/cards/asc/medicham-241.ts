@@ -19,6 +19,7 @@ export class Medicham_241 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Meditite";
   public hp: number = 120;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

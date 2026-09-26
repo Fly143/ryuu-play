@@ -17,6 +17,7 @@ export class GengarEx_90 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Haunter";
   public hp: number = 280;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

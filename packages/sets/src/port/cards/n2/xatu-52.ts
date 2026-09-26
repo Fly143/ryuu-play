@@ -17,6 +17,7 @@ export class Xatu_522 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Natu";
   public hp: number = 70;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

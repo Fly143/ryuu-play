@@ -19,6 +19,7 @@ export class OrbeetleVMAXTG13 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Orbeetle V";
   public hp: number = 310;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

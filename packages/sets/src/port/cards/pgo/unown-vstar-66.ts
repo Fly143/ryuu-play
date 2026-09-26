@@ -19,6 +19,7 @@ export class UnownVSTAR_66 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Unown V";
   public hp: number = 250;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

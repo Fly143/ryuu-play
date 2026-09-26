@@ -19,6 +19,7 @@ export class ScizorVMAX_119 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Scizor V";
   public hp: number = 320;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

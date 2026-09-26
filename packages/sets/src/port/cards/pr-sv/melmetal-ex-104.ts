@@ -19,6 +19,7 @@ export class MelmetalEx_104 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Meltan";
   public hp: number = 300;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

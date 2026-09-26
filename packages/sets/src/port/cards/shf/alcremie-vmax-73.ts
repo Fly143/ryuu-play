@@ -19,6 +19,7 @@ export class AlcremieVMAX_73 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Alcremie V";
   public hp: number = 310;
+    public height?: number = 0.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

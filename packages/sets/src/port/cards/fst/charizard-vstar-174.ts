@@ -19,6 +19,7 @@ export class CharizardVSTAR_174 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Charizard V";
   public hp: number = 280;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

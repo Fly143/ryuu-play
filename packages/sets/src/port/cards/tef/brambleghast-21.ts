@@ -20,6 +20,7 @@ export class Brambleghast_21 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Bramblin";
   public hp: number = 100;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

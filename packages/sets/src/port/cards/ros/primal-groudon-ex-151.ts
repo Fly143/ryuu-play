@@ -21,6 +21,7 @@ export class PrimalGroudonEX_151 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Groudon-EX";
   public hp: number = 240;
+    public height?: number = 3.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

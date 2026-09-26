@@ -21,6 +21,7 @@ export class DarkDugtrio_6 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Diglett";
   public hp: number = 50;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

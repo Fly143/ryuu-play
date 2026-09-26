@@ -19,6 +19,7 @@ export class MVenusaurEX_2 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Venusaur-EX";
   public hp: number = 230;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

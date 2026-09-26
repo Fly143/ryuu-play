@@ -19,6 +19,7 @@ export class MandibuzzBREAKXY182 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mandibuzz";
   public hp: number = 140;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

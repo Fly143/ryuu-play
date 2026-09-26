@@ -17,6 +17,7 @@ export class HopSDubwool_136 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Hop's Wooloo";
   public hp: number = 120;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

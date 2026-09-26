@@ -19,6 +19,7 @@ export class GiratinaLVX_124 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Giratina";
   public hp: number = 130;
+    public height?: number = 4.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class Musharna_36 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Munna";
   public hp: number = 120;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class Roserade_4 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Roselia";
   public hp: number = 120;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class Boltund_31 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Yamper";
   public hp: number = 130;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

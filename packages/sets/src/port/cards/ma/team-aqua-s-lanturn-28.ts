@@ -19,6 +19,7 @@ export class TeamAquaSLanturn_28 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Aqua's Chinchou";
   public hp: number = 80;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

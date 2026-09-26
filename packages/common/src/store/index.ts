@@ -36,6 +36,7 @@ export * from './prompts/confirm-prompt';
 export * from './prompts/invite-player-prompt';
 export * from './prompts/move-damage-prompt';
 export * from './prompts/move-energy-prompt';
+export * from './prompts/number-prompt';
 export * from './prompts/order-cards-prompt';
 export * from './prompts/prompt';
 export * from './prompts/put-damage-prompt';

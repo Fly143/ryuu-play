@@ -20,6 +20,7 @@ export class TorterraLVX_122 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Torterra";
   public hp: number = 160;
+    public height?: number = 2.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

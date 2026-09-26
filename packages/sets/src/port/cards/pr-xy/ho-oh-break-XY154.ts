@@ -19,6 +19,7 @@ export class HoOhBREAKXY154 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Ho-Oh";
   public hp: number = 150;
+    public height?: number = 3.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

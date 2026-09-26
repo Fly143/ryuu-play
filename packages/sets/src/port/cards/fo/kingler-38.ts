@@ -19,6 +19,7 @@ export class Kingler_38 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Krabby";
   public hp: number = 60;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

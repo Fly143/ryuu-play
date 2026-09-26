@@ -19,6 +19,7 @@ export class RevavroomEx_15 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Varoom";
   public hp: number = 280;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

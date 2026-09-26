@@ -19,6 +19,7 @@ export class Golurk_44 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Golett";
   public hp: number = 140;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

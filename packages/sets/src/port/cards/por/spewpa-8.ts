@@ -19,6 +19,7 @@ export class Spewpa_8 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Scatterbug";
   public hp: number = 80;
+    public height?: number = 0.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

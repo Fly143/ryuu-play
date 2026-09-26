@@ -19,6 +19,7 @@ export class ArvenSMabosstiffEx_139 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Arven's Maschiff";
   public hp: number = 270;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

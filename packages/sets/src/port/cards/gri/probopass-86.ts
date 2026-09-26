@@ -19,6 +19,7 @@ export class Probopass_86 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Nosepass";
   public hp: number = 130;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

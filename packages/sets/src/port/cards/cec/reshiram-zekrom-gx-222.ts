@@ -19,6 +19,7 @@ export class ReshiramZekromGX_222 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 270;
+    public height?: number = 3.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

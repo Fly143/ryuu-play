@@ -17,6 +17,7 @@ export class Granbull_116 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Snubbull";
   public hp: number = 120;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

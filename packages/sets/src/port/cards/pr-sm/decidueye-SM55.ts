@@ -19,6 +19,7 @@ export class DecidueyeSM55 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dartrix";
   public hp: number = 140;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

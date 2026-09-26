@@ -19,6 +19,7 @@ export class Gourgeist_78 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Pumpkaboo";
   public hp: number = 110;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

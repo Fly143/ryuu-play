@@ -19,6 +19,7 @@ export class MewVMAXTG30 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mew V";
   public hp: number = 310;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

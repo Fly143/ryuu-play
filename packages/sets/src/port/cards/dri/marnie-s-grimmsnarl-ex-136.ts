@@ -20,6 +20,7 @@ export class MarnieSGrimmsnarlEx_136 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Marnie's Morgrem";
   public hp: number = 320;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

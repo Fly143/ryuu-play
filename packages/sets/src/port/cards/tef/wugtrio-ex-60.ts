@@ -19,6 +19,7 @@ export class WugtrioEx_60 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Wiglett";
   public hp: number = 250;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

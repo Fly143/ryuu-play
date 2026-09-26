@@ -20,6 +20,7 @@ export class NaganadelGuzzlordGX_224 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 280;
+    public height?: number = 5.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

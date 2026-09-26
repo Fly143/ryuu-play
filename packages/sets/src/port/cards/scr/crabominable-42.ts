@@ -19,6 +19,7 @@ export class Crabominable_42 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Crabrawler";
   public hp: number = 160;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

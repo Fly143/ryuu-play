@@ -20,6 +20,7 @@ export class Solgaleo_99 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Cosmoem";
   public hp: number = 160;
+    public height?: number = 3.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

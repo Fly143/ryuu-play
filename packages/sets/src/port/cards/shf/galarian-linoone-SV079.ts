@@ -19,6 +19,7 @@ export class GalarianLinooneSV079 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Galarian Zigzagoon";
   public hp: number = 100;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

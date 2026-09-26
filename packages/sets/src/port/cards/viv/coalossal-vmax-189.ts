@@ -19,6 +19,7 @@ export class CoalossalVMAX_189 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Coalossal V";
   public hp: number = 330;
+    public height?: number = 2.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class GyaradosVMAX_207 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gyarados V";
   public hp: number = 330;
+    public height?: number = 6.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

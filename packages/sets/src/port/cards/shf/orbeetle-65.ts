@@ -19,6 +19,7 @@ export class Orbeetle_65 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dottler";
   public hp: number = 110;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

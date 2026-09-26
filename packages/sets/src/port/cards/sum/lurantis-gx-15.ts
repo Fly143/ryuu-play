@@ -19,6 +19,7 @@ export class LurantisGX_15 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Fomantis";
   public hp: number = 210;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

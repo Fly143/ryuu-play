@@ -19,6 +19,7 @@ export class HisuianBraviary_132 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rufflet";
   public hp: number = 130;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

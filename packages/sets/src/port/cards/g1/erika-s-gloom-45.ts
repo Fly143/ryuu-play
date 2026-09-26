@@ -20,6 +20,7 @@ export class ErikaSGloom_45 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Erika's Oddish";
   public hp: number = 60;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

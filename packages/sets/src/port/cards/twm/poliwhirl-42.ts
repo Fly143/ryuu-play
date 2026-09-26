@@ -20,6 +20,7 @@ export class Poliwhirl_42 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Poliwag";
   public hp: number = 100;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

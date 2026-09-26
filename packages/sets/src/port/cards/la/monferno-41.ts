@@ -20,6 +20,7 @@ export class Monferno_41 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Chimchar";
   public hp: number = 70;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

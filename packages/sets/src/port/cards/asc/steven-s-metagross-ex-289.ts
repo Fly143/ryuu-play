@@ -19,6 +19,7 @@ export class StevenSMetagrossEx_289 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Steven's Metang";
   public hp: number = 340;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

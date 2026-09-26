@@ -19,6 +19,7 @@ export class OriginFormeDialgaVSTARGG68 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Origin Forme Dialga V";
   public hp: number = 280;
+    public height?: number = 5.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

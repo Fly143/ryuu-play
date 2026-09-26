@@ -19,6 +19,7 @@ export class Zweilous_96 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Deino";
   public hp: number = 90;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

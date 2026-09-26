@@ -17,6 +17,7 @@ export class Houndoom_83 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Houndour";
   public hp: number = 120;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

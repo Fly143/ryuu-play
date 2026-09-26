@@ -19,6 +19,7 @@ export class TyphlosionEx_110 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Quilava";
   public hp: number = 150;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

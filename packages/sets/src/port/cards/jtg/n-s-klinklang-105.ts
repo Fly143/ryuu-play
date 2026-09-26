@@ -19,6 +19,7 @@ export class NSKlinklang_105 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "N's Klang";
   public hp: number = 160;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

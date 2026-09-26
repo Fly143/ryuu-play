@@ -21,6 +21,7 @@ export class Grimmsnarl_125 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Morgrem";
   public hp: number = 170;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

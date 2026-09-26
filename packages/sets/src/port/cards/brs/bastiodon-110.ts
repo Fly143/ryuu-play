@@ -21,6 +21,7 @@ export class Bastiodon_110 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Shieldon";
   public hp: number = 160;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

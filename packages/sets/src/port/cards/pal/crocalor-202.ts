@@ -17,6 +17,7 @@ export class Crocalor_202 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Fuecoco";
   public hp: number = 110;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

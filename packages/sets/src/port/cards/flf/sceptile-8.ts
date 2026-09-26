@@ -19,6 +19,7 @@ export class Sceptile_8 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Grovyle";
   public hp: number = 130;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

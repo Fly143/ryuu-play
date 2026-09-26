@@ -17,6 +17,7 @@ export class Corviknight_156 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Corvisquire";
   public hp: number = 160;
+    public height?: number = 2.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

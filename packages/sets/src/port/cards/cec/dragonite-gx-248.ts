@@ -19,6 +19,7 @@ export class DragoniteGX_248 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dragonair";
   public hp: number = 250;
+    public height?: number = 2.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

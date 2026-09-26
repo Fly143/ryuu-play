@@ -19,6 +19,7 @@ export class MGlalieEX_156 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Glalie-EX";
   public hp: number = 220;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

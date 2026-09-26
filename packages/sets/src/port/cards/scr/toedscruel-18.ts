@@ -19,6 +19,7 @@ export class Toedscruel_18 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Toedscool";
   public hp: number = 140;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

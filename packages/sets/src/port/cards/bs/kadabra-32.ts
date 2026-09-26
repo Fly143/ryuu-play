@@ -19,6 +19,7 @@ export class Kadabra_32 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Abra";
   public hp: number = 60;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

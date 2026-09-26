@@ -19,6 +19,7 @@ export class NaganadelGXSV63 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Poipole";
   public hp: number = 210;
+    public height?: number = 3.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

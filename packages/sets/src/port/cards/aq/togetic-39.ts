@@ -20,6 +20,7 @@ export class Togetic_39 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Togepi";
   public hp: number = 60;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

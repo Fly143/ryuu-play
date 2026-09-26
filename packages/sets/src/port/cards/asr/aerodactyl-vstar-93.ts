@@ -17,6 +17,7 @@ export class AerodactylVSTAR_93 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Aerodactyl V";
   public hp: number = 260;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

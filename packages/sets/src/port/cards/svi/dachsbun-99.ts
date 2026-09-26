@@ -20,6 +20,7 @@ export class Dachsbun_99 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Fidough";
   public hp: number = 90;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

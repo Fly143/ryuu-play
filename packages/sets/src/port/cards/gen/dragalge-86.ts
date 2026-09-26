@@ -20,6 +20,7 @@ export class Dragalge_86 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Skrelp";
   public hp: number = 110;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

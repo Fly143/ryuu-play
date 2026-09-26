@@ -19,6 +19,7 @@ export class MegaLucarioEx_179 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Riolu";
   public hp: number = 340;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

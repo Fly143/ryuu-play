@@ -20,6 +20,7 @@ export class ButterfreeVMAX_190 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Butterfree V";
   public hp: number = 300;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

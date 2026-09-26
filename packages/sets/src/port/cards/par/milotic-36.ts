@@ -20,6 +20,7 @@ export class Milotic_36 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Feebas";
   public hp: number = 120;
+    public height?: number = 6.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class Flygon_39 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Vibrava";
   public hp: number = 140;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class SabrinaSSlowbro_60 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Sabrina's Slowpoke";
   public hp: number = 70;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -20,6 +20,7 @@ export class ScizorEx_1082 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Scyther";
   public hp: number = 120;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

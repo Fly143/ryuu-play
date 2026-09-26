@@ -17,6 +17,7 @@ export class TeamMagmaSHoundoom_10 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Team Magma's Houndour";
   public hp: number = 70;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

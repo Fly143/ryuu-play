@@ -20,6 +20,7 @@ export class RayquazaVMAX_218 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rayquaza V";
   public hp: number = 320;
+    public height?: number = 3.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

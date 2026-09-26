@@ -21,6 +21,7 @@ export class Incineroar_29 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Torracat";
   public hp: number = 160;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

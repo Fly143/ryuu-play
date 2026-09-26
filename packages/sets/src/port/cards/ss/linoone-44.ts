@@ -19,6 +19,7 @@ export class Linoone_44 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Zigzagoon";
   public hp: number = 70;
+    public height?: number = 0.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

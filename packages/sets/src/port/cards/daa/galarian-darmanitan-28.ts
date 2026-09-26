@@ -19,6 +19,7 @@ export class GalarianDarmanitan_28 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Galarian Darumaka";
   public hp: number = 140;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

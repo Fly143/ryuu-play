@@ -19,6 +19,7 @@ export class HydreigonBREAK_87 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Hydreigon";
   public hp: number = 190;
+    public height?: number = 1.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

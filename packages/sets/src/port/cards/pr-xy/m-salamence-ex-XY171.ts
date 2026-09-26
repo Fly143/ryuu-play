@@ -19,6 +19,7 @@ export class MSalamenceEXXY171 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Salamence-EX";
   public hp: number = 230;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

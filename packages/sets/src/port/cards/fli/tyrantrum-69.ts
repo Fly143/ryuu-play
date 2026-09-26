@@ -21,6 +21,7 @@ export class Tyrantrum_69 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Tyrunt";
   public hp: number = 160;
+    public height?: number = 2.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -21,6 +21,7 @@ export class Silcoon_43 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Wurmple";
   public hp: number = 60;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class EthanSHoOhEx_209 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "";
   public hp: number = 230;
+    public height?: number = 3.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

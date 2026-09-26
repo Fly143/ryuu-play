@@ -19,6 +19,7 @@ export class AggronVMAX_97 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Aggron V";
   public hp: number = 330;
+    public height?: number = 2.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

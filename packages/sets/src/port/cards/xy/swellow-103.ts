@@ -19,6 +19,7 @@ export class Swellow_103 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Taillow";
   public hp: number = 90;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

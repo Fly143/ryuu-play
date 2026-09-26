@@ -17,6 +17,7 @@ export class Tirtouga_22 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Antique Cover Fossil";
   public hp: number = 100;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

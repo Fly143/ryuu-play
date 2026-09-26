@@ -20,6 +20,7 @@ export class Vileplume_34 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gloom";
   public hp: number = 130;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

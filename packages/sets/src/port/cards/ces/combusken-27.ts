@@ -19,6 +19,7 @@ export class Combusken_272 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Torchic";
   public hp: number = 80;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

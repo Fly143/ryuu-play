@@ -19,6 +19,7 @@ export class HopSTrevenant_237 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Hop's Phantump";
   public hp: number = 140;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

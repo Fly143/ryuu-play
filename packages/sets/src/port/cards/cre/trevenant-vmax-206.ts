@@ -17,6 +17,7 @@ export class TrevenantVMAX_206 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Trevenant V";
   public hp: number = 320;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

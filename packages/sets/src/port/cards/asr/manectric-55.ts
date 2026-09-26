@@ -19,6 +19,7 @@ export class Manectric_55 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Electrike";
   public hp: number = 120;
+    public height?: number = 1.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

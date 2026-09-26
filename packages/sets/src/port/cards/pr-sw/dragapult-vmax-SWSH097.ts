@@ -19,6 +19,7 @@ export class DragapultVMAXSWSH097 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Dragapult V";
   public hp: number = 320;
+    public height?: number = 3.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

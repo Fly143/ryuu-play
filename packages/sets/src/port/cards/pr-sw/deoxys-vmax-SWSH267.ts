@@ -21,6 +21,7 @@ export class DeoxysVMAXSWSH267 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Deoxys V";
   public hp: number = 330;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

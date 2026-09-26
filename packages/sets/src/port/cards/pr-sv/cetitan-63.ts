@@ -19,6 +19,7 @@ export class Cetitan_63 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Cetoddle";
   public hp: number = 170;
+    public height?: number = 2.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

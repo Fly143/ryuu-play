@@ -21,6 +21,7 @@ export class Muk_11 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Grimer";
   public hp: number = 70;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

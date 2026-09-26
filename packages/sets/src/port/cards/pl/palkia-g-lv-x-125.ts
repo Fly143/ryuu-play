@@ -19,6 +19,7 @@ export class PalkiaGLVX_125 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Palkia G";
   public hp: number = 120;
+    public height?: number = 5.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

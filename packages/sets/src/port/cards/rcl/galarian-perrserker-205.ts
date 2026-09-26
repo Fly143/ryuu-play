@@ -20,6 +20,7 @@ export class GalarianPerrserker_205 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Galarian Meowth";
   public hp: number = 120;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

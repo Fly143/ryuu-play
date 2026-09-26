@@ -19,6 +19,7 @@ export class Haxorus_147 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Fraxure";
   public hp: number = 170;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

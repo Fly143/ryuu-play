@@ -17,6 +17,7 @@ export class MScizorEX_77 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Scizor-EX";
   public hp: number = 220;
+    public height?: number = 1.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

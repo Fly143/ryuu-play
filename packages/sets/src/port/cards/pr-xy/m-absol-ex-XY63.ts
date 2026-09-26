@@ -19,6 +19,7 @@ export class MAbsolEXXY63 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Absol-EX";
   public hp: number = 210;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

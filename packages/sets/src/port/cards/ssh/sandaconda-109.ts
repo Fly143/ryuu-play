@@ -19,6 +19,7 @@ export class Sandaconda_109 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Silicobra";
   public hp: number = 140;
+    public height?: number = 1.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

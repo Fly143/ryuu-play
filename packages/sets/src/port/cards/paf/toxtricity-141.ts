@@ -20,6 +20,7 @@ export class Toxtricity_141 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Toxel";
   public hp: number = 140;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

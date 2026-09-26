@@ -19,6 +19,7 @@ export class ClawitzerBREAK_35 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Clawitzer";
   public hp: number = 130;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

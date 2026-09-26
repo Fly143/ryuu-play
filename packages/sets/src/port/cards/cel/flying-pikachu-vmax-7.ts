@@ -19,6 +19,7 @@ export class FlyingPikachuVMAX_7 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Flying Pikachu V";
   public hp: number = 310;
+    public height?: number = 0.4;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

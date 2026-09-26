@@ -20,6 +20,7 @@ export class Lampent_49 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Litwick";
   public hp: number = 80;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

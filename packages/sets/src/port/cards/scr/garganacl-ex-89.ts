@@ -21,6 +21,7 @@ export class GarganaclEx_89 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Naclstack";
   public hp: number = 340;
+    public height?: number = 2.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

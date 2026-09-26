@@ -19,6 +19,7 @@ export class HakamoO_76 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Jangmo-o";
   public hp: number = 90;
+    public height?: number = 1.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

@@ -19,6 +19,7 @@ export class ArceusVSTAR_123 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Arceus V";
   public hp: number = 280;
+    public height?: number = 3.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

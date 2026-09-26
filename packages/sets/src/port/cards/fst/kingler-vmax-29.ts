@@ -19,6 +19,7 @@ export class KinglerVMAX_29 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Kingler V";
   public hp: number = 330;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

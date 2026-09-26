@@ -20,6 +20,7 @@ export class Seismitoad_52 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Palpitoad";
   public hp: number = 170;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

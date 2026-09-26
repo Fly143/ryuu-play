@@ -20,6 +20,7 @@ export class ShiftryGX_152 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Nuzleaf";
   public hp: number = 240;
+    public height?: number = 1.3;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

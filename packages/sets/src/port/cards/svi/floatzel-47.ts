@@ -19,6 +19,7 @@ export class Floatzel_47 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Buizel";
   public hp: number = 120;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

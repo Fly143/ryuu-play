@@ -19,6 +19,7 @@ export class Swalot_11 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Gulpin";
   public hp: number = 80;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

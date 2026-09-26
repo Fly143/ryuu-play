@@ -19,6 +19,7 @@ export class Herdier_134 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lillipup";
   public hp: number = 100;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

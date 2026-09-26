@@ -17,6 +17,7 @@ export class Frogadier_47 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Froakie";
   public hp: number = 70;
+    public height?: number = 0.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

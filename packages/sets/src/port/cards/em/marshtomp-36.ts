@@ -20,6 +20,7 @@ export class Marshtomp_362 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mudkip";
   public hp: number = 70;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

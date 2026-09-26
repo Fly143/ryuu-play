@@ -21,6 +21,7 @@ export class MewtwoLVXDP28 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mewtwo";
   public hp: number = 120;
+    public height?: number = 2.0;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

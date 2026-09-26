@@ -19,6 +19,7 @@ export class Gyarados_43 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Magikarp";
   public hp: number = 180;
+    public height?: number = 6.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

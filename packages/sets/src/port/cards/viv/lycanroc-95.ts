@@ -17,6 +17,7 @@ export class Lycanroc_95 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rockruff";
   public hp: number = 120;
+    public height?: number = 0.8;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

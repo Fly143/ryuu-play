@@ -17,6 +17,7 @@ export class LillieSRibombee_67 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Lillie's Cutiefly";
   public hp: number = 70;
+    public height?: number = 0.2;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

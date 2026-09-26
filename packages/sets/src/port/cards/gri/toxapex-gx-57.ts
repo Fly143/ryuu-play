@@ -20,6 +20,7 @@ export class ToxapexGX_57 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Mareanie";
   public hp: number = 210;
+    public height?: number = 0.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

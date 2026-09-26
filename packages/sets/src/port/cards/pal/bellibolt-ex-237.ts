@@ -19,6 +19,7 @@ export class BelliboltEx_237 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Tadbulb";
   public hp: number = 280;
+    public height?: number = 1.1;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

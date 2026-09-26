@@ -20,6 +20,7 @@ export class MRayquazaEX_98 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Rayquaza-EX";
   public hp: number = 220;
+    public height?: number = 3.5;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

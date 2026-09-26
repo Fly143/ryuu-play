@@ -19,6 +19,7 @@ export class Zebstrika_82 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Blitzle";
   public hp: number = 110;
+    public height?: number = 1.6;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

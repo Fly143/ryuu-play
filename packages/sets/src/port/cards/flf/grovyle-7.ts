@@ -17,6 +17,7 @@ export class Grovyle_7 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Treecko";
   public hp: number = 80;
+    public height?: number = 0.9;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];

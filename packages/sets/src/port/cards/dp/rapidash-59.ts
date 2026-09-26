@@ -19,6 +19,7 @@ export class Rapidash_59 extends PokemonCard {
   public cardTypes: CardType[] = [];
   public evolvesFrom = "Ponyta";
   public hp: number = 80;
+    public height?: number = 1.7;
   public weakness: Weakness[] = [];
   public resistance: Resistance[] = [];
   public retreat: CardType[] = [];
