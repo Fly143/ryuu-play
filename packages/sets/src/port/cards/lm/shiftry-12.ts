@@ -3,6 +3,7 @@ import {
   State,
   StoreLike,
   AttackEffect,
+  PowerEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -38,6 +39,9 @@ export class Shiftry_12 extends PokemonCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.specialDefending(this, store, state, effect).use(effect, SpecialCondition.CONFUSED);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.scoopUpSelf(this, store, state, effect).use(effect as any);
     }
     return state;
   }

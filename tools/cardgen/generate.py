@@ -2802,6 +2802,26 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if re.search(r"last card in your hand\.?\s*during this turn, attacks used by your pok[eé]mon", t):
         m = re.search(r"(\d+) more damage", t)
         return [f"plusPowerMarker:{m.group(1) if m else 30}"]
+    # Return pokemon and all attached to hand
+    if re.search(r"return that pok[eé]mon and all cards attached to it to your hand", t):
+        return ["scoopUpSelf"]
+    # Flip, draw bottom 3 / top 2
+    if re.search(r"flip a coin\.\s*if heads,? draw the bottom 3 cards of your deck\.\s*if tails,? draw the top 2", t):
+        return ["draw:3"]
+    # Island Hermit / show prizes, draw 2
+    if re.search(r"choose up to 2 of your prize cards and put them face up.{0,40}draw 2 cards", t):
+        return ["draw:2"]
+    # Search deck for up to N supporter and stadium
+    if re.search(r"search your deck for up to 3 cards in any combination of supporter cards and stadium", t):
+        return ["searchTrainerToHand:3"]
+    # Steven's Advice: draw up to opponent's pokemon in play
+    if re.search(r"draw a number of cards up to the number of your opponent's pok[eé]mon in play", t):
+        return ["drawPerOpponentBench:1"]
+    # Lanette: search up to N different types of basic pokemon
+    if re.search(r"search your deck for up to (\d+) different types of basic pok[eé]mon", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchPokemonToHand:{m.group(1) if m else 3}"]
+
     # Opponent Active Confused and Poisoned
     if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
         return ["specialBoth:CONFUSED", "specialBoth:POISONED"]
@@ -4113,6 +4133,51 @@ def match_power(text: str) -> Optional[list[str]]:
     # Discard all cards attached
     if re.search(r"discard all cards attached to", t):
         return ["discardEnergySelf:99"]
+    # Honchkrow / Murkrow copy attacks
+    if re.search(r"each of your [\w' -]+ can use [\w' -]+'s attacks", t):
+        return ["copyAttack"]
+    # If KO last turn (Plusle/Minun)
+    if re.search(r"if any of your pok[eé]mon were knocked out during your opponent's last turn", t):
+        return ["oncePerTurnDraw:1"]
+    # Gardevoir LV.X: choose active or bench and switch/energy
+    if re.search(r"choose 1 of your active pok[eé]mon or 1 (?:of|or) your benched pok[eé]mon and", t):
+        return ["energyTrans"]
+    # Remove damage while Asleep between turns
+    if re.search(r"remains asleep between turns,? remove 1 damage counter", t):
+        return ["healEachPokemon:10"]
+    # Use this power, each Active
+    if re.search(r"you may use this power\.\s*each active pok[eé]mon", t):
+        return ["specialBoth:CONFUSED"]
+    # Discard a Supporter and use its effect
+    if re.search(r"discard a supporter card from your hand and use the effect", t):
+        return ["discardFromHand:1"]
+    # Opponent can't attach special energy
+    if re.search(r"can't attach any special energy", t):
+        return ["continuousStatic"]
+    # +HP for energy / named type
+    if re.search(r"gets? \+(\d+) hp for each|gets? \+(\d+) hp if", t):
+        return ["continuousStatic"]
+    if re.search(r"in play gets? \+(\d+) hp", t):
+        return ["continuousStatic"]
+    # Flip, draw bottom 3 / top 2
+    if re.search(r"flip a coin\.\s*if heads,? draw the bottom 3 cards of your deck\.\s*if tails,? draw the top 2", t):
+        return ["draw:3"]
+    # Island Hermit / show prizes, draw 2
+    if re.search(r"choose up to 2 of your prize cards and put them face up.{0,40}draw 2 cards", t):
+        return ["draw:2"]
+    # Search deck for up to N supporter and stadium
+    if re.search(r"search your deck for up to 3 cards in any combination of supporter cards and stadium", t):
+        return ["searchTrainerToHand:3"]
+    # Steven's Advice: draw up to opponent's pokemon in play
+    if re.search(r"draw a number of cards up to the number of your opponent's pok[eé]mon in play", t):
+        return ["drawPerOpponentBench:1"]
+    # Lanette: search up to N different types of basic pokemon
+    if re.search(r"search your deck for up to (\d+) different types of basic pok[eé]mon", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchPokemonToHand:{m.group(1) if m else 3}"]
+    # Return pokemon and all attached to hand
+    if re.search(r"return that pok[eé]mon and all cards attached to it to your hand", t):
+        return ["scoopUpSelf"]
     # Opponent can't attach special energy (continuous)
     if re.search(r"can't attach any special energy", t):
         return ["continuousStatic"]

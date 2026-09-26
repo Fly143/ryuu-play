@@ -39,7 +39,7 @@ export class SkuntankG_94 extends PokemonCard {
       return commonEffects.cantAttackOpponentNextTurn(this, store, state, effect).use(effect);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchAnyToHand:1");
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "specialBoth:CONFUSED");
     }
     return state;
   }
