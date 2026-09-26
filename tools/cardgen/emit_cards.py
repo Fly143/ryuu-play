@@ -293,6 +293,7 @@ CONTINUOUS_POWER_OPS = {
     "halfDamageTaken",
     "plusPowerMarker",
     "plusPrize",
+    "minusPrize",
     "noWeakness",
     "healDouble",
     "toolSlots",

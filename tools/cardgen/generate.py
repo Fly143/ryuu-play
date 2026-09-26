@@ -2946,6 +2946,15 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         return ["recoverFromDiscard:1"]
     if re.search(r"count the number of cards in your discard pile and shuffle them into your deck", t):
         return ["shuffleCardsFromDiscardToDeck:5"]
+    # Cedric Juniper / face-down name + height guess
+    if re.search(r"put a pok[eé]mon from your hand face down in front of you and tell your opponent its name", t):
+        return ["draw:3"]
+    if re.search(r"put a basic pok[eé]mon or evolution card from your hand face down in front of you and tell your opponent its name", t):
+        return ["draw:3"]
+    # Takes 1 fewer Prize (Life Dew / Hero's Medal / etc.)
+    if re.search(r"takes? (\d+) fewer prize", t):
+        m = re.search(r"takes? (\d+) fewer", t)
+        return [f"minusPrize:{m.group(1) if m else 1}"]
     if re.search(r"that pok[eé]mon m[ay] us this card's attack", t):
         return ["copyAttack"]
     if re.search(r"your active pok[eé]mon is now confused", t):
@@ -3976,6 +3985,9 @@ def match_power(text: str) -> Optional[list[str]]:
         return [f"healEachPokemon:{m.group(1) if m else 10}"]
     if re.search(r"take 1 more prize card", t):
         return ["plusPrize:1"]
+    if re.search(r"takes? (\d+) fewer prize", t):
+        m = re.search(r"takes? (\d+) fewer", t)
+        return [f"minusPrize:{m.group(1) if m else 1}"]
     if re.search(r"prevent all effects of your opponent's pok[eé]mon's abilities done to", t):
         return ["preventEffectsSelf"]
     if re.search(r"prevent all effects of your opponent's pok[eé]mon's abilities", t):

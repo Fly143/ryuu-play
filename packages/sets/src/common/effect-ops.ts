@@ -1660,6 +1660,11 @@ export function applyTrainerOp(
       player.active.marker.addMarker('PLUS_PRIZE_' + n, _self, state.turn + 1);
       return state;
     }
+    case 'minusPrize': {
+      const n = parseIntArg(op, 1, 1);
+      player.active.marker.addMarker('MINUS_PRIZE_' + n, _self, state.turn + 1);
+      return state;
+    }
     case 'earlyEvolution':
       return state;
     case 'showPrizes':
@@ -1862,6 +1867,11 @@ export function applyPowerOp(
       player.active.marker.addMarker('PLUS_PRIZE_' + n, self, state.turn + 1);
       return state;
     }
+    case 'minusPrize': {
+      const n = parseIntArg(op, 1, 1);
+      player.active.marker.addMarker('MINUS_PRIZE_' + n, self, state.turn + 1);
+      return state;
+    }
     case 'earlyEvolution':
       return state;
     case 'showPrizes':
@@ -2042,10 +2052,14 @@ export function applyContinuousAura(
         player.active.marker.addMarker('HEAL_DOUBLE', self, turn + 1);
         break;
       }
-      case 'toolSlots':
-      case 'attackTwice':
-      case 'dualType':
+      case 'plusPrize': {
+        // applied via KO handler / target marker
         break;
+      }
+      case 'minusPrize': {
+        player.active.marker.addMarker('MINUS_PRIZE_' + (n || 1), self, turn + 1);
+        break;
+      }
       case 'noEvolution': {
         player.marker.addMarker('NO_EVOLUTION', self, turn + 1);
         break;
@@ -2054,6 +2068,10 @@ export function applyContinuousAura(
         player.marker.addMarker('MORE_RETREAT_OPPONENT', self, turn + 1);
         break;
       }
+      case 'toolSlots':
+      case 'attackTwice':
+      case 'dualType':
+        break;
       default:
         break;
     }

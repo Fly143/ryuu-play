@@ -3,6 +3,8 @@ import {
   State,
   StoreLike,
   AttackEffect,
+  PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -36,6 +38,12 @@ export class MunkidoriEx_37 extends PokemonCard {
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof AttackEffect && effect.attack === this.attacks[0]) {
       return commonEffects.cantAttackNextTurn(this, store, state, effect).use(effect);
+    }
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "minusPrize:1");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "minusPrize:1");
     }
     return state;
   }

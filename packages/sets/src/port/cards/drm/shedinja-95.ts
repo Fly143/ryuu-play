@@ -4,6 +4,7 @@ import {
   StoreLike,
   AttackEffect,
   PowerEffect,
+  BetweenTurnsEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -39,7 +40,10 @@ export class Shedinja_95 extends PokemonCard {
       return commonEffects.bonusDamagePer(this, store, state, effect).use(effect, 30, 1);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.discardEnergySelfPower(this, store, state, effect).reduce(effect.power, 99);
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "minusPrize:1");
+    }
+    if (effect instanceof BetweenTurnsEffect) {
+      return commonEffects.refreshPowerAura(this, store, state, effect.player, "minusPrize:1");
     }
     return state;
   }

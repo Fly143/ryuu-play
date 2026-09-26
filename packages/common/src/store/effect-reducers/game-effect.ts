@@ -144,11 +144,17 @@ export function gameReducer(store: StoreLike, state: State, effect: Effect): Sta
       // Multi-prize Pokemon (ex / EX / V / VMAX / VSTAR / GX / TAG TEAM / Mega)
       effect.prizeCount = prizeCountForTags(card.tags);
 
-      // Plus-Prize markers on the KO-ing Active ("take 1 more Prize card")
+      // Plus/Minus-Prize markers on the KO-ing Active / target
       for (const m of effect.player.active.marker.markers) {
         const match = /^PLUS_PRIZE_(\d+)$/.exec(m.name);
         if (match) {
           effect.prizeCount += parseInt(match[1], 10);
+        }
+      }
+      for (const m of effect.target.marker.markers) {
+        const match = /^MINUS_PRIZE_(\d+)$/.exec(m.name);
+        if (match) {
+          effect.prizeCount = Math.max(0, effect.prizeCount - parseInt(match[1], 10));
         }
       }
 
