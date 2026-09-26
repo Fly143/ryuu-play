@@ -2872,8 +2872,41 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         return ["discardEnergySelf:99"]
     if re.search(r"you may move an? [\w ]*energy attached to 1 of your pok[eé]mon to [\w' -]+", t):
         return ["energyTrans"]
-    if re.search(r"flip a coin\.\s*if heads,? search your discard pile for [\w' ,]+ fossil", t):
+    if re.search(r"reveal cards from your deck until you reveal an evolution", t):
+        return ["searchPokemonToHand:1"]
+    if re.search(r"choose 1 of your opponent's pok[eé]mon\.\s*search your deck for a baby pok[eé]mon", t):
+        return ["searchPokemonToHand:1"]
+    if re.search(r"discard 1 or 2 basic energy cards? attached to that pok[eé]mon\.\s*if you discarded 1", t):
+        return ["discardEnergySelf:1", "heal:20"]
+    if re.search(r"flip (\d+) coins\.\s*for each heads,? choose an evolution card from your discard", t):
+        return ["recoverFromDiscard:3"]
+    if re.search(r"flip a coin\.\s*if heads,? your opponent switches 1 of", t):
+        return ["flipHeadsGustOpponent"]
+    if re.search(r"flip a coin\.\s*if heads,? search your deck for an? (?:omanyte|kabuto|aerodactyl|lileep|anorith|cranidos|shieldon)", t):
         return ["searchBasicToBench:1"]
+    if re.search(r"flip 2 coins\.\s*if both are heads,? search your discard pile for a basic pok[eé]mon or evolution", t):
+        return ["recoverFromDiscard:1"]
+    if re.search(r"shuffle your deck\.\s*look at (\d+) cards from the top of your deck,? then put them back", t):
+        return ["pokedex"]
+    if re.search(r"search your discard pile for basic pok[eé]mon and evolution", t):
+        return ["recoverFromDiscard:1"]
+    if re.search(r"move 1 energy card attached to the defending pok[eé]mon", t):
+        return ["energyTrans"]
+    if re.search(r"search your deck for a basic pok[eé]mon .{0,40}and switch it with 1 of your basic pok[eé]mon", t):
+        return ["switchSelf"]
+    if re.search(r"flip a coin\.\s*if heads,? put 1 damage counter on 1 of your opponent's pok[eé]mon\.\s*if tails,? put 1 damage counter on 1 of your", t):
+        return ["putCountersEachOpponent:10"]
+    if re.search(r"flip a coin\.\s*if heads,? search your discard pile for (\d+) energy cards?", t):
+        m = re.search(r"for (\d+) energy", t)
+        return [f"recoverEnergyFromDiscard:{m.group(1) if m else 1}"]
+    if re.search(r"search your deck for up to (\d+) [\w ]*energy cards?,? reveal them,? and put them into your hand", t):
+        m = re.search(r"up to (\d+)", t)
+        return [f"searchEnergyToHand:{m.group(1) if m else 1}"]
+    if re.search(r"put (\d+) [\w ]*pok[eé]mon from your discard pile into your hand", t):
+        m = re.search(r"put (\d+)", t)
+        return [f"recoverFromDiscard:{m.group(1) if m else 1}"]
+    if re.search(r"flip a coin\.\s*if heads,? put 1 damage counter on 1 of your opponent", t):
+        return ["putCountersEachOpponent:10"]
     if re.search(r"that pok[eé]mon m[ay] use this card's attack instead of its own", t):
         return ["copyAttack"]
     if re.search(r"flip 2 coins\.\s*if both are heads,? discard all energy cards attached to the defending", t):

@@ -17,7 +17,8 @@ export class HyperPotion_127 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      /* structural */
+      return commonEffects.runTrainerOp(this, store, state, effect).playCard(effect as TrainerEffect, "discardEnergySelf:1");
+      return commonEffects.healDamage(this, store, state, effect).playCard(effect as TrainerEffect, 20);
     }
     return state;
   }
