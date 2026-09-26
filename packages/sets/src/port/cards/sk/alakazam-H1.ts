@@ -39,7 +39,7 @@ export class AlakazamH1 extends PokemonCard {
       return commonEffects.bonusPerEnergySelf(this, store, state, effect).use(effect, 10);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.energyTrans(this, store, state, effect).use(effect as any);
     }
     return state;
   }

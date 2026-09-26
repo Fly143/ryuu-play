@@ -12,6 +12,7 @@ import {
   Stage,
   Weakness,
   Resistance,
+  SpecialCondition,
 } from '@ptcg/common';
 import { commonEffects } from '../../../common';
 
@@ -39,7 +40,7 @@ export class Butterfree_38 extends PokemonCard {
       return commonEffects.healSelfAttack(this, store, state, effect).use(effect, 20);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "clearSpecialConditions");
     }
     return state;
   }

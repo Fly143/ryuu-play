@@ -2821,6 +2821,114 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
     if re.search(r"search your deck for up to (\d+) different types of basic pok[eé]mon", t):
         m = re.search(r"up to (\d+)", t)
         return [f"searchPokemonToHand:{m.group(1) if m else 3}"]
+    # Tool: attach to pokemon, if KO search / recover
+    if re.search(r"attach [\w' -]+ to 1 of your pok[eé]mon that doesn't", t):
+        if re.search(r"is knocked out.{0,80}search your deck", t):
+            return ["searchAnyToHand:1"]
+        if re.search(r"is knocked out.{0,80}put that pok[eé]mon", t):
+            return ["recoverFromDiscard:1"]
+        if re.search(r"is knocked out.{0,80}draw", t):
+            return ["draw:2"]
+        return ["recoverFromDiscard:1"]
+    if re.search(r"attach [\w' -]+ to 1 of your pok[eé]mon that doesn't have", t):
+        return ["recoverFromDiscard:1"]
+    # Move TYPE energy to named pokemon
+    if re.search(r"you may move an? [\w ]*energy attached to 1 of your pok[eé]mon to [\w' -]+", t):
+        return ["energyTrans"]
+    # Discard N cards, remove M damage
+    if re.search(r"discard (\d+) cards? from your hand\.\s*then,? remove (\d+) damage counters", t):
+        m = re.search(r"discard (\d+)", t)
+        return [f"discardFromHand:{m.group(1) if m else 2}", "heal:30"]
+    # Look at top N, choose as many Pokemon as you like
+    if re.search(r"look at the top (\d+) cards? of your deck,? choose as many pok[eé]mon as you like", t):
+        return ["searchPokemonToHand:2"]
+    # Flip heads, search discard for fossils
+    if re.search(r"flip a coin\.\s*if heads,? search your discard pile for [\w' ,]+ fossil", t):
+        return ["searchBasicToBench:1"]
+    # Once during your turn, choose 1 of Benched and flip
+    if re.search(r"choose 1 of your benched pok[eé]mon and flip a coin\.\s*if heads,? count", t):
+        return ["oncePerTurnHeal:10"]
+    # Opponent can't remove Burned by evolving
+    if re.search(r"can't remove the special condition burned", t):
+        return ["continuousStatic"]
+    # Use another attack of X
+    if re.search(r"you may use another attack of [\w' -]+", t):
+        return ["copyAttack"]
+    # When you attach energy to X, you may
+    if re.search(r"when you attach an? [\w ]*energy card from your hand to [\w' -]+", t) and "once during" in t:
+        return ["oncePerTurnAttachFromHand"]
+    # Octillery: when Defending retreats, discard energy
+    if re.search(r"whenever the defending pok[eé]mon retreats,? discard all energy", t):
+        return ["roughSkin"]
+    # As long as number of Energy on Defending is
+    if re.search(r"as long as the number of energy cards attached to the defending", t):
+        return ["continuousStatic"]
+    # If opponent has Benched, may
+    if re.search(r"if your opponent has any benched pok[eé]mon", t) and "once during your turn" in t:
+        return ["gustOpponent"]
+    if re.search(r"each of your [\w' -]+ can use [\w' -]+'s attack", t):
+        return ["copyAttack"]
+    if re.search(r"you may discard all cards attached to [\w\[\]' -]+", t):
+        return ["discardEnergySelf:99"]
+    if re.search(r"you may move an? [\w ]*energy attached to 1 of your pok[eé]mon to [\w' -]+", t):
+        return ["energyTrans"]
+    if re.search(r"flip a coin\.\s*if heads,? search your discard pile for [\w' ,]+ fossil", t):
+        return ["searchBasicToBench:1"]
+    if re.search(r"that pok[eé]mon m[ay] use this card's attack instead of its own", t):
+        return ["copyAttack"]
+    if re.search(r"flip 2 coins\.\s*if both are heads,? discard all energy cards attached to the defending", t):
+        return ["discardEnergyDefending:99"]
+    if re.search(r"if both are tails,? discard all energy cards attached to your active", t):
+        return ["discardEnergySelf:99"]
+    if re.search(r"look at (?:the top )?(\d+) cards? (?:from|of) your deck\.\s*you may choose a basic pok[eé]mon or evolution", t):
+        return ["searchPokemonToHand:1"]
+    if re.search(r"choose 1 of your opponent's benched pok[eé]mon\.\s*flip a coin\.\s*if heads,? switch", t):
+        return ["flipHeadsGustOpponent"]
+    if re.search(r"flip a coin\.\s*if heads,? shuffle (\d+) energy cards? from your discard pile into your deck", t):
+        m = re.search(r"shuffle (\d+)", t)
+        return [f"shuffleCardsFromDiscardToDeck:{m.group(1) if m else 2}"]
+    if re.search(r"you go first", t) and "don't flip" in t:
+        return ["noop"]
+    if re.search(r"remove all special conditions from your active pok[eé]mon", t):
+        return ["clearSpecialConditions"]
+    if re.search(r"turn all basic energy attached to all of your pok[eé]mon into [\w ]+ energy", t):
+        return ["dualType"]
+    if re.search(r"resistance on each player's active pok[eé]mon only reduces damage by", t):
+        return ["ignoreResistance"]
+    if re.search(r"each of your [\w ]*pok[eé]mon has no weakness", t):
+        return ["noWeakness"]
+    if re.search(r"can't use any pok[eé]-powers|can't use any abilities|benched pok[eé]mon .{0,20}can't use pok[eé]-powers", t):
+        return ["noPowers"]
+    if re.search(r"put 1 damage counter on each of your opponent's pok[eé]mon that has any", t):
+        return ["roughSkin"]
+    if re.search(r"prevent all effects.{0,40}done to your benched", t):
+        return ["auraProtectBench"]
+    if re.search(r"remove 1 damage counter from each of your benched pok[eé]mon between turns", t):
+        return ["healEachPokemon:10"]
+    if re.search(r"can't attach [\w ]*energy cards? from your hand to [\w' -]+", t):
+        return ["continuousStatic"]
+    if re.search(r"you may make the defending pok[eé]mon (asleep|confused|paralyzed|poisoned|burned)", t):
+        m = re.search(r"make the defending pok[eé]mon (asleep|confused|paralyzed|poisoned|burned)", t)
+        return [f"specialDefending:{m.group(1).upper()}"]
+    if re.search(r"draw cards (?:from your deck )?until (?:you have|there are) (\d+) cards? in", t):
+        m = re.search(r"until .{0,20}?(\d+) cards?", t)
+        return [f"drawUntilHand:{m.group(1) if m else 6}"]
+    if re.search(r"you may play 2 [\w ]+ at the same time", t):
+        if "draw" in t:
+            return ["draw:1"]
+        if "damage counter" in t:
+            return ["putCountersEachOpponent:10"]
+        if "heal" in t or "remove 1 damage" in t:
+            return ["heal:10"]
+        return ["searchAnyToHand:1"]
+    if re.search(r"can't play basic pok[eé]mon or evolution cards from", t):
+        return ["noEvolution"]
+    if re.search(r"if you have \d+ or fewer cards in your hand,? you may draw", t):
+        return ["drawUntilHand:6"]
+    if re.search(r"discard a basic energy card attached to 1 of your pok[eé]mon\.\s*then,? choose a basic", t):
+        return ["discardEnergySelf:1", "attachBasicFromDiscard:1"]
+    if re.search(r"move an? [\w ]*energy card from 1 of your pok[eé]mon to another", t):
+        return ["energyTrans"]
 
     # Opponent Active Confused and Poisoned
     if re.search(r"your opponent's active pok[eé]mon is now confused and poisoned", t):
@@ -4159,6 +4267,32 @@ def match_power(text: str) -> Optional[list[str]]:
         return ["continuousStatic"]
     if re.search(r"in play gets? \+(\d+) hp", t):
         return ["continuousStatic"]
+    if re.search(r"each of your [\w ]*pok[eé]mon has no weakness", t):
+        return ["noWeakness"]
+    if re.search(r"can't use any pok[eé]-powers|can't use any abilities|can't use pok[eé]-powers", t):
+        return ["noPowers"]
+    if re.search(r"put 1 damage counter on each of your opponent's pok[eé]mon that has any", t):
+        return ["roughSkin"]
+    if re.search(r"prevent all effects.{0,40}done to your benched", t):
+        return ["auraProtectBench"]
+    if re.search(r"remove 1 damage counter from each of your benched pok[eé]mon between turns", t):
+        return ["healEachPokemon:10"]
+    if re.search(r"can't attach [\w ]*energy cards? from your hand to [\w' -]+", t):
+        return ["continuousStatic"]
+    if re.search(r"you may make the defending pok[eé]mon (asleep|confused|paralyzed|poisoned|burned)", t):
+        m = re.search(r"make the defending pok[eé]mon (asleep|confused|paralyzed|poisoned|burned)", t)
+        return [f"specialDefending:{m.group(1).upper()}"]
+    if re.search(r"draw cards (?:from your deck )?until (?:you have|there are) (\d+) cards? in", t):
+        m = re.search(r"until .{0,20}?(\d+) cards?", t)
+        return [f"drawUntilHand:{m.group(1) if m else 6}"]
+    if re.search(r"can't play basic pok[eé]mon or evolution cards from", t):
+        return ["noEvolution"]
+    if re.search(r"move an? [\w ]*energy card from 1 of your pok[eé]mon to another", t):
+        return ["energyTrans"]
+    if re.search(r"remove all special conditions from your active pok[eé]mon", t):
+        return ["clearSpecialConditions"]
+    if re.search(r"that pok[eé]mon m[ay] use this card's attack instead of its own", t):
+        return ["copyAttack"]
     # Flip, draw bottom 3 / top 2
     if re.search(r"flip a coin\.\s*if heads,? draw the bottom 3 cards of your deck\.\s*if tails,? draw the top 2", t):
         return ["draw:3"]

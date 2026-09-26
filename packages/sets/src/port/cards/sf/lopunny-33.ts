@@ -40,7 +40,7 @@ export class Lopunny_33 extends PokemonCard {
       return commonEffects.drawCardsAttack(this, store, state, effect).use(effect, 3);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return /* structural */ state;
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "healEachPokemon:10");
     }
     return state;
   }

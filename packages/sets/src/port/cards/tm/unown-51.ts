@@ -2,6 +2,7 @@ import {
   Effect,
   State,
   StoreLike,
+  PowerEffect,
   Attack,
   CardType,
   PokemonCard,
@@ -10,7 +11,9 @@ import {
   Stage,
   Weakness,
   Resistance,
+  SpecialCondition,
 } from '@ptcg/common';
+import { commonEffects } from '../../../common';
 
 export class Unown_51 extends PokemonCard {
   public stage: Stage = Stage.BASIC;
@@ -32,7 +35,9 @@ export class Unown_51 extends PokemonCard {
   public text: string = "Unown";
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
-    /* no scripted effect */
+    if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "clearSpecialConditions");
+    }
     return state;
   }
 }

@@ -17,7 +17,7 @@ export class CustomCatcher_171 extends TrainerCard {
 
   public reduceEffect(store: StoreLike, state: State, effect: Effect): State {
     if (effect instanceof TrainerEffect && effect.trainerCard === this) {
-      return commonEffects.gustOpponentTrainer(this, store, state, effect).playCard(effect as TrainerEffect);
+      return commonEffects.drawUntilHand(this, store, state, effect).playCard(effect as TrainerEffect, 3);
     }
     return state;
   }

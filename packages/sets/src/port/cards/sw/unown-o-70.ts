@@ -40,7 +40,7 @@ export class UnownO_70 extends PokemonCard {
       return commonEffects.flipHeadsSpecialCondition(this, store, state, effect).use(effect, SpecialCondition.ASLEEP);
     }
     if (effect instanceof PowerEffect && effect.power === this.powers[0]) {
-      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "searchAnyToHand:1");
+      return commonEffects.runPowerOp(this, store, state, effect).reduce(effect.power, "drawUntilHand:7");
     }
     return state;
   }
