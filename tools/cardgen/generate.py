@@ -2907,6 +2907,27 @@ def match_trainer(text: str, subtypes: list[str], name: str = "") -> Optional[li
         return [f"recoverFromDiscard:{m.group(1) if m else 1}"]
     if re.search(r"flip a coin\.\s*if heads,? put 1 damage counter on 1 of your opponent", t):
         return ["putCountersEachOpponent:10"]
+    if re.search(r"flip a coin\.\s*if heads,? choose up to (\d+) cards at random from your opponent's hand", t):
+        m = re.search(r"up to (\d+) cards", t)
+        return [f"discardRandomOpponentHand:{m.group(1) if m else 3}"]
+    if re.search(r"look at your opponent's hand\.\s*if (?:he or she |they )has any basic pok[eé]mon", t):
+        return ["peekOpponentHand"]
+    if re.search(r"flip 2 coins\.\s*if both of them are heads,? choose 1 of your opponent's benched pok[eé]mon and return", t):
+        return ["scoopUpOpponent"]
+    if re.search(r"can use any attack from its basic pok[eé]mon card or any evolution", t):
+        return ["copyAttack"]
+    if re.search(r"look at your opponent's hand\.\s*then,? you may discard as many other cards", t):
+        return ["peekOpponentHand", "draw:2"]
+    if re.search(r"trade 2 of the other cards in your hand for up to 2", t):
+        return ["discardFromHand:2", "searchPokemonToHand:2"]
+    if re.search(r"you may play 2 pok[eé] drawer", t):
+        return ["draw:1"]
+    if re.search(r"you may play 2 pok[eé] healer", t):
+        return ["heal:10"]
+    if re.search(r"look at (\d+) cards from the top of your deck\.\s*you may choose a basic pok[eé]mon or evolution", t):
+        return ["searchPokemonToHand:1"]
+    if re.search(r"look at 7 cards from the top of your deck\.\s*you may choose a basic pok[eé]mon or evolution", t):
+        return ["searchPokemonToHand:1"]
     if re.search(r"that pok[eé]mon m[ay] use this card's attack instead of its own", t):
         return ["copyAttack"]
     if re.search(r"flip 2 coins\.\s*if both are heads,? discard all energy cards attached to the defending", t):
